@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主要雲端平台服務比較</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://abbeego.github.io/MyStyleSlide/common.css">
+    <style>
+        body {
+            background-image: var(--bg-other);
+        }
+
+        .outer {
+            position: absolute;
+            top: 10%;
+            bottom: 10%;
+            left: 10%;
+            right: 10%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 標題列 */
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .slide-title {
+            font-size: 52px;
+            color: var(--primary-1);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 15px;
+        }
+
+        .sub-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text);
+            font-size: 22px;
+        }
+
+        .sub-info i {
+            color: var(--primary-1);
+        }
+
+        /* 表格容器 */
+        .table-wrap {
+            flex: 1;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        /* 表格 */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 79, 116, 0.10);
+            font-size: 24px;
+        }
+
+        /* 表頭 */
+        thead th {
+            background: linear-gradient(135deg, var(--primary-1), var(--accent-2));
+            color: var(--bg);
+            font-weight: bold;
+            padding: 20px 24px;
+            text-align: center;
+            font-size: 26px;
+            letter-spacing: 1px;
+            border-bottom: 3px solid var(--accent-1);
+        }
+
+        thead th:first-child {
+            text-align: left;
+            padding-left: 32px;
+        }
+
+        /* 表身 */
+        tbody tr {
+            transition: background 0.25s;
+        }
+
+        tbody tr:nth-child(odd) {
+            background: var(--bg);
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--bg-soft);
+        }
+
+        tbody tr:hover {
+            background: rgba(0, 143, 199, 0.06);
+        }
+
+        tbody td {
+            padding: 18px 24px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        tbody td:first-child {
+            text-align: left;
+            padding-left: 32px;
+            font-weight: bold;
+            color: var(--accent-2);
+            font-size: 25px;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* 圖示標籤 */
+        .provider-name {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .provider-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .logo-aws {
+            background: linear-gradient(135deg, #FF9900, #FF6600);
+        }
+
+        .logo-azure {
+            background: linear-gradient(135deg, #0078D4, #00BCF2);
+        }
+
+        .logo-gcp {
+            background: linear-gradient(135deg, #4285F4, #34A853);
+        }
+
+        /* 特殊標記 */
+        .badge {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .badge-best {
+            background: rgba(0, 163, 155, 0.12);
+            color: var(--primary-2);
+        }
+
+        .badge-good {
+            background: rgba(0, 143, 199, 0.10);
+            color: var(--primary-1);
+        }
+
+        .check {
+            color: var(--primary-2);
+            font-size: 22px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="outer">
+        <!-- 標題列 -->
+        <div class="header-row">
+            <div class="slide-title"><i class="fas fa-server"></i> 主要雲端平台服務比較</div>
+            <div class="sub-info"><span>Cloud Platform Comparison</span> <i class="fas fa-cloud"></i></div>
+        </div>
+
+        <!-- 表格 -->
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>比較項目</th>
+                        <th>
+                            <div class="provider-name" style="justify-content:center;color:white;">
+                                <span class="provider-logo logo-aws"><i class="fab fa-aws"></i></span> AWS
+                            </div>
+                        </th>
+                        <th>
+                            <div class="provider-name" style="justify-content:center;color:white;">
+                                <span class="provider-logo logo-azure"><i class="fab fa-microsoft"></i></span> Azure
+                            </div>
+                        </th>
+                        <th>
+                            <div class="provider-name" style="justify-content:center;color:white;">
+                                <span class="provider-logo logo-gcp"><i class="fab fa-google"></i></span> GCP
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>全球資料中心</td>
+                        <td>33 區域 / 105 可用區</td>
+                        <td>60+ 區域</td>
+                        <td>40 區域 / 121 可用區</td>
+                    </tr>
+                    <tr>
+                        <td>運算服務</td>
+                        <td>EC2 / Lambda / ECS</td>
+                        <td>VM / Functions / AKS</td>
+                        <td>GCE / Cloud Run / GKE</td>
+                    </tr>
+                    <tr>
+                        <td>AI / ML 平台</td>
+                        <td>SageMaker / Bedrock</td>
+                        <td>Azure OpenAI / ML Studio</td>
+                        <td>Vertex AI / Gemini API</td>
+                    </tr>
+                    <tr>
+                        <td>資料庫服務</td>
+                        <td>RDS / DynamoDB / Aurora</td>
+                        <td>SQL DB / Cosmos DB</td>
+                        <td>Cloud SQL / Spanner</td>
+                    </tr>
+                    <tr>
+                        <td>金融合規認證</td>
+                        <td><i class="fas fa-check-circle check"></i> PCI-DSS / SOC</td>
+                        <td><i class="fas fa-check-circle check"></i> PCI-DSS / SOC</td>
+                        <td><i class="fas fa-check-circle check"></i> PCI-DSS / SOC</td>
+                    </tr>
+                    <tr>
+                        <td>市場定位</td>
+                        <td><span class="badge badge-best">市佔第一</span></td>
+                        <td><span class="badge badge-good">企業整合</span></td>
+                        <td><span class="badge badge-good">AI 領先</span></td>
+                    </tr>
+                    <tr>
+                        <td>計費模式</td>
+                        <td>按秒計費</td>
+                        <td>按分鐘計費</td>
+                        <td>按秒計費</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- 導覽列 -->
+    <div class="controls">
+        <button class="btn" onclick="prevSlide()">←</button>
+        <span class="page-num" id="pageIndicator"></span>
+        <button class="btn" onclick="nextSlide()">→</button>
+    </div>
+    <script src="https://abbeego.github.io/MyStyleSlide/slide-order.js"></script>
+    <script src="https://abbeego.github.io/MyStyleSlide/control.js"></script>
+</body>
+
+</html>

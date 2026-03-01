@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>核心理念</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://abbeego.github.io/MyStyleSlide/common.css">
+    <style>
+        body {
+            background-image: var(--bg-other);
+        }
+
+        .outer {
+            position: absolute;
+            top: 15%;
+            bottom: 15%;
+            left: 10%;
+            right: 10%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content-columns {
+            display: grid;
+            grid-template-columns: 30% 1fr;
+            align-items: stretch;
+            flex: 1;
+            /* 讓欄位填滿可用空間 */
+            gap: 20px;
+        }
+
+
+        h2 {
+            color: var(--primary-1);
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 30px;
+            line-height: 1.5;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        /* 左側欄位 */
+        #left-col {
+            /* width 已由 outer 的 grid-template-columns 控制 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* 讓內容垂直居中 */
+            gap: 15px;
+            /* 元件間距 */
+            padding-right: 20px;
+            box-sizing: border-box;
+            height: 100%;
+        }
+
+
+        .slide-title {
+            font-size: 52px;
+            margin-bottom: 0px;
+            padding-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .slide-title .icon-lightbulb {
+            color: var(--support-1);
+        }
+
+        .highlight-box {
+            padding: 10px 20px;
+            margin-bottom: 0px;
+        }
+
+        /* 右側欄位 */
+        #right-col {
+            flex: 1;
+            /* 佔用剩餘空間 */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            /* 均勻分配條目 */
+            padding-left: 20px;
+            box-sizing: border-box;
+        }
+
+        .image {
+            width: 100%;
+            max-height: 60vh;
+            object-fit: contain;
+            border-radius: 12px;
+            margin: auto;
+            /* 使圖片居中 */
+        }
+
+        /* 右側資料條目 */
+        .entry-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .entry-header {
+            display: flex;
+            gap: 5px;
+            align-items: stretch;
+        }
+
+        /* 條目標題 */
+        .entry-title {
+            width: 30%;
+            color: var(--primary-1);
+            font-size: 30px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 條目內容文字 */
+        .entry-content {
+            flex: 1;
+            font-size: 28px;
+            line-height: 1.5;
+        }
+
+        /* SVG 直線容器設定 */
+        .svg-line-container {
+            width: 100%;
+            margin: 0;
+        }
+
+        .svg-line-container svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;">
+        <defs>
+            <linearGradient id="multi-gradient" gradientUnits="userSpaceOnUse" x1="20" y1="35" x2="580" y2="35">
+                <stop offset="0%" style="stop-color:var(--primary-1);" />
+                <stop offset="71.4%" style="stop-color:var(--accent-3);" />
+                <stop offset="76.8%" style="stop-color:var(--primary-1);" />
+                <stop offset="100%" style="stop-color:var(--accent-3);" />
+            </linearGradient>
+            <symbol id="topic-line" viewBox="0 0 600 60">
+                <g fill="none" stroke-width="3">
+                    <polyline points="20,35 580,35" stroke="url(#multi-gradient)" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <circle cx="20" cy="35" r="5" stroke="var(--primary-1)" fill="var(--bg)" stroke-width="3" />
+                    <circle cx="580" cy="35" r="5" stroke="var(--accent-3)" fill="var(--bg)" stroke-width="3" />
+                </g>
+            </symbol>
+        </defs>
+    </svg>
+    <div class="outer">
+        <h2 class="slide-title"><i class="fas fa-lightbulb icon-lightbulb"></i> 核心理念：為什麼我們需要 Agent Skills？</h2>
+        <div class="highlight-box">
+            <p>過去 AI 依賴員工個人的 Prompt 能力，品質參差不齊；若將規則寫死在系統程式碼裡，每次變動都要重新上線，曠日廢時。</p>
+        </div>
+        <div class="content-columns">
+            <div id="left-col">
+                <img class="image" src="https://abbeego.github.io/MyStyleSlide/bg_other.jpg" alt="插圖" />
+            </div>
+            <div id="right-col">
+                <div class="entry-item">
+                    <div class="entry-header">
+                        <div class="entry-title">Prompt 標準化</div>
+                        <div class="entry-content">
+                            將最佳實踐封裝為可重複使用的 Skill 範本<br>
+                            確保每位員工都能獲得一致且高品質的 AI 回應
+                        </div>
+                    </div>
+                    <div class="svg-line-container">
+                        <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg">
+                            <use href="#topic-line"></use>
+                        </svg>
+                    </div>
+                    <div class="entry-header">
+                        <div class="entry-title">動態規則引擎</div>
+                        <div class="entry-content">
+                            業務人員可即時調整 Skill 參數與邏輯<br>
+                            無需工程團隊重新部署，大幅縮短迭代週期
+                        </div>
+                    </div>
+                    <div class="svg-line-container">
+                        <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg">
+                            <use href="#topic-line"></use>
+                        </svg>
+                    </div>
+                    <div class="entry-header">
+                        <div class="entry-title">持續優化迴圈</div>
+                        <div class="entry-content">
+                            透過使用數據自動評估 Skill 成效<br>
+                            持續學習與改善，打造越用越聰明的 AI 助手
+                        </div>
+                    </div>
+                    <div class="svg-line-container">
+                        <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg">
+                            <use href="#topic-line"></use>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 導覽列 -->
+    <div class="controls">
+        <button class="btn" onclick="prevSlide()">←</button>
+        <span class="page-num" id="pageIndicator"></span>
+        <button class="btn" onclick="nextSlide()">→</button>
+    </div>
+    <script src="https://abbeego.github.io/MyStyleSlide/slide-order.js"></script>
+    <script src="https://abbeego.github.io/MyStyleSlide/control.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <title>核心理念</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://abbeego.github.io/MyStyleSlide/common.css">
+    <style>
+        body {
+            background-image: var(--bg-other);
+        }
+
+        .outer {
+            position: absolute;
+            top: 15%;
+            bottom: 15%;
+            left: 10%;
+            right: 10%;
+            display: flex;
+            flex-direction: column;
+            justify-self: center;
+        }
+
+        h2,
+        h3 {
+            color: var(--primary-1);
+            font-weight: bold;
+        }
+
+        p,
+        li {
+            font-size: 30px;
+            line-height: 1.5;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        ul {
+            padding-left: 30px;
+        }
+
+        li::marker {
+            color: var(--primary-1);
+            font-size: 1.2em;
+        }
+
+        .slide-title {
+            font-size: 52px;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: none;
+            background-image: linear-gradient(90deg, var(--primary-1) 0%, var(--accent-3) 50%, var(--bg) 100%);
+            background-size: 100% 4px;
+            background-position: left bottom;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .slide-title .icon-lightbulb {
+            color: var(--support-1);
+        }
+
+        .highlight-box {
+            background-color: var(--bg-soft);
+            border-left: 8px solid var(--primary-2);
+            padding: 26px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 30px;
+        }
+
+        .highlight-title {
+            font-size: 32px;
+            color: var(--accent-2);
+        }
+
+        .highlight-box p {
+            margin-top: 10px;
+        }
+
+        .highlight-emphasis {
+            font-weight: bold;
+            color: var(--accent-2);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            flex: 1;
+        }
+
+        .card {
+            background: var(--bg);
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 6px 26px rgba(0, 79, 116, 0.10);
+            border: 1px solid rgba(0, 79, 116, 0.10);
+            border-top: 6px solid var(--primary-1);
+            position: relative;
+        }
+
+        .card h3 {
+            font-size: 35px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-icon-accent3 {
+            color: var(--accent-3);
+        }
+
+        .card-icon-primary1 {
+            color: var(--primary-1);
+        }
+
+        .card-accent3 {
+            border-top-color: var(--accent-3);
+        }
+
+        .card-primary1 {
+            border-top-color: var(--primary-1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="outer">
+        <h2 class="slide-title"><i class="fas fa-lightbulb icon-lightbulb"></i> 核心理念：為什麼我們需要 Agent Skills？</h2>
+
+        <div class="highlight-box">
+            <strong class="highlight-title">痛點突破：</strong>
+            <p>過去 AI 依賴員工個人的 Prompt 能力，品質參差不齊；若將規則寫死在系統程式碼裡，每次變動都要重新上線，曠日廢時。</p>
+            <p class="highlight-emphasis">我們要把關鍵規則從「個人技巧」升級為「可治理的制度資產」，確保任何人、任何系統都得到一致結果。</p>
+        </div>
+
+        <div class="grid-2">
+            <div class="card card-accent3">
+                <h3><i class="fas fa-code-branch card-icon-accent3"></i> 業務與程式「解耦」</h3>
+                <ul>
+                    <li>讓規則歸業務單位管理：修改提示/知識庫</li>
+                    <li>讓系統歸 IT 管：維護 API 連線</li>
+                    <li>實現真正的敏捷治理，規則異動零時差</li>
+                </ul>
+            </div>
+            <div class="card card-primary1">
+                <h3><i class="fas fa-book-bookmark card-icon-primary1"></i> 建構模組化知識庫</h3>
+                <ul>
+                    <li>把資深同仁的「經驗」轉化為知識庫</li>
+                    <li>AI 視情境「看目錄挑書」，動態載入規則</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 導覽列 -->
+    <div class="controls">
+        <button class="btn" onclick="prevSlide()">←</button>
+        <span class="page-num" id="pageIndicator"></span>
+        <button class="btn" onclick="nextSlide()">→</button>
+    </div>
+    <script src="https://abbeego.github.io/MyStyleSlide/slide-order.js"></script>
+    <script src="https://abbeego.github.io/MyStyleSlide/control.js"></script>
+</body>
+
+</html>

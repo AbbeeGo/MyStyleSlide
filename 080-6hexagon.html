@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雲端服務六大優勢</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://abbeego.github.io/MyStyleSlide/common.css">
+    <style>
+        body {
+            background-image: var(--bg-other);
+        }
+
+        .outer {
+            position: absolute;
+            top: 10%;
+            bottom: 5%;
+            left: 15%;
+            right: 15%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 標題列 */
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .slide-title {
+            font-size: 52px;
+            color: var(--primary-1);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .sub-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text);
+            font-size: 22px;
+        }
+
+        .sub-info i {
+            color: var(--primary-1);
+        }
+
+        /* 蜂巢容器 */
+        .honeycomb {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            position: relative;
+        }
+
+        .hex-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .hex-row.row-mid,
+        .hex-row.row-bottom {
+            margin-top: -58px;
+        }
+
+        /* 六角形卡片 */
+        .hex-card {
+            width: 240px;
+            height: 264px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px;
+            justify-content: flex-start;
+            text-align: center;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            background: var(--bg);
+            cursor: default;
+        }
+
+        .hex-wrap {
+            transition: transform 0.3s, filter 0.3s;
+        }
+
+        .hex-wrap:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 6px 18px rgba(0, 79, 116, 0.25));
+        }
+
+        /* 六角形外框效果：用一個稍大的六角形做背景 */
+        .hex-wrap {
+            position: relative;
+        }
+
+        .hex-wrap::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            width: 246px;
+            height: 270px;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            z-index: -1;
+        }
+
+        /* 各六角形邊框顏色 */
+        .hex-wrap:nth-child(1)::before {
+            background: linear-gradient(135deg, var(--primary-1), var(--accent-1));
+        }
+
+        .hex-wrap:nth-child(2)::before {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+        }
+
+        .hex-wrap:nth-child(3)::before {
+            background: linear-gradient(135deg, var(--primary-2), var(--accent-3));
+        }
+
+        .hex-wrap:nth-child(4)::before {
+            background: linear-gradient(135deg, var(--support-1), var(--support-3));
+        }
+
+        .hex-wrap:nth-child(5)::before {
+            background: linear-gradient(135deg, var(--support-3), var(--support-5));
+        }
+
+        .hex-row.row-mid .hex-wrap:nth-child(1)::before {
+            background: linear-gradient(135deg, var(--accent-3), var(--primary-2));
+        }
+
+        .hex-row.row-mid .hex-wrap:nth-child(2)::before {
+            background: transparent;
+        }
+
+        .hex-row.row-mid .hex-wrap:nth-child(3)::before {
+            background: linear-gradient(135deg, var(--support-1), var(--support-3));
+        }
+
+        .hex-row.row-bottom .hex-wrap:nth-child(1)::before {
+            background: linear-gradient(135deg, var(--support-3), var(--support-5));
+        }
+
+        .hex-row.row-bottom .hex-wrap:nth-child(2)::before {
+            background: linear-gradient(135deg, var(--support-5), var(--accent-2));
+        }
+
+        /* 中央透明六角形 */
+        .hex-card.center-hex {
+            background: transparent;
+            pointer-events: none;
+        }
+
+        .hex-wrap:has(.center-hex):hover {
+            transform: none;
+            filter: none;
+        }
+
+        /* SVG 圖示 */
+        .hex-icon-svg {
+            width: 52px;
+            height: 52px;
+        }
+
+        /* 標題 */
+        .hex-title {
+            font-size: 34px;
+            font-weight: bold;
+            color: var(--accent-2);
+            margin-bottom: 4px;
+        }
+
+        /* 描述 */
+        .hex-desc {
+            font-size: 22px;
+            line-height: 1.5;
+            color: var(--text);
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="outer">
+        <!-- 標題列 -->
+        <div class="header-row">
+            <div class="slide-title"><i class="fas fa-cloud"></i> 雲端服務六大優勢</div>
+            <div class="sub-info"><span>Cloud Advantages</span> <i class="fas fa-server"></i></div>
+        </div>
+
+        <!-- 蜂巢佈局 -->
+        <div class="honeycomb">
+            <!-- 上排：2 個 -->
+            <div class="hex-row row-top">
+                <div class="hex-wrap">
+                    <div class="hex-card">
+                        <svg class="hex-icon-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 50 L20 30 M60 50 L60 30" stroke="var(--primary-1)" stroke-width="2.5"
+                                stroke-linecap="round" />
+                            <path d="M16 30 L40 18 L64 30" fill="none" stroke="var(--primary-1)" stroke-width="2.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M30 50 L30 36 M50 50 L50 36" stroke="var(--accent-1)" stroke-width="2"
+                                stroke-linecap="round" stroke-dasharray="4,3" />
+                            <line x1="14" y1="50" x2="66" y2="50" stroke="var(--primary-1)" stroke-width="2.5"
+                                stroke-linecap="round" />
+                            <circle cx="40" cy="24" r="3" fill="var(--accent-1)" />
+                        </svg>
+                        <div class="hex-title">彈性擴展</div>
+                        <p class="hex-desc">依需求即時擴縮<br>資源零浪費</p>
+                    </div>
+                </div>
+                <div class="hex-wrap">
+                    <div class="hex-card">
+                        <svg class="hex-icon-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="40" cy="36" r="20" fill="none" stroke="var(--accent-1)" stroke-width="2.5" />
+                            <text x="40" y="42" text-anchor="middle" fill="var(--accent-1)" font-size="20"
+                                font-weight="bold">$</text>
+                            <path d="M22 56 L40 64 L58 56" fill="none" stroke="var(--accent-3)" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M26 62 L40 70 L54 62" fill="none" stroke="var(--accent-3)" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" opacity="0.5" />
+                        </svg>
+                        <div class="hex-title">成本優化</div>
+                        <p class="hex-desc">用多少付多少<br>降低 IT 支出</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 中排：3 個（中央透明） -->
+            <div class="hex-row row-mid">
+                <div class="hex-wrap">
+                    <div class="hex-card">
+                        <svg class="hex-icon-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="40" cy="40" r="26" fill="none" stroke="var(--primary-2)" stroke-width="2.5" />
+                            <path d="M40 14 L40 28 M40 52 L40 66 M14 40 L28 40 M52 40 L66 40" stroke="var(--primary-2)"
+                                stroke-width="2.5" stroke-linecap="round" />
+                            <circle cx="40" cy="40" r="10" fill="var(--accent-3)" opacity="0.2" />
+                            <path d="M36 40 L39 44 L46 36" fill="none" stroke="var(--accent-3)" stroke-width="2.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <div class="hex-title">高可用性</div>
+                        <p class="hex-desc">99.9% 服務保證<br>自動容錯備援</p>
+                    </div>
+                </div>
+                <div class="hex-wrap">
+                    <div class="hex-card center-hex">
+                        <!-- 透明佔位 -->
+                    </div>
+                </div>
+                <div class="hex-wrap">
+                    <div class="hex-card">
+                        <svg class="hex-icon-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="22" y="24" width="36" height="40" rx="4" fill="none" stroke="var(--support-1)"
+                                stroke-width="2.5" />
+                            <circle cx="40" cy="38" r="8" fill="none" stroke="var(--support-1)" stroke-width="2" />
+                            <circle cx="40" cy="38" r="3" fill="var(--support-1)" />
+                            <line x1="40" y1="46" x2="40" y2="56" stroke="var(--support-1)" stroke-width="2.5"
+                                stroke-linecap="round" />
+                            <path d="M30 18 L40 10 L50 18" fill="none" stroke="var(--support-3)" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <div class="hex-title">安全防護</div>
+                        <p class="hex-desc">多層加密機制<br>合規認證保障</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 下排：2 個 -->
+            <div class="hex-row row-bottom">
+                <div class="hex-wrap">
+                    <div class="hex-card">
+                        <svg class="hex-icon-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="24" cy="40" r="8" fill="var(--support-3)" opacity="0.3" />
+                            <circle cx="24" cy="40" r="4" fill="var(--support-3)" />
+                            <circle cx="56" cy="28" r="8" fill="var(--support-5)" opacity="0.3" />
+                            <circle cx="56" cy="28" r="4" fill="var(--support-5)" />
+                            <circle cx="56" cy="52" r="8" fill="var(--support-5)" opacity="0.3" />
+                            <circle cx="56" cy="52" r="4" fill="var(--support-5)" />
+                            <line x1="32" y1="38" x2="48" y2="30" stroke="var(--support-3)" stroke-width="2"
+                                stroke-linecap="round" />
+                            <line x1="32" y1="42" x2="48" y2="50" stroke="var(--support-3)" stroke-width="2"
+                                stroke-linecap="round" />
+                        </svg>
+                        <div class="hex-title">全球部署</div>
+                        <p class="hex-desc">多區域節點佈建<br>低延遲全球覆蓋</p>
+                    </div>
+                </div>
+                <div class="hex-wrap">
+                    <div class="hex-card">
+                        <svg class="hex-icon-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 52 A20 20 0 1 1 60 52" fill="none" stroke="var(--support-5)" stroke-width="2.5"
+                                stroke-linecap="round" />
+                            <polygon points="56,44 64,52 56,60" fill="var(--support-5)" />
+                            <circle cx="40" cy="40" r="8" fill="var(--accent-2)" opacity="0.15" />
+                            <path d="M36 40 L44 40 M40 36 L40 44" stroke="var(--accent-2)" stroke-width="2.5"
+                                stroke-linecap="round" />
+                            <path d="M28 58 L40 66 L52 58" fill="none" stroke="var(--accent-2)" stroke-width="1.5"
+                                stroke-linecap="round" stroke-dasharray="3,3" />
+                        </svg>
+                        <div class="hex-title">創新加速</div>
+                        <p class="hex-desc">快速原型驗證<br>縮短上市週期</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 導覽列 -->
+    <div class="controls">
+        <button class="btn" onclick="prevSlide()">←</button>
+        <span class="page-num" id="pageIndicator"></span>
+        <button class="btn" onclick="nextSlide()">→</button>
+    </div>
+    <script src="https://abbeego.github.io/MyStyleSlide/slide-order.js"></script>
+    <script src="https://abbeego.github.io/MyStyleSlide/control.js"></script>
+</body>
+
+</html>
