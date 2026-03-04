@@ -30,3 +30,4 @@ document.addEventListener('keydown', (e) => {
 	if (e.key === 'ArrowLeft') prevSlide();
 });
   
+updateSlides();
