@@ -265,10 +265,21 @@
                 margin: 0;
             }
 
+            .svg-gap {
+                grid-column: 1 / -1;
+                margin: -30px 2em -30px;
+            }
+
+            .svg-container {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+
             .subtitle {
                 font-size: 38px;
                 font-weight: 700;
-                margin-top: 0em;
+                margin-top: -1em;
                 margin-bottom: 40px;
                 margin-left: 4em;
                 grid-column: 1;
@@ -279,27 +290,8 @@
                 padding: 6px 14px;
                 font-size: 22px;
                 color: var(--primary-1);
-                margin-top: 2em;
-                margin-bottom: 40px;
                 grid-column: 2;
-                margin-left: 10ch;
             }
-
-            .subtitle2 {
-                color: var(--accent-2);
-                font-size: 30px;
-                font-weight: bold;
-                margin-left: 2em;
-                margin-top: 5em;
-            }
-
-            .my-name {
-                margin-top: 6em;
-                font-size: 25px;
-                color: var(--primary-2);
-                font-weight: 700;
-            }
-
         }
 
         #slide-2 {
@@ -2564,7 +2556,24 @@
 </head>
 
 <body>
-
+    <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;">
+        <defs>
+            <linearGradient id="multi-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style="stop-color:#008FC7;" />
+                <stop offset="71.4%" style="stop-color:#30DAA2;" />
+                <stop offset="76.8%" style="stop-color:#008FC7;" />
+                <stop offset="100%" style="stop-color:#30DAA2;" />
+            </linearGradient>
+            <symbol id="topic-line" viewBox="0 0 600 60">
+                <g fill="none" stroke-width="3">
+                    <polyline points="20,25 420,25 450,45 580,45" stroke="url(#multi-gradient)" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <circle cx="20" cy="25" r="5" stroke="#008FC7" fill="#fff" stroke-width="3" />
+                    <circle cx="580" cy="45" r="5" stroke="#30DAA2" fill="#fff" stroke-width="3" />
+                </g>
+            </symbol>
+        </defs>
+    </svg>
     <div id="presentation-container">
         <!-- 導覽列 -->
         <div class="controls">
@@ -2577,14 +2586,15 @@
         <div class="slide active" id="slide-1">
             <div class="outer">
                 <div class="title-box">
-                    <h1>Agent Skills<br>導入策略與落地藍圖</h1>
+                    <h1>Agent Skills導入策略與落地藍圖</h1>
+                </div>
+                <div class="svg-gap">
+                    <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg" class="svg-container">
+                        <use href="#topic-line"></use>
+                    </svg>
                 </div>
                 <div class="subtitle">建構可治理的模組化知識資產</div>
-                <div class="date-badge">2026.02</div>
-                <p class="subtitle2">
-                    <i class="fas fa-building"></i> 專為高嚴謹度金融與企業環境設計
-                </p>
-                <div class="my-name">部門 姓名</div>
+                <div class="date-badge">部門 姓名<br />2026.02</div>
             </div>
         </div>
 
@@ -2618,24 +2628,6 @@
 
         <!-- slide-3 每一章節的目錄及頁碼,h2不可改 -->
         <div class="slide" id="slide-3">
-            <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;">
-                <defs>
-                    <linearGradient id="multi-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" style="stop-color:#008FC7;" />
-                        <stop offset="71.4%" style="stop-color:#30DAA2;" />
-                        <stop offset="76.8%" style="stop-color:#008FC7;" />
-                        <stop offset="100%" style="stop-color:#30DAA2;" />
-                    </linearGradient>
-                    <symbol id="topic-line" viewBox="0 0 600 60">
-                        <g fill="none" stroke-width="3">
-                            <polyline points="20,25 420,25 450,45 580,45" stroke="url(#multi-gradient)"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                            <circle cx="20" cy="25" r="5" stroke="#008FC7" fill="#fff" stroke-width="3" />
-                            <circle cx="580" cy="45" r="5" stroke="#30DAA2" fill="#fff" stroke-width="3" />
-                        </g>
-                    </symbol>
-                </defs>
-            </svg>
             <div class="outer">
                 <h2 class="slide-title">目錄<span>CONTENTS</span></h2>
                 <div class="list">
@@ -3784,7 +3776,7 @@
         <div class="slide" id="slide-19">
         </div>
     </div>
-    <script src="https://abbeego.github.io/MyStyleSlide/control.js"></script>
+    <script src="control.js"></script>
 </body>
 
 </html>
