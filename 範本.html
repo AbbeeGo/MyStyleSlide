@@ -1,33 +1,31 @@
-<html>
+﻿<html>
 
 <head>
     <title>Agent Skills 導入策略</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /*企業品牌色碼 & 全域變數*/
         :root {
-            /* 主色 使用範圍:封面,封底,內頁色塊,線條 副標,小標,圖表*/
+            /*色碼和url不可變*/
+            /*主色 使用範圍:封面,封底,內頁色塊,線條 副標,小標,圖表*/
             --primary-1: #008FC7;
             --primary-2: #00A59B;
-            /* 一級輔色 使用範圍:Flat Icon,圖表,Smart Art,優先使用一級輔色*/
+            /*一級輔色 使用範圍:Flat Icon,圖表,Smart Art,優先使用一級輔色*/
             --accent-1: #00D4F0;
             --accent-2: #004F74;
             --accent-3: #30DAA2;
-            /* 二級輔色 特殊情況需使用較多顏色時,二級輔色可使用同色階以不同程度的較淺變化使用，例如在同一色碼基礎上，調整亮度 / 明度，作為背景或弱化元素
+            /*二級輔色 特殊情況需使用較多顏色時,二級輔色可使用同色階以不同程度的較淺變化使用，例如在同一色碼基礎上，調整亮度 / 明度，作為背景或弱化元素
         禁止隨意新增不相關色相，避免破壞品牌一致性*/
             --support-1: #FFC94F;
             --support-2: #FFC94F;
             --support-3: #E99385;
             --support-4: #E03E57;
             --support-5: #8D48A2;
-            /* 中性色 */
             --bg: #FFFFFF;
             --bg-soft: #FBFBFB;
             --text: #000000;
             --border: rgba(0, 79, 116, 0.18);
             --shadow: 0 18px 45px rgba(0, 0, 0, 0.14);
             --muted: #6B7280;
-            /* 背景圖 */
             --bg-title: url("bg_title.jpg");
             --bg-other: url("bg_other.jpg");
             --bg-thanks: url("bg_thanks.jpg");
@@ -77,6 +75,7 @@
             display: flex;
             flex-direction: column;
             background-color: transparent;
+            background-image: var(--bg-other);
             background-size: 100% 100%;
             background-position: center;
             background-repeat: no-repeat;
@@ -113,11 +112,13 @@
         }
 
         .slide-title {
-            font-size: 42px;
+            font-size: 52px;
+            color: var(--primary-1);
+            font-weight: bold;
             margin-bottom: 40px;
-            padding-bottom: 15px;
+            padding-bottom: 20px;
             border-bottom: none;
-            background-image: linear-gradient(90deg, var(--primary-1) 0%, var(--accent-1) 33%, var(--primary-2) 67%, var(--accent-3) 100%);
+            background-image: linear-gradient(90deg, var(--primary-1) 0%, var(--accent-3) 50%, var(--bg) 100%);
             background-size: 100% 4px;
             background-position: left bottom;
             background-repeat: no-repeat;
@@ -209,7 +210,6 @@
             opacity: 1;
         }
 
-        /*內容較多的頁面：縮小字級與行距*/
         #slide-3 p,
         #slide-3 li,
         #slide-5 p,
@@ -228,11 +228,8 @@
             margin-bottom: 28px;
         }
 
-        /*對個別slide再包一層css*/
         #slide-1 {
-            & {
-                background-image: var(--bg-title);
-            }
+            background-image: var(--bg-title);
 
             .outer {
                 position: absolute;
@@ -276,28 +273,26 @@
             }
 
             .subtitle {
+                width: 650px;
+                text-align: center;
                 font-size: 38px;
                 font-weight: 700;
                 margin-top: -1em;
                 margin-bottom: 40px;
-                margin-left: 4em;
+                margin-left: 80px;
                 grid-column: 1;
                 color: var(--primary-2);
             }
 
             .date-badge {
-                padding: 6px 14px;
                 font-size: 22px;
                 color: var(--primary-1);
                 grid-column: 2;
+                align-self: start;
             }
         }
 
         #slide-2 {
-            & {
-                background-image: var(--bg-other);
-            }
-
             .outer {
                 position: absolute;
                 top: 10%;
@@ -308,22 +303,6 @@
                 grid-template-columns: auto 1fr;
                 align-items: start;
                 color: var(--primary-1);
-            }
-
-            .slide-title {
-                font-size: 52px;
-                margin-bottom: 40px;
-                padding: 30px;
-                border-bottom: none;
-                background-image: linear-gradient(90deg, var(--primary-1) 0%, var(--accent-3) 100%);
-                background-size: 100% 4px;
-                background-position: left bottom;
-                background-repeat: no-repeat;
-                display: flex;
-                align-items: center;
-                gap: 15px;
-                justify-self: start;
-                align-self: start;
             }
 
             .list {
@@ -352,14 +331,9 @@
                 height: 2px;
                 background: linear-gradient(90deg, var(--primary-1) 0%, var(--accent-1) 33%, var(--accent-3) 100%);
             }
-
         }
 
         #slide-3 {
-            & {
-                background-image: var(--bg-other);
-            }
-
             .outer {
                 position: absolute;
                 top: 15%;
@@ -370,17 +344,6 @@
                 grid-template-columns: auto 1fr;
                 align-items: start;
                 color: var(--primary-1);
-            }
-
-            .slide-title {
-                font-size: 52px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 6px;
-                justify-self: center;
-                align-self: start;
-                text-align: center;
             }
 
             .slide-title span {
@@ -440,13 +403,11 @@
                 background: linear-gradient(90deg, var(--primary-1) 0%, var(--accent-1) 33%, var(--accent-3) 100%);
             }
 
-            /* Reusable class for SVG container */
             .svg-container {
                 width: 100%;
                 height: auto;
                 display: block;
             }
-
         }
 
         @keyframes rotate-slow {
@@ -484,10 +445,6 @@
         }
 
         #slide-5 {
-            & {
-                background-image: var(--bg-other);
-            }
-
             .outer {
                 position: absolute;
                 top: 15%;
@@ -537,7 +494,6 @@
                 flex-shrink: 0;
             }
 
-            /* 旋轉動畫 */
             .ring-1 {
                 position: absolute;
                 top: 50%;
@@ -559,7 +515,6 @@
                 margin-left: -190px;
                 animation: rotate-fast-reverse 15s linear infinite;
             }
-
 
             .svg-gap {
                 grid-column: 1 / -1;
@@ -591,7 +546,6 @@
                 border: 6px solid var(--accent-1);
             }
 
-            /* 輔助裝飾圓點 */
             .dot {
                 position: absolute;
                 border-radius: 50%;
@@ -624,14 +578,9 @@
                 animation: float 4s ease-in-out infinite 1.5s;
                 opacity: 0.7;
             }
-
         }
 
         #slide-6 {
-            & {
-                background-image: var(--bg-other);
-            }
-
             .outer {
                 position: absolute;
                 top: 15%;
@@ -643,53 +592,12 @@
                 justify-self: center;
             }
 
-            h2,
-            h3 {
-                color: var(--primary-1);
-                font-weight: bold;
-            }
-
             p,
             li {
                 font-size: 30px;
                 line-height: 1.5;
                 color: var(--text);
                 margin-bottom: 12px;
-            }
-
-            ul {
-                padding-left: 30px;
-            }
-
-            li::marker {
-                color: var(--primary-1);
-                font-size: 1.2em;
-            }
-
-            .slide-title {
-                font-size: 52px;
-                margin-bottom: 40px;
-                padding-bottom: 20px;
-                border-bottom: none;
-                background-image: linear-gradient(90deg, var(--primary-1) 0%, var(--accent-3) 50%, var(--bg) 100%);
-                background-size: 100% 4px;
-                background-position: left bottom;
-                background-repeat: no-repeat;
-                display: flex;
-                align-items: center;
-                gap: 15px;
-            }
-
-            .slide-title .icon-lightbulb {
-                color: var(--support-1);
-            }
-
-            .highlight-box {
-                background-color: var(--bg-soft);
-                border-left: 8px solid var(--primary-2);
-                padding: 26px;
-                border-radius: 0 12px 12px 0;
-                margin-bottom: 30px;
             }
 
             .highlight-title {
@@ -704,23 +612,6 @@
             .highlight-emphasis {
                 font-weight: bold;
                 color: var(--accent-2);
-            }
-
-            .grid-2 {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 40px;
-                flex: 1;
-            }
-
-            .card {
-                background: var(--bg);
-                padding: 30px;
-                border-radius: 14px;
-                box-shadow: 0 6px 26px rgba(0, 79, 116, 0.10);
-                border: 1px solid rgba(0, 79, 116, 0.10);
-                border-top: 6px solid var(--primary-1);
-                position: relative;
             }
 
             .card h3 {
@@ -746,14 +637,9 @@
             .card-primary1 {
                 border-top-color: var(--primary-1);
             }
-
         }
 
         #slide-7 {
-            & {
-                background-image: var(--bg-other);
-            }
-
             .outer {
                 position: absolute;
                 top: 15%;
@@ -765,42 +651,12 @@
                 justify-self: center;
             }
 
-            h2,
-            h3 {
-                color: var(--primary-1);
-                font-weight: bold;
-            }
-
             p,
             li {
                 font-size: 30px;
                 line-height: 1.8;
                 color: var(--text);
                 margin-bottom: 12px;
-            }
-
-            ul {
-                padding-left: 30px;
-            }
-
-            li::marker {
-                color: var(--primary-1);
-                font-size: 1.2em;
-            }
-
-            .slide-title {
-                font-size: 52px;
-                line-height: 1.4;
-                margin-bottom: 60px;
-                padding-bottom: 15px;
-                border-bottom: none;
-                background-image: linear-gradient(90deg, var(--primary-1) 0%, var(--accent-3) 50%, var(--bg) 100%);
-                background-size: 100% 4px;
-                background-position: left bottom;
-                background-repeat: no-repeat;
-                display: flex;
-                align-items: center;
-                gap: 15px;
             }
 
             .slide-title .icon-primary {
@@ -819,16 +675,6 @@
                 gap: 40px;
                 flex: 1;
                 margin-top: 20px;
-            }
-
-            .card {
-                background: var(--bg);
-                padding: 30px;
-                border-radius: 14px;
-                box-shadow: 0 6px 26px rgba(0, 79, 116, 0.10);
-                border: 1px solid rgba(0, 79, 116, 0.10);
-                border-top: 6px solid var(--primary-1);
-                position: relative;
             }
 
             .card h3 {
@@ -861,14 +707,9 @@
             .card-case-two {
                 border-top-color: var(--support-3);
             }
-
         }
 
         #slide-8 {
-            & {
-                background-image: var(--bg-other);
-            }
-
             .outer {
                 position: absolute;
                 top: 15%;
@@ -884,7 +725,6 @@
                 grid-template-columns: 30% 1fr;
                 align-items: stretch;
                 flex: 1;
-                /* 讓欄位填滿可用空間 */
                 gap: 20px;
             }
 
@@ -895,28 +735,14 @@
                 margin-bottom: 12px;
             }
 
-            /* 左側欄位 */
             #left-col {
-                /* width 已由 outer 的 grid-template-columns 控制 */
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                /* 讓內容垂直居中 */
                 gap: 15px;
-                /* 元件間距 */
                 padding-right: 20px;
                 box-sizing: border-box;
                 height: 100%;
-            }
-
-
-            .slide-title {
-                font-size: 52px;
-                margin-bottom: 0px;
-                padding-bottom: 20px;
-                display: flex;
-                align-items: center;
-                gap: 15px;
             }
 
             .slide-title .icon-lightbulb {
@@ -928,14 +754,11 @@
                 margin-bottom: 0px;
             }
 
-            /* 右側欄位 */
             #right-col {
                 flex: 1;
-                /* 佔用剩餘空間 */
                 display: flex;
                 flex-direction: column;
                 justify-content: space-around;
-                /* 均勻分配條目 */
                 padding-left: 20px;
                 box-sizing: border-box;
             }
@@ -946,10 +769,8 @@
                 object-fit: contain;
                 border-radius: 12px;
                 margin: auto;
-                /* 使圖片居中 */
             }
 
-            /* 右側資料條目 */
             .entry-item {
                 display: flex;
                 flex-direction: column;
@@ -962,7 +783,6 @@
                 align-items: stretch;
             }
 
-            /* 條目標題 */
             .entry-title {
                 width: 30%;
                 color: var(--primary-1);
@@ -973,32 +793,24 @@
                 justify-content: center;
             }
 
-            /* 條目內容文字 */
             .entry-content {
                 flex: 1;
                 font-size: 28px;
                 line-height: 1.5;
             }
 
-            /* SVG 直線容器設定 */
-            .svg-line-container {
+            .line-container {
                 width: 100%;
-                margin: 0;
+                margin: 20px 0;
+                height: 4px;
+                background-image: linear-gradient(90deg, var(--primary-1) 0%, var(--accent-3) 50%, var(--bg) 100%);
+                background-size: 100% 4px;
+                background-position: left center;
+                background-repeat: no-repeat;
             }
-
-            .svg-line-container svg {
-                width: 100%;
-                height: auto;
-                display: block;
-            }
-
         }
 
         #slide-9 {
-            & {
-                background-image: var(--bg-other);
-            }
-
             .outer {
                 position: absolute;
                 top: 5%;
@@ -1009,7 +821,6 @@
                 flex-direction: column;
             }
 
-            /* 標題列 */
             .header-row {
                 display: flex;
                 justify-content: space-between;
@@ -1017,25 +828,6 @@
                 margin-bottom: 10px;
             }
 
-            .slide-title {
-                font-size: 52px;
-                color: var(--primary-1);
-                font-weight: bold;
-            }
-
-            .sub-info {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                color: var(--text);
-                font-size: 22px;
-            }
-
-            .sub-info i {
-                color: var(--primary-1);
-            }
-
-            /* 主內容區：2x2 網格 + 中央圖片 */
             .four-grid {
                 flex: 1;
                 display: grid;
@@ -1046,7 +838,6 @@
                 justify-items: center;
             }
 
-            /* 中央圖片 */
             .center-image {
                 grid-column: 2;
                 grid-row: 2;
@@ -1077,7 +868,6 @@
                 z-index: 1;
             }
 
-            /* 連接線 */
             .line-v {
                 grid-column: 2;
                 width: 3px;
@@ -1154,7 +944,6 @@
                 border-color: var(--accent-3);
             }
 
-            /* 四個項目卡片 */
             .item-card {
                 display: flex;
                 align-items: flex-start;
@@ -1200,7 +989,6 @@
                 z-index: 1;
             }
 
-            /* 圓形圖示 */
             .item-icon {
                 width: 60px;
                 height: 60px;
@@ -1232,7 +1020,6 @@
                 margin: 0;
             }
 
-            /* 中央下方標籤 */
             .center-label {
                 text-align: center;
                 color: var(--primary-1);
@@ -1242,14 +1029,9 @@
                 position: relative;
                 z-index: 1;
             }
-
         }
 
         #slide-10 {
-            & {
-                background-image: var(--bg-other);
-            }
-
             .outer {
                 position: absolute;
                 top: 15%;
@@ -1260,26 +1042,10 @@
                 flex-direction: column;
             }
 
-            /* 標題區 */
-            .slide-title {
-                font-size: 52px;
-                color: var(--primary-1);
-                font-weight: bold;
-                padding-bottom: 40px;
-                background-image: linear-gradient(90deg, var(--primary-1) 0%, var(--accent-3) 50%, var(--bg) 100%);
-                background-size: 100% 4px;
-                background-position: left bottom;
-                background-repeat: no-repeat;
-                display: flex;
-                align-items: center;
-                gap: 25px;
-            }
-
             .slide-title i {
                 color: var(--support-1);
             }
 
-            /* 五欄並列容器 */
             .five-columns {
                 flex: 1;
                 display: grid;
@@ -1289,7 +1055,6 @@
                 align-content: center;
             }
 
-            /* 每個項目卡片 */
             .col-item {
                 display: flex;
                 flex-direction: column;
@@ -1298,7 +1063,6 @@
                 gap: 18px;
             }
 
-            /* SVG 圖示容器 */
             .icon-wrap {
                 width: 120px;
                 height: 120px;
@@ -1308,9 +1072,29 @@
                 justify-content: center;
                 position: relative;
                 flex-shrink: 0;
+                font-size: 48px;
             }
 
-            /* 各項目圓形背景色 — 使用 root 主色/輔色 */
+            .col-item:nth-child(1) .icon-wrap {
+                color: var(--primary-1);
+            }
+
+            .col-item:nth-child(2) .icon-wrap {
+                color: var(--primary-2);
+            }
+
+            .col-item:nth-child(3) .icon-wrap {
+                color: var(--accent-2);
+            }
+
+            .col-item:nth-child(4) .icon-wrap {
+                color: var(--accent-3);
+            }
+
+            .col-item:nth-child(5) .icon-wrap {
+                color: var(--support-4);
+            }
+
             .col-item:nth-child(1) .icon-wrap {
                 background: rgba(0, 143, 199, 0.12);
             }
@@ -1331,46 +1115,32 @@
                 background: rgba(255, 201, 79, 0.12);
             }
 
-            .icon-wrap svg {
-                width: 64px;
-                height: 64px;
-            }
-
-            /* 項目標題 */
             .col-item h3 {
                 font-size: 32px;
                 font-weight: bold;
                 margin: 0;
             }
 
-            /* 各項目標題色 — 對應 root 色彩 */
             .col-item:nth-child(1) h3 {
                 color: var(--primary-1);
             }
 
-            /* 主色 #008FC7 */
             .col-item:nth-child(2) h3 {
                 color: var(--primary-2);
             }
 
-            /* 主色 #00A59B */
             .col-item:nth-child(3) h3 {
                 color: var(--accent-2);
             }
 
-            /* 一級輔色 #004F74 */
             .col-item:nth-child(4) h3 {
                 color: var(--accent-3);
             }
 
-            /* 一級輔色 #30DAA2 */
             .col-item:nth-child(5) h3 {
                 color: var(--support-4);
             }
 
-            /* 二級輔色 #E03E57 */
-
-            /* 分隔線 */
             .col-item hr {
                 width: 50px;
                 border: none;
@@ -1399,7 +1169,6 @@
                 background: var(--support-4);
             }
 
-            /* 說明文字 */
             .col-item p {
                 font-size: 28px;
                 line-height: 1.7;
@@ -1408,14 +1177,9 @@
                 text-align: left;
                 padding: 0 4px;
             }
-
         }
 
         #slide-11 {
-            & {
-                background-image: var(--bg-other);
-            }
-
             .outer {
                 position: absolute;
                 top: 12%;
@@ -1426,7 +1190,6 @@
                 flex-direction: column;
             }
 
-            /* 標題列 */
             .header-row {
                 display: flex;
                 justify-content: space-between;
@@ -1434,29 +1197,6 @@
                 margin-bottom: 40px;
             }
 
-            .slide-title {
-                font-size: 52px;
-                color: var(--primary-1);
-                font-weight: bold;
-                display: flex;
-                align-items: center;
-                gap: 15px;
-                padding-bottom: 15px;
-            }
-
-            .sub-info {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                color: var(--text);
-                font-size: 22px;
-            }
-
-            .sub-info i {
-                color: var(--primary-1);
-            }
-
-            /* 六宮格 3x2 */
             .six-grid {
                 flex: 1;
                 display: grid;
@@ -1465,7 +1205,6 @@
                 gap: 28px;
             }
 
-            /* 卡片 */
             .tile-card {
                 background: var(--bg);
                 border-radius: 16px;
@@ -1486,7 +1225,6 @@
                 box-shadow: 0 14px 40px rgba(0, 79, 116, 0.18);
             }
 
-            /* 頂部裝飾條 */
             .tile-card::before {
                 content: '';
                 position: absolute;
@@ -1520,14 +1258,35 @@
                 background: linear-gradient(90deg, var(--support-5), var(--accent-2));
             }
 
-            /* SVG 圖示容器 */
             .tile-icon {
-                width: 72px;
-                height: 72px;
+                font-size: 52px;
                 margin-bottom: 14px;
             }
 
-            /* 卡片標題 */
+            .tile-card:nth-child(1) .tile-icon {
+                color: var(--primary-1);
+            }
+
+            .tile-card:nth-child(2) .tile-icon {
+                color: var(--accent-1);
+            }
+
+            .tile-card:nth-child(3) .tile-icon {
+                color: var(--primary-2);
+            }
+
+            .tile-card:nth-child(4) .tile-icon {
+                color: var(--support-1);
+            }
+
+            .tile-card:nth-child(5) .tile-icon {
+                color: var(--support-3);
+            }
+
+            .tile-card:nth-child(6) .tile-icon {
+                color: var(--support-5);
+            }
+
             .tile-card h3 {
                 color: var(--accent-2);
                 font-size: 35px;
@@ -1574,21 +1333,15 @@
                 background: var(--support-5);
             }
 
-            /* 卡片文字 */
             .tile-card p {
                 font-size: 24px;
                 line-height: 1.6;
                 color: var(--text);
                 margin: 0;
             }
-
         }
 
         #slide-12 {
-            & {
-                background-image: var(--bg-other);
-            }
-
             .outer {
                 position: absolute;
                 top: 10%;
@@ -1599,7 +1352,6 @@
                 flex-direction: column;
             }
 
-            /* 標題列 */
             .header-row {
                 display: flex;
                 justify-content: space-between;
@@ -1607,28 +1359,6 @@
                 margin-bottom: 15px;
             }
 
-            .slide-title {
-                font-size: 52px;
-                color: var(--primary-1);
-                font-weight: bold;
-                display: flex;
-                align-items: center;
-                gap: 15px;
-            }
-
-            .sub-info {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                color: var(--text);
-                font-size: 22px;
-            }
-
-            .sub-info i {
-                color: var(--primary-1);
-            }
-
-            /* 蜂巢容器 */
             .honeycomb {
                 flex: 1;
                 display: flex;
@@ -1650,7 +1380,6 @@
                 margin-top: -58px;
             }
 
-            /* 六角形卡片 */
             .hex-card {
                 width: 240px;
                 height: 264px;
@@ -1675,7 +1404,6 @@
                 filter: drop-shadow(0 6px 18px rgba(0, 79, 116, 0.25));
             }
 
-            /* 六角形外框效果：用一個稍大的六角形做背景 */
             .hex-wrap {
                 position: relative;
             }
@@ -1691,7 +1419,6 @@
                 z-index: -1;
             }
 
-            /* 各六角形邊框顏色 */
             .hex-wrap:nth-child(1)::before {
                 background: linear-gradient(135deg, var(--primary-1), var(--accent-1));
             }
@@ -1732,7 +1459,6 @@
                 background: linear-gradient(135deg, var(--support-5), var(--accent-2));
             }
 
-            /* 中央透明六角形 */
             .hex-card.center-hex {
                 background: transparent;
                 pointer-events: none;
@@ -1743,13 +1469,35 @@
                 filter: none;
             }
 
-            /* SVG 圖示 */
-            .hex-icon-svg {
-                width: 52px;
-                height: 52px;
+            .hex-icon {
+                font-size: 42px;
+                margin-bottom: 4px;
             }
 
-            /* 標題 */
+            .hex-row.row-top .hex-wrap:nth-child(1) .hex-icon {
+                color: var(--primary-1);
+            }
+
+            .hex-row.row-top .hex-wrap:nth-child(2) .hex-icon {
+                color: var(--accent-1);
+            }
+
+            .hex-row.row-mid .hex-wrap:nth-child(1) .hex-icon {
+                color: var(--primary-2);
+            }
+
+            .hex-row.row-mid .hex-wrap:nth-child(3) .hex-icon {
+                color: var(--support-1);
+            }
+
+            .hex-row.row-bottom .hex-wrap:nth-child(1) .hex-icon {
+                color: var(--support-3);
+            }
+
+            .hex-row.row-bottom .hex-wrap:nth-child(2) .hex-icon {
+                color: var(--support-5);
+            }
+
             .hex-title {
                 font-size: 34px;
                 font-weight: bold;
@@ -1757,210 +1505,15 @@
                 margin-bottom: 4px;
             }
 
-            /* 描述 */
             .hex-desc {
                 font-size: 22px;
                 line-height: 1.5;
                 color: var(--text);
                 margin: 0;
             }
-
-        }
-
-        #slide-13 {
-            & {
-                background-image: var(--bg-other);
-            }
-
-            .outer {
-                position: absolute;
-                top: 10%;
-                bottom: 5%;
-                left: 15%;
-                right: 15%;
-                display: flex;
-                flex-direction: column;
-            }
-
-            /* 標題列 */
-            .header-row {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 15px;
-            }
-
-            .slide-title {
-                font-size: 52px;
-                color: var(--primary-1);
-                font-weight: bold;
-                display: flex;
-                align-items: center;
-                gap: 15px;
-            }
-
-            .sub-info {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                color: var(--text);
-                font-size: 22px;
-            }
-
-            .sub-info i {
-                color: var(--primary-1);
-            }
-
-            /* 蜂巢容器 */
-            .honeycomb {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 0;
-                position: relative;
-            }
-
-            .hex-row {
-                display: flex;
-                justify-content: center;
-                gap: 10px;
-            }
-
-            .hex-row.row-mid,
-            .hex-row.row-bottom {
-                margin-top: -58px;
-            }
-
-            /* 六角形卡片 */
-            .hex-card {
-                width: 240px;
-                height: 264px;
-                position: relative;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding: 30px 20px;
-                justify-content: flex-start;
-                text-align: center;
-                clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-                background: var(--bg);
-                cursor: default;
-            }
-
-            .hex-wrap {
-                transition: transform 0.3s, filter 0.3s;
-            }
-
-            .hex-wrap:hover {
-                transform: scale(1.05);
-                filter: drop-shadow(0 6px 18px rgba(0, 79, 116, 0.25));
-            }
-
-            /* 六角形外框效果：用一個稍大的六角形做背景 */
-            .hex-wrap {
-                position: relative;
-            }
-
-            .hex-wrap::before {
-                content: '';
-                position: absolute;
-                top: -3px;
-                left: -3px;
-                width: 246px;
-                height: 270px;
-                clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-                z-index: -1;
-            }
-
-            /* 各六角形邊框顏色 */
-            .hex-wrap:nth-child(1)::before {
-                background: linear-gradient(135deg, var(--primary-1), var(--accent-1));
-            }
-
-            .hex-wrap:nth-child(2)::before {
-                background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
-            }
-
-            .hex-wrap:nth-child(3)::before {
-                background: linear-gradient(135deg, var(--primary-2), var(--accent-3));
-            }
-
-            .hex-wrap:nth-child(4)::before {
-                background: linear-gradient(135deg, var(--support-1), var(--support-3));
-            }
-
-            .hex-wrap:nth-child(5)::before {
-                background: linear-gradient(135deg, var(--support-3), var(--support-5));
-            }
-
-            .hex-row.row-mid .hex-wrap:nth-child(1)::before {
-                background: linear-gradient(135deg, var(--accent-3), var(--primary-2));
-            }
-
-            .hex-row.row-mid .hex-wrap:nth-child(2)::before {
-                background: linear-gradient(135deg, var(--primary-1), var(--primary-2));
-            }
-
-            .hex-row.row-mid .hex-wrap:nth-child(3)::before {
-                background: linear-gradient(135deg, var(--support-1), var(--support-3));
-            }
-
-            .hex-row.row-bottom .hex-wrap:nth-child(1)::before {
-                background: linear-gradient(135deg, var(--support-3), var(--support-5));
-            }
-
-            .hex-row.row-bottom .hex-wrap:nth-child(2)::before {
-                background: linear-gradient(135deg, var(--support-5), var(--accent-2));
-            }
-
-            /* 中央核心六角形特殊樣式 */
-            .hex-card.center-hex {
-                background: linear-gradient(135deg, var(--primary-1), var(--primary-2));
-            }
-
-            .hex-card.center-hex .hex-title {
-                color: var(--bg);
-            }
-
-            .hex-card.center-hex .hex-desc {
-                color: rgba(255, 255, 255, 0.9);
-            }
-
-            .hex-card.center-hex .hex-icon-svg {
-                opacity: 0.9;
-            }
-
-            /* SVG 圖示 */
-            .hex-icon-svg {
-                width: 52px;
-                height: 52px;
-            }
-
-            /* 標題 */
-            .hex-title {
-                font-size: 34px;
-                font-weight: bold;
-                color: var(--accent-2);
-                margin-bottom: 4px;
-            }
-
-            /* 描述 */
-            .hex-desc {
-                font-size: 22px;
-                line-height: 1.5;
-                color: var(--text);
-                margin: 0;
-            }
-
         }
 
         #slide-14 {
-            & {
-                background-image: var(--bg-other);
-            }
-
             .outer {
                 position: absolute;
                 top: 12%;
@@ -1971,7 +1524,6 @@
                 flex-direction: column;
             }
 
-            /* 標題列 */
             .header-row {
                 display: flex;
                 justify-content: space-between;
@@ -1979,29 +1531,6 @@
                 margin-bottom: 32px;
             }
 
-            .slide-title {
-                font-size: 52px;
-                color: var(--primary-1);
-                font-weight: bold;
-                display: flex;
-                align-items: center;
-                gap: 15px;
-                padding-bottom: 15px;
-            }
-
-            .sub-info {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                color: var(--text);
-                font-size: 22px;
-            }
-
-            .sub-info i {
-                color: var(--primary-1);
-            }
-
-            /* 八宮格 4x2 */
             .eight-grid {
                 flex: 1;
                 display: grid;
@@ -2010,7 +1539,6 @@
                 gap: 22px;
             }
 
-            /* 卡片 */
             .tile-card {
                 background: var(--bg);
                 border-radius: 16px;
@@ -2031,7 +1559,6 @@
                 box-shadow: 0 14px 40px rgba(0, 79, 116, 0.18);
             }
 
-            /* 頂部裝飾條 */
             .tile-card::before {
                 content: '';
                 position: absolute;
@@ -2073,14 +1600,43 @@
                 background: linear-gradient(90deg, var(--accent-2), var(--primary-1));
             }
 
-            /* SVG 圖示容器 */
             .tile-icon {
-                width: 64px;
-                height: 64px;
+                font-size: 48px;
                 margin-bottom: 10px;
             }
 
-            /* 卡片標題 */
+            .tile-card:nth-child(1) .tile-icon {
+                color: var(--primary-1);
+            }
+
+            .tile-card:nth-child(2) .tile-icon {
+                color: var(--accent-1);
+            }
+
+            .tile-card:nth-child(3) .tile-icon {
+                color: var(--primary-2);
+            }
+
+            .tile-card:nth-child(4) .tile-icon {
+                color: var(--support-1);
+            }
+
+            .tile-card:nth-child(5) .tile-icon {
+                color: var(--support-3);
+            }
+
+            .tile-card:nth-child(6) .tile-icon {
+                color: var(--support-5);
+            }
+
+            .tile-card:nth-child(7) .tile-icon {
+                color: var(--accent-2);
+            }
+
+            .tile-card:nth-child(8) .tile-icon {
+                color: var(--primary-1);
+            }
+
             .tile-card h3 {
                 color: var(--accent-2);
                 font-size: 33px;
@@ -2135,21 +1691,15 @@
                 background: var(--primary-1);
             }
 
-            /* 卡片文字 */
             .tile-card p {
                 font-size: 24px;
                 line-height: 1.6;
                 color: var(--text);
                 margin: 0;
             }
-
         }
 
         #slide-15 {
-            & {
-                background-image: var(--bg-other);
-            }
-
             .outer {
                 position: absolute;
                 top: 10%;
@@ -2160,7 +1710,6 @@
                 flex-direction: column;
             }
 
-            /* 標題列 */
             .header-row {
                 display: flex;
                 justify-content: space-between;
@@ -2168,36 +1717,12 @@
                 margin-bottom: 32px;
             }
 
-            .slide-title {
-                font-size: 52px;
-                color: var(--primary-1);
-                font-weight: bold;
-                display: flex;
-                align-items: center;
-                gap: 15px;
-                padding-bottom: 15px;
-            }
-
-            .sub-info {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                color: var(--text);
-                font-size: 22px;
-            }
-
-            .sub-info i {
-                color: var(--primary-1);
-            }
-
-            /* 表格容器 */
             .table-wrap {
                 flex: 1;
                 display: flex;
                 align-items: flex-start;
             }
 
-            /* 表格 */
             table {
                 width: 100%;
                 border-collapse: separate;
@@ -2208,7 +1733,6 @@
                 font-size: 24px;
             }
 
-            /* 表頭 */
             thead th {
                 background: linear-gradient(135deg, var(--primary-1), var(--accent-2));
                 color: var(--bg);
@@ -2225,7 +1749,6 @@
                 padding-left: 32px;
             }
 
-            /* 表身 */
             tbody tr {
                 transition: background 0.25s;
             }
@@ -2262,7 +1785,6 @@
                 border-bottom: none;
             }
 
-            /* 圖示標籤 */
             .provider-name {
                 display: flex;
                 align-items: center;
@@ -2295,7 +1817,6 @@
                 background: linear-gradient(135deg, #4285F4, #34A853);
             }
 
-            /* 特殊標記 */
             .badge {
                 display: inline-block;
                 padding: 3px 12px;
@@ -2318,15 +1839,9 @@
                 color: var(--primary-2);
                 font-size: 22px;
             }
-
         }
 
-
         #slide-4 {
-            & {
-                background-image: var(--bg-other);
-            }
-
             .outer {
                 position: absolute;
                 top: 10%;
@@ -2355,14 +1870,9 @@
                 color: var(--accent-2);
                 margin-top: 8px;
             }
-
         }
 
         #slide-16 {
-            & {
-                background-image: var(--bg-other);
-            }
-
             .outer {
                 position: absolute;
                 top: 2%;
@@ -2373,7 +1883,6 @@
                 flex-direction: column;
             }
 
-            /* 標題列 */
             .header-row {
                 display: flex;
                 justify-content: space-between;
@@ -2383,28 +1892,6 @@
                 padding-right: 100px;
             }
 
-            .slide-title {
-                font-size: 52px;
-                color: var(--primary-1);
-                font-weight: bold;
-                display: flex;
-                align-items: center;
-                gap: 15px;
-            }
-
-            .sub-info {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                color: var(--text);
-                font-size: 22px;
-            }
-
-            .sub-info i {
-                color: var(--primary-1);
-            }
-
-            /* 圖片容器 */
             .image-wrap {
                 flex: 1;
                 min-height: 0;
@@ -2422,14 +1909,9 @@
                 transition: all 0.3s ease;
                 cursor: pointer;
             }
-
         }
 
         #slide-17 {
-            & {
-                background-image: var(--bg-other);
-            }
-
             .outer {
                 position: absolute;
                 top: 2%;
@@ -2440,7 +1922,6 @@
                 flex-direction: column;
             }
 
-            /* 標題列 */
             .header-row {
                 display: flex;
                 justify-content: space-between;
@@ -2450,28 +1931,6 @@
                 padding-right: 100px;
             }
 
-            .slide-title {
-                font-size: 52px;
-                color: var(--primary-1);
-                font-weight: bold;
-                display: flex;
-                align-items: center;
-                gap: 15px;
-            }
-
-            .sub-info {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                color: var(--text);
-                font-size: 22px;
-            }
-
-            .sub-info i {
-                color: var(--primary-1);
-            }
-
-            /* 雙圖片容器 */
             .image-wrap-2 {
                 flex: 1;
                 min-height: 0;
@@ -2479,7 +1938,6 @@
                 align-items: center;
                 justify-content: center;
                 gap: 30px;
-                /* 兩張圖片的間距 */
             }
 
             .image-box {
@@ -2489,7 +1947,6 @@
                 justify-content: center;
                 align-items: center;
                 height: 100%;
-                /* 確保容器撐滿高度，讓內部 img 可以算 max-height */
             }
 
             .image-wrap-2 img {
@@ -2504,17 +1961,13 @@
 
             .image-wrap-2 img:hover {
                 transform: translateY(-5px);
-                /* 微幅上浮效果，因為兩張圖點擊才會放大，這裡不做誇張放大免得遮擋 */
                 box-shadow: 0 15px 40px rgba(0, 79, 116, 0.20);
             }
-
         }
 
         #slide-18 {
-            & {
-                /*底圖的正中間已有大大的THANK YOU文字, 所以不要再放文字在正中間, 如果要客製, 底圖要用bg-other*/
-                background-image: var(--bg-thanks);
-            }
+            /*底圖的正中間已有大大的THANK YOU文字, 所以不要再放文字在正中間, 如果要客製, 底圖要用bg-other*/
+            background-image: var(--bg-thanks);
         }
     </style>
 </head>
@@ -2539,18 +1992,17 @@
         </defs>
     </svg>
     <div id="presentation-container">
-        <!-- 導覽列 -->
+        <!-- 導覽列不可改 -->
         <div class="controls">
             <button class="btn" onclick="prevSlide()">←</button>
-            <span class="page-num" id="pageIndicator">1 / 19</span>
+            <span class="page-num" id="pageIndicator"></span>
             <button class="btn" onclick="nextSlide()">→</button>
         </div>
-
-        <!-- slide-1 簡報首頁,包含標題、副標題、日期及部門姓名 -->
+        <!-- slide-1 簡報首頁 -->
         <div class="slide active" id="slide-1">
             <div class="outer">
                 <div class="title-box">
-                    <h1>Agent Skills導入策略與落地藍圖</h1>
+                    <h1>Agent Skills<br>導入策略與落地藍圖</h1>
                 </div>
                 <div class="svg-gap">
                     <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg" class="svg-container">
@@ -2558,11 +2010,10 @@
                     </svg>
                 </div>
                 <div class="subtitle">建構可治理的模組化知識資產</div>
-                <div class="date-badge">部門 姓名<br />2026.02</div>
+                <div class="date-badge">部門　姓名<br />2026.02</div>
             </div>
         </div>
-
-        <!-- slide-2 列出所有章節大主題,h2不可改 -->
+        <!-- slide-2 列出所有章節大主題,h2不可改,有這個就不要作目錄 -->
         <div class="slide" id="slide-2">
             <div class="outer">
                 <h2 class="slide-title"><i class="fas fa-list"></i> Topics</h2>
@@ -2572,15 +2023,11 @@
                     </div>
                     <div class="hr"></div>
                     <div class="item">
-                        應用場景與案例
+                        ...
                     </div>
                     <div class="hr"></div>
                     <div class="item">
-                        治理方式：怎麼放心用？
-                    </div>
-                    <div class="hr"></div>
-                    <div class="item">
-                        導入策略藍圖
+                        ...
                     </div>
                     <div class="hr"></div>
                     <div class="item">
@@ -2589,8 +2036,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- slide-3 每一章節的目錄及頁碼,h2不可改 -->
+        <!-- slide-3 每一章節的目錄及頁碼,h2不可改,有這個就不要作Topics -->
         <div class="slide" id="slide-3">
             <div class="outer">
                 <h2 class="slide-title">目錄<span>CONTENTS</span></h2>
@@ -2608,36 +2054,14 @@
                     </div>
                     <div class="topic-row">
                         <div class="item">
-                            2. 應用場景與案例
+                            ...
                         </div>
                         <div class="svg-gap">
                             <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg" class="svg-container">
                                 <use href="#topic-line"></use>
                             </svg>
                         </div>
-                        <div class="page">P.10</div>
-                    </div>
-                    <div class="topic-row">
-                        <div class="item">
-                            3. 治理方式
-                        </div>
-                        <div class="svg-gap">
-                            <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg" class="svg-container">
-                                <use href="#topic-line"></use>
-                            </svg>
-                        </div>
-                        <div class="page">P.11-P.12</div>
-                    </div>
-                    <div class="topic-row">
-                        <div class="item">
-                            4. 導入策略藍圖
-                        </div>
-                        <div class="svg-gap">
-                            <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg" class="svg-container">
-                                <use href="#topic-line"></use>
-                            </svg>
-                        </div>
-                        <div class="page">P.13</div>
+                        <div class="page">P....</div>
                     </div>
                     <div class="topic-row">
                         <div class="item">
@@ -2653,1089 +2077,522 @@
                 </div>
             </div>
         </div>
-        <!-- slide-4 適用僅內文或多項目清單 -->
-        <div class="slide" id="slide-4">
-            <div class="outer">
-                <h2 class="slide-title">PII + GenAI應用</h2>
-                <div class="content-box">
-                    我們可以用[代碼]來取代原本的個人資料，<br />將處理後的內容送進 GenAI
-                    生成<br />（擷取指定欄位、翻譯、摘要…等等，請至「馬上試用」體驗），<br />最後再把[代碼]還原成原始個資，就能達到無痛遮蔽。<br />例如，當 AI
-                    需要擷取健檢報告中的被檢查人、地址等資訊，或翻譯對話記錄、摘要重點時，若希望最終結果保留個資，就必須將個資還原。
-                    <div class="info-note">ps. 如果被程式用 Regex 邏輯偵測到，則會以 Regex 代碼取代。</div>
-                </div>
+    </div>
+    <!-- slide-4 適用僅內文或多項目清單 -->
+    <div class="slide" id="slide-4">
+        <div class="outer">
+            <h2 class="slide-title">PII + GenAI應用</h2>
+            <div class="content-box">
+                我們可以用[代碼]來取代原本的個人資料，<br />將處理後的內容送進 GenAI
+                生成<br />（擷取指定欄位、翻譯、摘要…等等，請至「馬上試用」體驗），<br />最後再把[代碼]還原成原始個資，就能達到無痛遮蔽。<br />例如，當 AI
+                需要擷取健檢報告中的被檢查人、地址等資訊，或翻譯對話記錄、摘要重點時，若希望最終結果保留個資，就必須將個資還原。
+                <div class="info-note">ps. 如果被程式用 Regex 邏輯偵測到，則會以 Regex 代碼取代。</div>
             </div>
         </div>
-        <!-- slide-5 適用僅主題及很少字說明或無說明的左文字+右圖;if有指定img檔名,就把svg換成<img> -->
-        <div class="slide" id="slide-5">
-            <div class="outer">
-                <!-- 文字區塊 -->
-                <div class="text-content">
-                    <h1>核心優勢</h1>
-                    <div class="subtitle">釋放 Agent Skills 潛能</div>
-                    <div class="svg-gap">
-                        <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg" class="svg-container">
-                            <use href="#topic-line"></use>
-                        </svg>
-                    </div>
-                    <div class="description">
-                        透過強大的架構設計與智能運算引擎，為企業打造具備「自動化、分析、穩定、進化」四大特性的新世代服務生態系。
-                    </div>
-                </div>
-
-                <!-- 動態 SVG 與圖示裝飾區塊, 此svg為範例,可由AI視情境修改 -->
-                <div class="graphic-container">
-                    <!-- 外圈 SVG (使用 primary-2 漸層) -->
-                    <svg class="ring-1" viewBox="0 0 100 100">
-                        <defs>
-                            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="var(--primary-2)" stop-opacity="0.8" />
-                                <stop offset="100%" stop-color="var(--accent-1)" stop-opacity="0.1" />
-                            </linearGradient>
-                        </defs>
-                        <circle cx="50" cy="50" r="48" fill="none" stroke="url(#grad1)" stroke-width="1.5"
-                                stroke-dasharray="10 5" />
-                        <circle cx="50" cy="50" r="45" fill="none" stroke="var(--primary-2)" stroke-width="0.8"
-                                opacity="0.5" />
-                        <!-- 軌道上的小圓點 -->
-                        <circle cx="50" cy="2" r="3" fill="var(--primary-2)" />
-                        <circle cx="98" cy="50" r="2" fill="var(--accent-1)" />
-                        <circle cx="50" cy="98" r="4" fill="var(--support-1)" />
+    </div>
+    <!-- slide-5 適用僅主題及很少字說明或無說明的左文字+右圖;if有指定img檔名,就把svg換成<img> -->
+    <div class="slide" id="slide-5">
+        <div class="outer">
+            <div class="text-content">
+                <h1>核心優勢</h1>
+                <div class="subtitle">釋放 Agent Skills 潛能</div>
+                <div class="svg-gap">
+                    <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg" class="svg-container">
+                        <use href="#topic-line"></use>
                     </svg>
-
-                    <!-- 內圈 SVG (使用 primary-1 與多邊形設計) -->
-                    <svg class="ring-2" viewBox="0 0 100 100">
-                        <polygon points="50,2 98,50 50,98 2,50" fill="none" stroke="var(--primary-1)" stroke-width="1.5"
-                                 opacity="0.4" />
-                        <circle cx="50" cy="50" r="40" fill="none" stroke="var(--accent-2)" stroke-width="2.5"
-                                stroke-dasharray="15 15" opacity="0.6" />
-                    </svg>
-
-                    <!-- 裝飾圓點 -->
-                    <div class="dot dot-1"></div>
-                    <div class="dot dot-2"></div>
-                    <div class="dot dot-3"></div>
-
-                    <!-- 中心浮動 Icon -->
-                    <div class="center-icon">
-                        <i class="fa-solid fa-microchip"></i>
+                </div>
+                <div class="description">
+                    透過強大的架構設計與智能運算引擎，為企業打造具備「自動化、分析、穩定、進化」四大特性的新世代服務生態系。
+                </div>
+            </div>
+            <div class="graphic-container">
+                <svg class="ring-1" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="var(--primary-2)" stop-opacity="0.8" />
+                            <stop offset="100%" stop-color="var(--accent-1)" stop-opacity="0.1" />
+                        </linearGradient>
+                    </defs>
+                    <circle cx="50" cy="50" r="48" fill="none" stroke="url(#grad1)" stroke-width="1.5"
+                        stroke-dasharray="10 5" />
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="var(--primary-2)" stroke-width="0.8"
+                        opacity="0.5" />
+                    <circle cx="50" cy="2" r="3" fill="var(--primary-2)" />
+                    <circle cx="98" cy="50" r="2" fill="var(--accent-1)" />
+                    <circle cx="50" cy="98" r="4" fill="var(--support-1)" />
+                </svg>
+                <svg class="ring-2" viewBox="0 0 100 100">
+                    <polygon points="50,2 98,50 50,98 2,50" fill="none" stroke="var(--primary-1)" stroke-width="1.5"
+                        opacity="0.4" />
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="var(--accent-2)" stroke-width="2.5"
+                        stroke-dasharray="15 15" opacity="0.6" />
+                </svg>
+                <div class="dot dot-1"></div>
+                <div class="dot dot-2"></div>
+                <div class="dot dot-3"></div>
+                <div class="center-icon">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- slide-6 適用2項目+上方的說明較多 -->
+    <div class="slide" id="slide-6">
+        <div class="outer">
+            <h2 class="slide-title"><i class="fas fa-lightbulb icon-lightbulb"></i> 核心理念：為什麼我們需要 Agent Skills？</h2>
+            <div class="highlight-box">
+                <strong class="highlight-title">痛點突破：</strong>
+                <p>過去 AI 依賴員工個人的 Prompt 能力，品質參差不齊；若將規則寫死在系統程式碼裡，每次變動都要重新上線，曠日廢時。</p>
+                <p class="highlight-emphasis">我們要把關鍵規則從「個人技巧」升級為「可治理的制度資產」，確保任何人、任何系統都得到一致結果。</p>
+            </div>
+            <div class="grid-2">
+                <div class="card card-accent3">
+                    <h3><i class="fas fa-code-branch card-icon-accent3"></i> 業務與程式「解耦」</h3>
+                    <ul>
+                        <li>讓規則歸業務單位管理：修改提示/知識庫</li>
+                        <li>...</li>
+                    </ul>
+                </div>
+                <div class="card card-primary1">
+                    <h3><i class="fas fa-book-bookmark card-icon-primary1"></i> 建構模組化知識庫</h3>
+                    <ul>
+                        <li>把資深同仁的「經驗」轉化為知識庫</li>
+                        <li>...</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- slide-7 適用2項目+上方的說明較少 -->
+    <div class="slide" id="slide-7">
+        <div class="outer">
+            <h2 class="slide-title"><i class="fas fa-file-signature icon-primary"></i> 第一類場景：文件與對上溝通 (產出品質穩定)</h2>
+            <p class="title-emphasis">核心價值：長官關心點高度一致，退件原因高度重複。把退件經驗變成系統化制度。</p>
+            <div class="grid-2">
+                <div class="card card-case-one">
+                    <h3>🌟 案例一：請購簽呈檢查與補強</h3>
+                    <p>
+                        <strong>常見退件原因：</strong>沒說清楚必要性、沒比較替代方案、<strong class="text-support-4">
+                            缺乏量化效益
+                            (ROI)
+                        </strong>。
+                    </p>
+                    <hr class="divider">
+                    <p>
+                        <strong>Skill 作用：</strong>「長官視角」不是臨時提示詞，而是<strong>已固化成 Skill 的檢查規則</strong>；AI
+                        會依文件類型自動套用對應規則，逐項點出缺漏並要求補齊（ROI、替代方案、風險與控管等）。
+                    </p>
+                </div>
+                <div class="card card-case-two">
+                    <h3>案例二：高層專用摘要模板</h3>
+                    <p><strong>痛點：</strong>一般 AI 摘要常漏掉高層真正要做決策的關鍵資訊。</p>
+                    <hr class="divider">
+                    <p>
+                        <strong>Skill 作用：</strong>偵測到「高層摘要」需求即<strong>
+                            自動載入摘要
+                            Skill
+                        </strong>（固定欄位/必填關鍵字/禁寫廢話），產出「可決策的一頁版」，而非一般摘要。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- slide-8 左圖右文的3個項目條列;項目數目變多時,行距要變小;if沒提供img檔名時, 畫SVG取代 -->
+    <div class="slide" id="slide-8">
+        <div class="outer">
+            <h2 class="slide-title"><i class="fas fa-lightbulb icon-lightbulb"></i> 核心理念：為什麼我們需要 Agent Skills？</h2>
+            <div class="highlight-box">
+                <p>過去 AI 依賴員工個人的 Prompt 能力，品質參差不齊；若將規則寫死在系統程式碼裡，每次變動都要重新上線，曠日廢時。</p>
+            </div>
+            <div class="content-columns">
+                <div id="left-col">
+                    <img class="image" src="image1.jpg" alt="image1.jpg" />
+                </div>
+                <div id="right-col">
+                    <div class="entry-item">
+                        <div class="entry-header">
+                            <div class="entry-title">Prompt 標準化</div>
+                            <div class="entry-content">
+                                將最佳實踐封裝為可重複使用的 Skill 範本<br>
+                                確保每位員工都能獲得一致且高品質的 AI 回應
+                            </div>
+                        </div>
+                        <div class="line-container"></div>
+                        <div class="entry-header">
+                            <div class="entry-title">動態規則引擎</div>
+                            <div class="entry-content">
+                                業務人員可即時調整 Skill 參數與邏輯<br>
+                                無需工程團隊重新部署，大幅縮短迭代週期
+                            </div>
+                        </div>
+                        <div class="line-container"></div>
+                        <div class="entry-header">
+                            <div class="entry-title">持續優化迴圈</div>
+                            <div class="entry-content">
+                                透過使用數據自動評估 Skill 成效<br>
+                                持續學習與改善，打造越用越聰明的 AI 助手
+                            </div>
+                        </div>
+                        <div class="line-container"></div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- slide-6 適用2項目+上方的說明較多 -->
-        <div class="slide" id="slide-6">
-            <div class="outer">
-                <h2 class="slide-title"><i class="fas fa-lightbulb icon-lightbulb"></i> 核心理念：為什麼我們需要 Agent Skills？</h2>
-
-                <div class="highlight-box">
-                    <strong class="highlight-title">痛點突破：</strong>
-                    <p>過去 AI 依賴員工個人的 Prompt 能力，品質參差不齊；若將規則寫死在系統程式碼裡，每次變動都要重新上線，曠日廢時。</p>
-                    <p class="highlight-emphasis">我們要把關鍵規則從「個人技巧」升級為「可治理的制度資產」，確保任何人、任何系統都得到一致結果。</p>
-                </div>
-
-                <div class="grid-2">
-                    <div class="card card-accent3">
-                        <h3><i class="fas fa-code-branch card-icon-accent3"></i> 業務與程式「解耦」</h3>
-                        <ul>
-                            <li>讓規則歸業務單位管理：修改提示/知識庫</li>
-                            <li>讓系統歸 IT 管：維護 API 連線</li>
-                            <li>實現真正的敏捷治理，規則異動零時差</li>
-                        </ul>
+    </div>
+    <!-- slide-9 適用4項目,這4格和中間圓都不能改大小及位置 -->
+    <div class="slide" id="slide-9">
+        <div class="outer">
+            <div class="header-row">
+                <div class="slide-title">Agent Skills 四大核心能力</div>
+            </div>
+            <div class="four-grid">
+                <div class="item-card top-left">
+                    <div class="item-icon"><i class="fas fa-comments"></i></div>
+                    <div class="item-text">
+                        <h3>智慧對話引擎</h3>
+                        <p>自動理解使用者意圖<br>提供精準且即時的回應<br>支援多輪對話與上下文記憶<br>大幅提升客戶服務效率</p>
                     </div>
-                    <div class="card card-primary1">
-                        <h3><i class="fas fa-book-bookmark card-icon-primary1"></i> 建構模組化知識庫</h3>
-                        <ul>
-                            <li>把資深同仁的「經驗」轉化為知識庫</li>
-                            <li>AI 視情境「看目錄挑書」，動態載入規則</li>
-                        </ul>
+                </div>
+                <div class="line-v line-v-top"></div>
+                <div class="item-card top-right">
+                    <div class="item-icon"><i class="fas fa-globe"></i></div>
+                    <div class="item-text">
+                        <h3>跨平台整合</h3>
+                        <p>串接企業內部系統<br>實現資料無縫流通<br>支援 API 與微服務架構<br>一站式管理多元數據來源</p>
+                    </div>
+                </div>
+                <div class="line-h line-h-left"></div>
+                <div class="center-image">
+                    <i class="fas fa-robot center-icon"></i>
+                    <span class="center-label">Agent Skills</span>
+                </div>
+                <div class="line-h line-h-right"></div>
+                <div class="item-card bottom-left">
+                    <div class="item-icon"><i class="fas fa-chart-bar"></i></div>
+                    <div class="item-text">
+                        <h3>數據分析洞察</h3>
+                        <p>即時追蹤 Skill 使用數據<br>量化 AI 投資回報率<br>視覺化報表一目了然<br>驅動數據導向決策流程</p>
+                    </div>
+                </div>
+                <div class="line-v line-v-bottom"></div>
+                <div class="item-card bottom-right">
+                    <div class="item-icon"><i class="fas fa-thumbs-up"></i></div>
+                    <div class="item-text">
+                        <h3>持續優化迴圈</h3>
+                        <p>根據回饋自動調校模型<br>打造越用越聰明的 AI<br>結合人類專家經驗回饋<br>持續迭代提升準確度</p>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- slide-7 適用2項目+上方的說明較少 -->
-        <div class="slide" id="slide-7">
-            <div class="outer">
-                <h2 class="slide-title"><i class="fas fa-file-signature icon-primary"></i> 第一類場景：文件與對上溝通 (產出品質穩定)</h2>
-                <p class="title-emphasis">核心價值：長官關心點高度一致，退件原因高度重複。把退件經驗變成系統化制度。</p>
-
-                <div class="grid-2">
-                    <div class="card card-case-one">
-                        <h3>🌟 案例一：請購簽呈檢查與補強</h3>
-                        <p>
-                            <strong>常見退件原因：</strong>沒說清楚必要性、沒比較替代方案、<strong class="text-support-4">
-                                缺乏量化效益
-                                (ROI)
-                            </strong>。
-                        </p>
-                        <hr class="divider">
-                        <p>
-                            <strong>Skill 作用：</strong>「長官視角」不是臨時提示詞，而是<strong>已固化成 Skill 的檢查規則</strong>；AI
-                            會依文件類型自動套用對應規則，逐項點出缺漏並要求補齊（ROI、替代方案、風險與控管等）。
-                        </p>
+    </div>
+    <!-- slide-10 適用5個項目 -->
+    <div class="slide" id="slide-10">
+        <div class="outer">
+            <h2 class="slide-title"><i class="fas fa-building-columns"></i> 智慧金融五大服務</h2>
+            <div class="five-columns">
+                <div class="col-item">
+                    <div class="icon-wrap">
+                        <i class="fas fa-headset"></i>
                     </div>
-                    <div class="card card-case-two">
-                        <h3>案例二：高層專用摘要模板</h3>
-                        <p><strong>痛點：</strong>一般 AI 摘要常漏掉高層真正要做決策的關鍵資訊。</p>
-                        <hr class="divider">
-                        <p>
-                            <strong>Skill 作用：</strong>偵測到「高層摘要」需求即<strong>
-                                自動載入摘要
-                                Skill
-                            </strong>（固定欄位/必填關鍵字/禁寫廢話），產出「可決策的一頁版」，而非一般摘要。
-                        </p>
+                    <h3>智能客服</h3>
+                    <hr>
+                    <p>AI 驅動的全天候客服<br>自動理解客戶意圖<br>即時回應常見問題<br>大幅降低人力成本</p>
+                </div>
+                <div class="col-item">
+                    <div class="icon-wrap">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>風險管控</h3>
+                    <hr>
+                    <p>即時偵測異常交易<br>智慧化反洗錢分析<br>信用評估自動化<br>全面守護資產安全</p>
+                </div>
+                <div class="col-item">
+                    <div class="icon-wrap">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>精準行銷</h3>
+                    <hr>
+                    <p>客群標籤智慧分類<br>個人化產品推薦<br>行銷活動自動投放<br>提升轉換率與營收</p>
+                </div>
+                <div class="col-item">
+                    <div class="icon-wrap">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>流程自動化</h3>
+                    <hr>
+                    <p>表單審批智慧處理<br>跨系統資料同步<br>減少人工作業錯誤<br>加速業務流程效率</p>
+                </div>
+                <div class="col-item">
+                    <div class="icon-wrap">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>數據洞察</h3>
+                    <hr>
+                    <p>多維度數據視覺化<br>即時監測營運指標<br>預測模型輔助決策<br>驅動數據導向經營</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- slide-11 適用6項目 -->
+    <div class="slide" id="slide-11">
+        <div class="outer">
+            <div class="header-row">
+                <div class="slide-title"><i class="fas fa-cubes"></i> 企業數位轉型六大關鍵</div>
+            </div>
+            <div class="six-grid">
+                <div class="tile-card">
+                    <i class="fas fa-star tile-icon"></i>
+                    <h3><span class="num-badge">1</span>策略願景</h3>
+                    <p>制定明確數位轉型藍圖<br>對齊企業長期經營目標<br>確立階段性里程碑</p>
+                </div>
+                <div class="tile-card">
+                    <i class="fas fa-chart-line tile-icon"></i>
+                    <h3><span class="num-badge">2</span>數據驅動</h3>
+                    <p>建構企業級數據平台<br>從數據洞察驅動決策<br>實現精準營運分析</p>
+                </div>
+                <div class="tile-card">
+                    <i class="fas fa-project-diagram tile-icon"></i>
+                    <h3><span class="num-badge">3</span>流程再造</h3>
+                    <p>全面檢視現有作業流程<br>導入自動化與智慧化<br>減少人工錯誤與延遲</p>
+                </div>
+                <div class="tile-card">
+                    <i class="fas fa-user-graduate tile-icon"></i>
+                    <h3><span class="num-badge">4</span>人才培育</h3>
+                    <p>強化員工數位技能<br>建立跨領域學習文化<br>培養內部創新動能</p>
+                </div>
+                <div class="tile-card">
+                    <i class="fas fa-laptop-code tile-icon"></i>
+                    <h3><span class="num-badge">5</span>技術架構</h3>
+                    <p>採用雲原生彈性架構<br>確保系統可擴展性<br>強化資安與合規治理</p>
+                </div>
+                <div class="tile-card">
+                    <i class="fas fa-sync-alt tile-icon"></i>
+                    <h3><span class="num-badge">6</span>持續迭代</h3>
+                    <p>建立敏捷回饋機制<br>以 MVP 快速驗證價值<br>持續學習與優化提升</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- slide-12 適用6個項目的蜂巢狀(六角形)排版，中央留白 -->
+    <div class="slide" id="slide-12">
+        <div class="outer">
+            <div class="header-row">
+                <div class="slide-title"><i class="fas fa-cloud"></i> 雲端服務六大優勢</div>
+            </div>
+            <div class="honeycomb">
+                <div class="hex-row row-top">
+                    <div class="hex-wrap">
+                        <div class="hex-card">
+                            <i class="fas fa-expand-arrows-alt hex-icon"></i>
+                            <div class="hex-title">彈性擴展</div>
+                            <p class="hex-desc">依需求即時擴縮<br>資源零浪費</p>
+                        </div>
+                    </div>
+                    <div class="hex-wrap">
+                        <div class="hex-card">
+                            <i class="fas fa-dollar-sign hex-icon"></i>
+                            <div class="hex-title">成本優化</div>
+                            <p class="hex-desc">用多少付多少<br>降低 IT 支出</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hex-row row-mid">
+                    <div class="hex-wrap">
+                        <div class="hex-card">
+                            <i class="fas fa-check-circle hex-icon"></i>
+                            <div class="hex-title">高可用性</div>
+                            <p class="hex-desc">99.9% 服務保證<br>自動容錯備援</p>
+                        </div>
+                    </div>
+                    <div class="hex-wrap">
+                        <div class="hex-card center-hex">
+                            <!-- 只6項時就不放字只占位, 有7項就填入此 -->
+                        </div>
+                    </div>
+                    <div class="hex-wrap">
+                        <div class="hex-card">
+                            <i class="fas fa-shield-alt hex-icon"></i>
+                            <div class="hex-title">安全防護</div>
+                            <p class="hex-desc">多層加密機制<br>合規認證保障</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hex-row row-bottom">
+                    <div class="hex-wrap">
+                        <div class="hex-card">
+                            <i class="fas fa-globe hex-icon"></i>
+                            <div class="hex-title">全球部署</div>
+                            <p class="hex-desc">多區域節點佈建<br>低延遲全球覆蓋</p>
+                        </div>
+                    </div>
+                    <div class="hex-wrap">
+                        <div class="hex-card">
+                            <i class="fas fa-rocket hex-icon"></i>
+                            <div class="hex-title">創新加速</div>
+                            <p class="hex-desc">快速原型驗證<br>縮短上市週期</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- slide-8 左圖右文的3個項目條列;項目數目變多時,行距要變小;if沒提供img檔名時, 畫SVG取代 -->
-        <div class="slide" id="slide-8">
-            <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;">
-                <defs>
-                    <linearGradient id="multi-gradient" gradientUnits="userSpaceOnUse" x1="20" y1="35" x2="580" y2="35">
-                        <stop offset="0%" style="stop-color:var(--primary-1);" />
-                        <stop offset="71.4%" style="stop-color:var(--accent-3);" />
-                        <stop offset="76.8%" style="stop-color:var(--primary-1);" />
-                        <stop offset="100%" style="stop-color:var(--accent-3);" />
-                    </linearGradient>
-                    <symbol id="topic-line" viewBox="0 0 600 60">
-                        <g fill="none" stroke-width="3">
-                            <polyline points="20,35 580,35" stroke="url(#multi-gradient)" stroke-linecap="round"
-                                      stroke-linejoin="round" />
-                            <circle cx="20" cy="35" r="5" stroke="var(--primary-1)" fill="var(--bg)" stroke-width="3" />
-                            <circle cx="580" cy="35" r="5" stroke="var(--accent-3)" fill="var(--bg)" stroke-width="3" />
-                        </g>
-                    </symbol>
-                </defs>
-            </svg>
-            <div class="outer">
-                <h2 class="slide-title"><i class="fas fa-lightbulb icon-lightbulb"></i> 核心理念：為什麼我們需要 Agent Skills？</h2>
-                <div class="highlight-box">
-                    <p>過去 AI 依賴員工個人的 Prompt 能力，品質參差不齊；若將規則寫死在系統程式碼裡，每次變動都要重新上線，曠日廢時。</p>
+    </div>
+    <!-- slide-14 適用8項目 -->
+    <div class="slide" id="slide-14">
+        <div class="outer">
+            <div class="header-row">
+                <div class="slide-title"><i class="fas fa-chart-line"></i> 金融科技八大趨勢</div>
+            </div>
+            <div class="eight-grid">
+                <div class="tile-card">
+                    <i class="fas fa-brain tile-icon"></i>
+                    <h3><span class="num-badge">1</span>生成式 AI</h3>
+                    <p>智慧客服與風控建模<br>驅動個人化金融服務</p>
                 </div>
-                <div class="content-columns">
-                    <div id="left-col">
-                        <img class="image" src="image1.jpg" alt="image1.jpg" />
-                    </div>
-                    <div id="right-col">
-                        <div class="entry-item">
-                            <div class="entry-header">
-                                <div class="entry-title">Prompt 標準化</div>
-                                <div class="entry-content">
-                                    將最佳實踐封裝為可重複使用的 Skill 範本<br>
-                                    確保每位員工都能獲得一致且高品質的 AI 回應
+                <div class="tile-card">
+                    <i class="fas fa-credit-card tile-icon"></i>
+                    <h3><span class="num-badge">2</span>嵌入式金融</h3>
+                    <p>金融服務無縫嵌入<br>非金融場景生態圈</p>
+                </div>
+                <div class="tile-card">
+                    <i class="fas fa-exchange-alt tile-icon"></i>
+                    <h3><span class="num-badge">3</span>開放銀行</h3>
+                    <p>API 串聯跨業資料<br>打造共享金融生態</p>
+                </div>
+                <div class="tile-card">
+                    <i class="fas fa-mobile-alt tile-icon"></i>
+                    <h3><span class="num-badge">4</span>數位支付</h3>
+                    <p>行動支付無現金化<br>即時跨境匯兌結算</p>
+                </div>
+                <div class="tile-card">
+                    <i class="fas fa-link tile-icon"></i>
+                    <h3><span class="num-badge">5</span>區塊鏈</h3>
+                    <p>去中心化信任機制<br>智能合約自動執行</p>
+                </div>
+                <div class="tile-card">
+                    <i class="fas fa-shield-alt tile-icon"></i>
+                    <h3><span class="num-badge">6</span>監理科技</h3>
+                    <p>自動化合規檢測<br>即時風險監控預警</p>
+                </div>
+                <div class="tile-card">
+                    <i class="fas fa-leaf tile-icon"></i>
+                    <h3><span class="num-badge">7</span>永續金融</h3>
+                    <p>ESG 數據整合分析<br>綠色投資決策支援</p>
+                </div>
+                <div class="tile-card">
+                    <i class="fas fa-lock tile-icon"></i>
+                    <h3><span class="num-badge">8</span>資安韌性</h3>
+                    <p>零信任架構防禦<br>營運持續不中斷</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- slide-15 適用多欄位比較表格 -->
+    <div class="slide" id="slide-15">
+        <div class="outer">
+            <div class="header-row">
+                <div class="slide-title"><i class="fas fa-server"></i> 主要雲端平台服務比較</div>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>比較項目</th>
+                            <th>
+                                <div class="provider-name">
+                                    <span class="provider-logo logo-aws"><i class="fab fa-aws"></i></span> AWS
                                 </div>
-                            </div>
-                            <div class="svg-line-container">
-                                <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#topic-line"></use>
-                                </svg>
-                            </div>
-                            <div class="entry-header">
-                                <div class="entry-title">動態規則引擎</div>
-                                <div class="entry-content">
-                                    業務人員可即時調整 Skill 參數與邏輯<br>
-                                    無需工程團隊重新部署，大幅縮短迭代週期
+                            </th>
+                            <th>
+                                <div class="provider-name">
+                                    <span class="provider-logo logo-azure"><i class="fab fa-microsoft"></i></span>
+                                    Azure
                                 </div>
-                            </div>
-                            <div class="svg-line-container">
-                                <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#topic-line"></use>
-                                </svg>
-                            </div>
-                            <div class="entry-header">
-                                <div class="entry-title">持續優化迴圈</div>
-                                <div class="entry-content">
-                                    透過使用數據自動評估 Skill 成效<br>
-                                    持續學習與改善，打造越用越聰明的 AI 助手
+                            </th>
+                            <th>
+                                <div class="provider-name">
+                                    <span class="provider-logo logo-gcp"><i class="fab fa-google"></i></span> GCP
                                 </div>
-                            </div>
-                            <div class="svg-line-container">
-                                <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg">
-                                    <use href="#topic-line"></use>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>全球資料中心</td>
+                            <td>33 區域 / 105 可用區</td>
+                            <td>60+ 區域</td>
+                            <td>40 區域 / 121 可用區</td>
+                        </tr>
+                        <tr>
+                            <td>運算服務</td>
+                            <td>EC2 / Lambda / ECS</td>
+                            <td>VM / Functions / AKS</td>
+                            <td>GCE / Cloud Run / GKE</td>
+                        </tr>
+                        <tr>
+                            <td>AI / ML 平台</td>
+                            <td>SageMaker / Bedrock</td>
+                            <td>Azure OpenAI / ML Studio</td>
+                            <td>Vertex AI / Gemini API</td>
+                        </tr>
+                        <tr>
+                            <td>資料庫服務</td>
+                            <td>RDS / DynamoDB / Aurora</td>
+                            <td>SQL DB / Cosmos DB</td>
+                            <td>Cloud SQL / Spanner</td>
+                        </tr>
+                        <tr>
+                            <td>金融合規認證</td>
+                            <td><i class="fas fa-check-circle check"></i> PCI-DSS / SOC</td>
+                            <td><i class="fas fa-check-circle check"></i> PCI-DSS / SOC</td>
+                            <td><i class="fas fa-check-circle check"></i> PCI-DSS / SOC</td>
+                        </tr>
+                        <tr>
+                            <td>市場定位</td>
+                            <td><span class="badge badge-best">市佔第一</span></td>
+                            <td><span class="badge badge-good">企業整合</span></td>
+                            <td><span class="badge badge-good">AI 領先</span></td>
+                        </tr>
+                        <tr>
+                            <td>計費模式</td>
+                            <td>按秒計費</td>
+                            <td>按分鐘計費</td>
+                            <td>按秒計費</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- slide-16 單張大圖片滿版,需要user提供檔名 -->
+    <div class="slide" id="slide-16">
+        <div class="outer">
+            <div class="header-row">
+                <div class="slide-title"><i class="fas fa-image"></i> 畫面展示</div>
+            </div>
+            <div class="image-wrap">
+                <img src="demo3.jpg" alt="demo3.jpg" onclick="window.open(this.src, '_blank')">
+            </div>
+        </div>
+    </div>
+    <!-- slide-17 雙圖片並排,需要user提供2個檔名 -->
+    <div class="slide" id="slide-17">
+        <div class="outer">
+            <div class="header-row">
+                <div class="slide-title"><i class="fas fa-images"></i> 畫面展示</div>
+            </div>
+            <div class="image-wrap-2">
+                <div class="image-box">
+                    <img src="demo1.jpg" alt="demo1.jpg" onclick="window.open(this.src, '_blank')">
+                </div>
+                <div class="image-box">
+                    <img src="demo2.jpg" alt="demo2.jpg" onclick="window.open(this.src, '_blank')">
                 </div>
             </div>
         </div>
-
-        <!-- slide-9 適用4項目,這4格和中間圓都不能改大小及位置 -->
-        <div class="slide" id="slide-9">
-            <div class="outer">
-                <!-- 標題列 -->
-                <div class="header-row">
-                    <div class="slide-title">Agent Skills 四大核心能力</div>
-                    <div class="sub-info"><span>智慧企業轉型藍圖</span> <i class="fas fa-th"></i></div>
-                </div>
-
-                <!-- 主內容：四宮格 -->
-                <div class="four-grid">
-                    <!-- 左上 -->
-                    <div class="item-card top-left">
-                        <div class="item-icon"><i class="fas fa-comments"></i></div>
-                        <div class="item-text">
-                            <h3>智慧對話引擎</h3>
-                            <p>自動理解使用者意圖<br>提供精準且即時的回應<br>支援多輪對話與上下文記憶<br>大幅提升客戶服務效率</p>
-                        </div>
-                    </div>
-
-                    <!-- 上方連接線 -->
-                    <div class="line-v line-v-top"></div>
-
-                    <!-- 右上 -->
-                    <div class="item-card top-right">
-                        <div class="item-icon"><i class="fas fa-globe"></i></div>
-                        <div class="item-text">
-                            <h3>跨平台整合</h3>
-                            <p>串接企業內部系統<br>實現資料無縫流通<br>支援 API 與微服務架構<br>一站式管理多元數據來源</p>
-                        </div>
-                    </div>
-
-                    <!-- 左側連接線 -->
-                    <div class="line-h line-h-left"></div>
-
-                    <!-- 中央圖片 -->
-                    <div class="center-image">
-                        <i class="fas fa-robot center-icon"></i>
-                        <span class="center-label">Agent Skills</span>
-                    </div>
-
-                    <!-- 右側連接線 -->
-                    <div class="line-h line-h-right"></div>
-
-                    <!-- 左下 -->
-                    <div class="item-card bottom-left">
-                        <div class="item-icon"><i class="fas fa-chart-bar"></i></div>
-                        <div class="item-text">
-                            <h3>數據分析洞察</h3>
-                            <p>即時追蹤 Skill 使用數據<br>量化 AI 投資回報率<br>視覺化報表一目了然<br>驅動數據導向決策流程</p>
-                        </div>
-                    </div>
-
-                    <!-- 下方連接線 -->
-                    <div class="line-v line-v-bottom"></div>
-
-                    <!-- 右下 -->
-                    <div class="item-card bottom-right">
-                        <div class="item-icon"><i class="fas fa-thumbs-up"></i></div>
-                        <div class="item-text">
-                            <h3>持續優化迴圈</h3>
-                            <p>根據回饋自動調校模型<br>打造越用越聰明的 AI<br>結合人類專家經驗回饋<br>持續迭代提升準確度</p>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-
-        <!-- slide-10 適用5個項目 -->
-        <div class="slide" id="slide-10">
-            <div class="outer">
-                <h2 class="slide-title"><i class="fas fa-building-columns"></i> 智慧金融五大服務</h2>
-
-                <div class="five-columns">
-                    <!-- 1. 智能客服 — primary-1 (#008FC7) -->
-                    <div class="col-item">
-                        <div class="icon-wrap">
-                            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="12" y="18" width="40" height="30" rx="6" fill="none" stroke="var(--primary-1)"
-                                      stroke-width="2.5" />
-                                <circle cx="26" cy="30" r="3" fill="var(--primary-1)" />
-                                <circle cx="38" cy="30" r="3" fill="var(--primary-1)" />
-                                <path d="M24 38 Q32 44 40 38" fill="none" stroke="var(--primary-1)" stroke-width="2"
-                                      stroke-linecap="round" />
-                                <path d="M18 48 L18 54" stroke="var(--primary-1)" stroke-width="2.5"
-                                      stroke-linecap="round" />
-                                <path d="M46 48 L46 54" stroke="var(--primary-1)" stroke-width="2.5"
-                                      stroke-linecap="round" />
-                                <rect x="14" y="54" width="8" height="3" rx="1.5" fill="var(--primary-1)" />
-                                <rect x="42" y="54" width="8" height="3" rx="1.5" fill="var(--primary-1)" />
-                                <circle cx="52" cy="16" r="3" fill="var(--accent-1)" opacity="0.7" />
-                                <circle cx="12" cy="14" r="2" fill="var(--accent-3)" opacity="0.5" />
-                            </svg>
-                        </div>
-                        <h3>智能客服</h3>
-                        <hr>
-                        <p>AI 驅動的全天候客服<br>自動理解客戶意圖<br>即時回應常見問題<br>大幅降低人力成本</p>
-                    </div>
-
-                    <!-- 2. 風險管控 — primary-2 (#00A59B) -->
-                    <div class="col-item">
-                        <div class="icon-wrap">
-                            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M32 8 L52 18 V34 C52 46 32 56 32 56 C32 56 12 46 12 34 V18 Z" fill="none"
-                                      stroke="var(--primary-2)" stroke-width="2.5" stroke-linejoin="round" />
-                                <polyline points="22,32 29,40 42,24" fill="none" stroke="var(--primary-2)"
-                                          stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-                                <circle cx="50" cy="10" r="2.5" fill="var(--accent-1)" opacity="0.6" />
-                                <circle cx="14" cy="12" r="2" fill="var(--support-1)" opacity="0.5" />
-                            </svg>
-                        </div>
-                        <h3>風險管控</h3>
-                        <hr>
-                        <p>即時偵測異常交易<br>智慧化反洗錢分析<br>信用評估自動化<br>全面守護資產安全</p>
-                    </div>
-
-                    <!-- 3. 精準行銷 — accent-2 (#004F74) -->
-                    <div class="col-item">
-                        <div class="icon-wrap">
-                            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="32" cy="32" r="22" fill="none" stroke="var(--accent-2)"
-                                        stroke-width="2.5" />
-                                <circle cx="32" cy="32" r="14" fill="none" stroke="var(--accent-2)" stroke-width="2" />
-                                <circle cx="32" cy="32" r="6" fill="var(--accent-2)" opacity="0.3" />
-                                <circle cx="32" cy="32" r="3" fill="var(--accent-2)" />
-                                <line x1="32" y1="6" x2="32" y2="10" stroke="var(--accent-2)" stroke-width="2"
-                                      stroke-linecap="round" />
-                                <line x1="32" y1="54" x2="32" y2="58" stroke="var(--accent-2)" stroke-width="2"
-                                      stroke-linecap="round" />
-                                <line x1="6" y1="32" x2="10" y2="32" stroke="var(--accent-2)" stroke-width="2"
-                                      stroke-linecap="round" />
-                                <line x1="54" y1="32" x2="58" y2="32" stroke="var(--accent-2)" stroke-width="2"
-                                      stroke-linecap="round" />
-                                <path d="M48 16 L42 22" stroke="var(--support-4)" stroke-width="2"
-                                      stroke-linecap="round" />
-                                <polygon points="48,10 54,16 48,16" fill="var(--support-4)" />
-                            </svg>
-                        </div>
-                        <h3>精準行銷</h3>
-                        <hr>
-                        <p>客群標籤智慧分類<br>個人化產品推薦<br>行銷活動自動投放<br>提升轉換率與營收</p>
-                    </div>
-
-                    <!-- 4. 流程自動化 — accent-3 (#30DAA2) -->
-                    <div class="col-item">
-                        <div class="icon-wrap">
-                            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="10" y="10" width="18" height="14" rx="3" fill="none" stroke="var(--accent-3)"
-                                      stroke-width="2.5" />
-                                <rect x="36" y="10" width="18" height="14" rx="3" fill="none" stroke="var(--accent-3)"
-                                      stroke-width="2.5" />
-                                <rect x="10" y="40" width="18" height="14" rx="3" fill="none" stroke="var(--accent-3)"
-                                      stroke-width="2.5" />
-                                <rect x="36" y="40" width="18" height="14" rx="3" fill="none" stroke="var(--accent-3)"
-                                      stroke-width="2.5" />
-                                <path d="M28 17 L36 17" stroke="var(--accent-3)" stroke-width="2" stroke-linecap="round"
-                                      marker-end="none" />
-                                <path d="M19 24 L19 40" stroke="var(--accent-3)" stroke-width="2" stroke-linecap="round"
-                                      stroke-dasharray="4 3" />
-                                <path d="M45 24 L45 40" stroke="var(--accent-3)" stroke-width="2" stroke-linecap="round"
-                                      stroke-dasharray="4 3" />
-                                <path d="M28 47 L36 47" stroke="var(--accent-3)" stroke-width="2"
-                                      stroke-linecap="round" />
-                                <circle cx="32" cy="32" r="6" fill="var(--accent-3)" opacity="0.15" />
-                                <polyline points="29,32 31,34.5 35,29.5" fill="none" stroke="var(--accent-3)"
-                                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </div>
-                        <h3>流程自動化</h3>
-                        <hr>
-                        <p>表單審批智慧處理<br>跨系統資料同步<br>減少人工作業錯誤<br>加速業務流程效率</p>
-                    </div>
-
-                    <!-- 5. 數據洞察 — support-4 (#E03E57) -->
-                    <div class="col-item">
-                        <div class="icon-wrap">
-                            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="10" y="38" width="8" height="16" rx="2" fill="var(--support-4)"
-                                      opacity="0.4" />
-                                <rect x="21" y="28" width="8" height="26" rx="2" fill="var(--support-4)"
-                                      opacity="0.6" />
-                                <rect x="32" y="20" width="8" height="34" rx="2" fill="var(--support-4)"
-                                      opacity="0.8" />
-                                <rect x="43" y="12" width="8" height="42" rx="2" fill="var(--support-4)" />
-                                <polyline points="12,36 24,26 35,18 47,10" fill="none" stroke="var(--support-1)"
-                                          stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                                <circle cx="12" cy="36" r="3" fill="var(--support-1)" />
-                                <circle cx="24" cy="26" r="3" fill="var(--support-1)" />
-                                <circle cx="35" cy="18" r="3" fill="var(--support-1)" />
-                                <circle cx="47" cy="10" r="3" fill="var(--support-1)" />
-                            </svg>
-                        </div>
-                        <h3>數據洞察</h3>
-                        <hr>
-                        <p>多維度數據視覺化<br>即時監測營運指標<br>預測模型輔助決策<br>驅動數據導向經營</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- slide-11 適用6項目 -->
-        <div class="slide" id="slide-11">
-            <div class="outer">
-                <!-- 標題列 -->
-                <div class="header-row">
-                    <div class="slide-title"><i class="fas fa-cubes"></i> 企業數位轉型六大關鍵</div>
-                    <div class="sub-info"><span>Digital Transformation</span> <i class="fas fa-rocket"></i></div>
-                </div>
-                <!-- 六宮格 -->
-                <div class="six-grid">
-                    <!-- 1. 策略願景 -->
-                    <div class="tile-card">
-                        <svg class="tile-icon" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="40" cy="40" r="36" fill="none" stroke="var(--primary-1)" stroke-width="2.5"
-                                    opacity="0.15" />
-                            <circle cx="40" cy="40" r="26" fill="none" stroke="var(--primary-1)" stroke-width="2"
-                                    opacity="0.3" />
-                            <circle cx="40" cy="40" r="15" fill="var(--primary-1)" opacity="0.12" />
-                            <path d="M40 18 L44 32 H56 L46 40 L50 54 L40 46 L30 54 L34 40 L24 32 H36Z"
-                                  fill="var(--primary-1)" />
-                        </svg>
-                        <h3><span class="num-badge">1</span>策略願景</h3>
-                        <p>制定明確數位轉型藍圖<br>對齊企業長期經營目標<br>確立階段性里程碑</p>
-                    </div>
-
-                    <!-- 2. 數據驅動 -->
-                    <div class="tile-card">
-                        <svg class="tile-icon" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="10" y="50" width="10" height="20" rx="2" fill="var(--accent-1)" opacity="0.6" />
-                            <rect x="24" y="38" width="10" height="32" rx="2" fill="var(--accent-1)" opacity="0.75" />
-                            <rect x="38" y="28" width="10" height="42" rx="2" fill="var(--accent-1)" opacity="0.9" />
-                            <rect x="52" y="18" width="10" height="52" rx="2" fill="var(--accent-1)" />
-                            <polyline points="14,46 28,34 42,24 58,14" fill="none" stroke="var(--accent-2)"
-                                      stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <circle cx="58" cy="14" r="4" fill="var(--accent-2)" />
-                        </svg>
-                        <h3><span class="num-badge">2</span>數據驅動</h3>
-                        <p>建構企業級數據平台<br>從數據洞察驅動決策<br>實現精準營運分析</p>
-                    </div>
-
-                    <!-- 3. 流程再造 -->
-                    <div class="tile-card">
-                        <svg class="tile-icon" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="18" cy="40" r="10" fill="none" stroke="var(--primary-2)" stroke-width="2.5" />
-                            <circle cx="18" cy="40" r="4" fill="var(--primary-2)" />
-                            <line x1="28" y1="40" x2="44" y2="40" stroke="var(--primary-2)" stroke-width="2.5"
-                                  stroke-linecap="round" />
-                            <polygon points="44,34 56,40 44,46" fill="var(--primary-2)" />
-                            <rect x="54" y="28" width="20" height="24" rx="5" fill="none" stroke="var(--primary-2)"
-                                  stroke-width="2.5" />
-                            <path d="M60 36 L63 40 L70 33" fill="none" stroke="var(--accent-3)" stroke-width="2.5"
-                                  stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <h3><span class="num-badge">3</span>流程再造</h3>
-                        <p>全面檢視現有作業流程<br>導入自動化與智慧化<br>減少人工錯誤與延遲</p>
-                    </div>
-
-                    <!-- 4. 人才培育 -->
-                    <div class="tile-card">
-                        <svg class="tile-icon" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="40" cy="24" r="12" fill="var(--support-1)" opacity="0.3" />
-                            <circle cx="40" cy="24" r="8" fill="var(--support-1)" />
-                            <path d="M20 62 Q20 44 40 44 Q60 44 60 62" fill="var(--support-1)" opacity="0.5" />
-                            <circle cx="22" cy="30" r="6" fill="var(--support-3)" opacity="0.5" />
-                            <circle cx="58" cy="30" r="6" fill="var(--support-3)" opacity="0.5" />
-                            <path d="M38 18 L40 12 L42 18" fill="none" stroke="var(--accent-2)" stroke-width="2"
-                                  stroke-linecap="round" />
-                            <line x1="40" y1="12" x2="40" y2="8" stroke="var(--accent-2)" stroke-width="2"
-                                  stroke-linecap="round" />
-                        </svg>
-                        <h3><span class="num-badge">4</span>人才培育</h3>
-                        <p>強化員工數位技能<br>建立跨領域學習文化<br>培養內部創新動能</p>
-                    </div>
-
-                    <!-- 5. 技術架構 -->
-                    <div class="tile-card">
-                        <svg class="tile-icon" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="22" y="16" width="36" height="28" rx="4" fill="none" stroke="var(--support-3)"
-                                  stroke-width="2.5" />
-                            <line x1="40" y1="44" x2="40" y2="52" stroke="var(--support-3)" stroke-width="2.5" />
-                            <line x1="28" y1="52" x2="52" y2="52" stroke="var(--support-3)" stroke-width="2.5"
-                                  stroke-linecap="round" />
-                            <circle cx="40" cy="58" r="3" fill="var(--support-5)" opacity="0.5" />
-                            <line x1="40" y1="61" x2="40" y2="68" stroke="var(--support-5)" stroke-width="2"
-                                  stroke-dasharray="3,2" />
-                            <circle cx="28" cy="68" r="5" fill="var(--support-5)" opacity="0.4" />
-                            <circle cx="40" cy="68" r="5" fill="var(--support-5)" opacity="0.6" />
-                            <circle cx="52" cy="68" r="5" fill="var(--support-5)" opacity="0.8" />
-                            <line x1="28" y1="68" x2="52" y2="68" stroke="var(--support-5)" stroke-width="1.5" />
-                            <text x="40" y="34" text-anchor="middle" fill="var(--support-3)" font-size="14"
-                                  font-weight="bold">&lt;/&gt;</text>
-                        </svg>
-                        <h3><span class="num-badge">5</span>技術架構</h3>
-                        <p>採用雲原生彈性架構<br>確保系統可擴展性<br>強化資安與合規治理</p>
-                    </div>
-
-                    <!-- 6. 持續迭代 -->
-                    <div class="tile-card">
-                        <svg class="tile-icon" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M40 16 A24 24 0 1 1 16 40" fill="none" stroke="var(--support-5)" stroke-width="2.5"
-                                  stroke-linecap="round" />
-                            <polygon points="16,32 16,48 8,40" fill="var(--support-5)" />
-                            <path d="M40 64 A24 24 0 0 1 16 40" fill="none" stroke="var(--accent-2)" stroke-width="2.5"
-                                  stroke-linecap="round" stroke-dasharray="4,3" />
-                            <circle cx="40" cy="40" r="12" fill="var(--support-5)" opacity="0.12" />
-                            <path d="M35 38 L40 44 L48 34" fill="none" stroke="var(--accent-2)" stroke-width="3"
-                                  stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <h3><span class="num-badge">6</span>持續迭代</h3>
-                        <p>建立敏捷回饋機制<br>以 MVP 快速驗證價值<br>持續學習與優化提升</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- slide-12 適用6個項目的蜂巢狀(六角形)排版，中央留白 -->
-        <div class="slide" id="slide-12">
-            <div class="outer">
-                <!-- 標題列 -->
-                <div class="header-row">
-                    <div class="slide-title"><i class="fas fa-cloud"></i> 雲端服務六大優勢</div>
-                    <div class="sub-info"><span>Cloud Advantages</span> <i class="fas fa-server"></i></div>
-                </div>
-
-                <!-- 蜂巢佈局 -->
-                <div class="honeycomb">
-                    <!-- 上排：2 個 -->
-                    <div class="hex-row row-top">
-                        <div class="hex-wrap">
-                            <div class="hex-card">
-                                <svg class="hex-icon-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20 50 L20 30 M60 50 L60 30" stroke="var(--primary-1)" stroke-width="2.5"
-                                          stroke-linecap="round" />
-                                    <path d="M16 30 L40 18 L64 30" fill="none" stroke="var(--primary-1)"
-                                          stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M30 50 L30 36 M50 50 L50 36" stroke="var(--accent-1)" stroke-width="2"
-                                          stroke-linecap="round" stroke-dasharray="4,3" />
-                                    <line x1="14" y1="50" x2="66" y2="50" stroke="var(--primary-1)" stroke-width="2.5"
-                                          stroke-linecap="round" />
-                                    <circle cx="40" cy="24" r="3" fill="var(--accent-1)" />
-                                </svg>
-                                <div class="hex-title">彈性擴展</div>
-                                <p class="hex-desc">依需求即時擴縮<br>資源零浪費</p>
-                            </div>
-                        </div>
-                        <div class="hex-wrap">
-                            <div class="hex-card">
-                                <svg class="hex-icon-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="40" cy="36" r="20" fill="none" stroke="var(--accent-1)"
-                                            stroke-width="2.5" />
-                                    <text x="40" y="42" text-anchor="middle" fill="var(--accent-1)" font-size="20"
-                                          font-weight="bold">$</text>
-                                    <path d="M22 56 L40 64 L58 56" fill="none" stroke="var(--accent-3)" stroke-width="2"
-                                          stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M26 62 L40 70 L54 62" fill="none" stroke="var(--accent-3)"
-                                          stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                                          opacity="0.5" />
-                                </svg>
-                                <div class="hex-title">成本優化</div>
-                                <p class="hex-desc">用多少付多少<br>降低 IT 支出</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 中排：3 個（中央透明） -->
-                    <div class="hex-row row-mid">
-                        <div class="hex-wrap">
-                            <div class="hex-card">
-                                <svg class="hex-icon-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="40" cy="40" r="26" fill="none" stroke="var(--primary-2)"
-                                            stroke-width="2.5" />
-                                    <path d="M40 14 L40 28 M40 52 L40 66 M14 40 L28 40 M52 40 L66 40"
-                                          stroke="var(--primary-2)" stroke-width="2.5" stroke-linecap="round" />
-                                    <circle cx="40" cy="40" r="10" fill="var(--accent-3)" opacity="0.2" />
-                                    <path d="M36 40 L39 44 L46 36" fill="none" stroke="var(--accent-3)"
-                                          stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                                <div class="hex-title">高可用性</div>
-                                <p class="hex-desc">99.9% 服務保證<br>自動容錯備援</p>
-                            </div>
-                        </div>
-                        <div class="hex-wrap">
-                            <div class="hex-card center-hex">
-                                <!-- 透明佔位 -->
-                            </div>
-                        </div>
-                        <div class="hex-wrap">
-                            <div class="hex-card">
-                                <svg class="hex-icon-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="22" y="24" width="36" height="40" rx="4" fill="none"
-                                          stroke="var(--support-1)" stroke-width="2.5" />
-                                    <circle cx="40" cy="38" r="8" fill="none" stroke="var(--support-1)"
-                                            stroke-width="2" />
-                                    <circle cx="40" cy="38" r="3" fill="var(--support-1)" />
-                                    <line x1="40" y1="46" x2="40" y2="56" stroke="var(--support-1)" stroke-width="2.5"
-                                          stroke-linecap="round" />
-                                    <path d="M30 18 L40 10 L50 18" fill="none" stroke="var(--support-3)"
-                                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                                <div class="hex-title">安全防護</div>
-                                <p class="hex-desc">多層加密機制<br>合規認證保障</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 下排：2 個 -->
-                    <div class="hex-row row-bottom">
-                        <div class="hex-wrap">
-                            <div class="hex-card">
-                                <svg class="hex-icon-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="24" cy="40" r="8" fill="var(--support-3)" opacity="0.3" />
-                                    <circle cx="24" cy="40" r="4" fill="var(--support-3)" />
-                                    <circle cx="56" cy="28" r="8" fill="var(--support-5)" opacity="0.3" />
-                                    <circle cx="56" cy="28" r="4" fill="var(--support-5)" />
-                                    <circle cx="56" cy="52" r="8" fill="var(--support-5)" opacity="0.3" />
-                                    <circle cx="56" cy="52" r="4" fill="var(--support-5)" />
-                                    <line x1="32" y1="38" x2="48" y2="30" stroke="var(--support-3)" stroke-width="2"
-                                          stroke-linecap="round" />
-                                    <line x1="32" y1="42" x2="48" y2="50" stroke="var(--support-3)" stroke-width="2"
-                                          stroke-linecap="round" />
-                                </svg>
-                                <div class="hex-title">全球部署</div>
-                                <p class="hex-desc">多區域節點佈建<br>低延遲全球覆蓋</p>
-                            </div>
-                        </div>
-                        <div class="hex-wrap">
-                            <div class="hex-card">
-                                <svg class="hex-icon-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20 52 A20 20 0 1 1 60 52" fill="none" stroke="var(--support-5)"
-                                          stroke-width="2.5" stroke-linecap="round" />
-                                    <polygon points="56,44 64,52 56,60" fill="var(--support-5)" />
-                                    <circle cx="40" cy="40" r="8" fill="var(--accent-2)" opacity="0.15" />
-                                    <path d="M36 40 L44 40 M40 36 L40 44" stroke="var(--accent-2)" stroke-width="2.5"
-                                          stroke-linecap="round" />
-                                    <path d="M28 58 L40 66 L52 58" fill="none" stroke="var(--accent-2)"
-                                          stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3,3" />
-                                </svg>
-                                <div class="hex-title">創新加速</div>
-                                <p class="hex-desc">快速原型驗證<br>縮短上市週期</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- slide-13 適用7個項目的蜂巢狀(六角形)排版，含中央核心區塊 -->
-        <div class="slide" id="slide-13">
-            <div class="outer">
-                <!-- 標題列 -->
-                <div class="header-row">
-                    <div class="slide-title"><i class="fas fa-brain"></i> AI 導入成功七要素</div>
-                    <div class="sub-info"><span>AI Adoption Framework</span> <i class="fas fa-network-wired"></i></div>
-                </div>
-
-                <!-- 蜂巢佈局 -->
-                <div class="honeycomb">
-                    <!-- 上排：2 個 -->
-                    <div class="hex-row row-top">
-                        <div class="hex-wrap">
-                            <div class="hex-card">
-                                <svg class="hex-icon-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="40" cy="26" r="10" fill="var(--primary-1)" opacity="0.3" />
-                                    <circle cx="40" cy="26" r="6" fill="var(--primary-1)" />
-                                    <path d="M26 56 Q26 42 40 42 Q54 42 54 56" fill="var(--primary-1)" opacity="0.5" />
-                                    <path d="M36 20 L40 12 L44 20" fill="none" stroke="var(--accent-1)"
-                                          stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <line x1="40" y1="12" x2="40" y2="6" stroke="var(--accent-1)" stroke-width="2.5"
-                                          stroke-linecap="round" />
-                                    <circle cx="34" cy="8" r="2" fill="var(--accent-1)" opacity="0.6" />
-                                    <circle cx="46" cy="8" r="2" fill="var(--accent-1)" opacity="0.6" />
-                                </svg>
-                                <div class="hex-title">領導承諾</div>
-                                <p class="hex-desc">高層親自推動<br>確立轉型決心</p>
-                            </div>
-                        </div>
-                        <div class="hex-wrap">
-                            <div class="hex-card">
-                                <svg class="hex-icon-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                                    <ellipse cx="40" cy="22" rx="22" ry="8" fill="none" stroke="var(--accent-1)"
-                                             stroke-width="2.5" />
-                                    <ellipse cx="40" cy="22" rx="22" ry="8" fill="var(--accent-1)" opacity="0.15" />
-                                    <path d="M18 22 v16 a22 8 0 0 0 44 0 v-16" fill="none" stroke="var(--accent-1)"
-                                          stroke-width="2.5" />
-                                    <ellipse cx="40" cy="38" rx="22" ry="8" fill="none" stroke="var(--accent-1)"
-                                             stroke-width="1.5" stroke-dasharray="3,3" />
-                                    <path d="M18 38 v16 a22 8 0 0 0 44 0 v-16" fill="none" stroke="var(--accent-1)"
-                                          stroke-width="2.5" />
-                                    <ellipse cx="40" cy="54" rx="22" ry="8" fill="var(--accent-1)" opacity="0.1" />
-                                </svg>
-                                <div class="hex-title">數據治理</div>
-                                <p class="hex-desc">建立數據標準<br>確保品質與安全</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 中排：3 個（含中央核心） -->
-                    <div class="hex-row row-mid">
-                        <div class="hex-wrap">
-                            <div class="hex-card">
-                                <svg class="hex-icon-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="28" cy="28" r="9" fill="var(--primary-2)" opacity="0.3" />
-                                    <circle cx="28" cy="28" r="5" fill="var(--primary-2)" />
-                                    <circle cx="52" cy="28" r="9" fill="var(--accent-3)" opacity="0.3" />
-                                    <circle cx="52" cy="28" r="5" fill="var(--accent-3)" />
-                                    <path d="M20 58 Q20 46 32 46 H48 Q60 46 60 58" fill="var(--primary-2)"
-                                          opacity="0.35" />
-                                    <path d="M32 38 L40 44 L48 38" fill="none" stroke="var(--accent-3)"
-                                          stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                                <div class="hex-title">人才養成</div>
-                                <p class="hex-desc">培養 AI 素養<br>跨域團隊協作</p>
-                            </div>
-                        </div>
-                        <div class="hex-wrap">
-                            <div class="hex-card center-hex">
-                                <svg class="hex-icon-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="40" cy="40" r="28" fill="rgba(255,255,255,0.15)"
-                                            stroke="rgba(255,255,255,0.4)" stroke-width="2" />
-                                    <circle cx="40" cy="40" r="18" fill="rgba(255,255,255,0.1)"
-                                            stroke="rgba(255,255,255,0.3)" stroke-width="1.5" />
-                                    <path d="M40 22 L40 34 M40 46 L40 58 M22 40 L34 40 M46 40 L58 40"
-                                          stroke="rgba(255,255,255,0.8)" stroke-width="2.5" stroke-linecap="round" />
-                                    <circle cx="40" cy="40" r="6" fill="rgba(255,255,255,0.9)" />
-                                    <path d="M28 28 L34 34 M46 34 L52 28 M28 52 L34 46 M46 46 L52 52"
-                                          stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round" />
-                                </svg>
-                                <div class="hex-title">文化變革</div>
-                                <p class="hex-desc">組織思維轉型<br>擁抱創新文化</p>
-                            </div>
-                        </div>
-                        <div class="hex-wrap">
-                            <div class="hex-card">
-                                <svg class="hex-icon-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="16" y="20" width="48" height="32" rx="4" fill="none"
-                                          stroke="var(--support-1)" stroke-width="2.5" />
-                                    <line x1="40" y1="52" x2="40" y2="60" stroke="var(--support-1)"
-                                          stroke-width="2.5" />
-                                    <line x1="28" y1="60" x2="52" y2="60" stroke="var(--support-1)" stroke-width="2.5"
-                                          stroke-linecap="round" />
-                                    <circle cx="32" cy="36" r="4" fill="var(--support-1)" opacity="0.5" />
-                                    <circle cx="48" cy="36" r="4" fill="var(--support-1)" opacity="0.5" />
-                                    <line x1="32" y1="36" x2="48" y2="36" stroke="var(--support-1)" stroke-width="1.5"
-                                          stroke-dasharray="3,2" />
-                                    <path d="M36 30 L40 26 L44 30" fill="none" stroke="var(--support-3)"
-                                          stroke-width="2" stroke-linecap="round" />
-                                </svg>
-                                <div class="hex-title">技術基建</div>
-                                <p class="hex-desc">打造穩健平台<br>支撐 AI 運算力</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 下排：2 個 -->
-                    <div class="hex-row row-bottom">
-                        <div class="hex-wrap">
-                            <div class="hex-card">
-                                <svg class="hex-icon-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="40" cy="40" r="24" fill="none" stroke="var(--support-3)"
-                                            stroke-width="2.5" />
-                                    <path d="M40 16 L40 40 L56 52" fill="none" stroke="var(--support-3)"
-                                          stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <circle cx="40" cy="40" r="4" fill="var(--support-3)" />
-                                    <path d="M26 58 Q40 68 54 58" fill="none" stroke="var(--support-5)" stroke-width="2"
-                                          stroke-linecap="round" stroke-dasharray="4,3" />
-                                    <path d="M30 22 L34 18 L34 26" fill="none" stroke="var(--support-5)"
-                                          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                                <div class="hex-title">場景落地</div>
-                                <p class="hex-desc">選定高價值場景<br>快速驗證成效</p>
-                            </div>
-                        </div>
-                        <div class="hex-wrap">
-                            <div class="hex-card">
-                                <svg class="hex-icon-svg" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20 56 L20 24 Q20 16 28 16 L52 16 Q60 16 60 24 L60 56" fill="none"
-                                          stroke="var(--support-5)" stroke-width="2.5" stroke-linecap="round" />
-                                    <line x1="16" y1="56" x2="64" y2="56" stroke="var(--support-5)" stroke-width="2.5"
-                                          stroke-linecap="round" />
-                                    <path d="M32 30 L38 38 L50 24" fill="none" stroke="var(--accent-2)" stroke-width="3"
-                                          stroke-linecap="round" stroke-linejoin="round" />
-                                    <line x1="30" y1="46" x2="50" y2="46" stroke="var(--support-5)" stroke-width="1.5"
-                                          stroke-dasharray="4,3" />
-                                </svg>
-                                <div class="hex-title">風險管控</div>
-                                <p class="hex-desc">合規與倫理審查<br>建立安全護欄</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- slide-14 適用8項目 -->
-        <div class="slide" id="slide-14">
-            <div class="outer">
-                <!-- 標題列 -->
-                <div class="header-row">
-                    <div class="slide-title"><i class="fas fa-chart-line"></i> 金融科技八大趨勢</div>
-                    <div class="sub-info"><span>FinTech Trends</span> <i class="fas fa-landmark"></i></div>
-                </div>
-                <!-- 八宮格 -->
-                <div class="eight-grid">
-                    <!-- 1. 生成式 AI -->
-                    <div class="tile-card">
-                        <svg class="tile-icon" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="40" cy="40" r="28" fill="none" stroke="var(--primary-1)" stroke-width="2.5"
-                                    opacity="0.2" />
-                            <path d="M28 52 L36 36 L44 46 L52 28" fill="none" stroke="var(--primary-1)"
-                                  stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <circle cx="52" cy="28" r="4" fill="var(--accent-1)" />
-                            <path d="M22 26 L26 22 L30 26" fill="none" stroke="var(--accent-1)" stroke-width="2"
-                                  stroke-linecap="round" stroke-linejoin="round" />
-                            <line x1="26" y1="22" x2="26" y2="16" stroke="var(--accent-1)" stroke-width="2"
-                                  stroke-linecap="round" />
-                        </svg>
-                        <h3><span class="num-badge">1</span>生成式 AI</h3>
-                        <p>智慧客服與風控建模<br>驅動個人化金融服務</p>
-                    </div>
-
-                    <!-- 2. 嵌入式金融 -->
-                    <div class="tile-card">
-                        <svg class="tile-icon" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="16" y="22" width="48" height="36" rx="6" fill="none" stroke="var(--accent-1)"
-                                  stroke-width="2.5" />
-                            <rect x="16" y="30" width="48" height="6" fill="var(--accent-1)" opacity="0.3" />
-                            <circle cx="28" cy="48" r="5" fill="var(--accent-3)" opacity="0.4" />
-                            <circle cx="42" cy="48" r="5" fill="var(--accent-3)" opacity="0.4" />
-                            <path d="M50 44 L54 48 L50 52" fill="none" stroke="var(--accent-1)" stroke-width="2"
-                                  stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <h3><span class="num-badge">2</span>嵌入式金融</h3>
-                        <p>金融服務無縫嵌入<br>非金融場景生態圈</p>
-                    </div>
-
-                    <!-- 3. 開放銀行 -->
-                    <div class="tile-card">
-                        <svg class="tile-icon" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="26" cy="40" r="12" fill="none" stroke="var(--primary-2)" stroke-width="2.5" />
-                            <circle cx="54" cy="40" r="12" fill="none" stroke="var(--accent-3)" stroke-width="2.5" />
-                            <path d="M36 34 Q40 40 36 46" fill="none" stroke="var(--primary-2)" stroke-width="2"
-                                  stroke-linecap="round" />
-                            <path d="M44 34 Q40 40 44 46" fill="none" stroke="var(--accent-3)" stroke-width="2"
-                                  stroke-linecap="round" />
-                            <line x1="32" y1="22" x2="48" y2="22" stroke="var(--primary-2)" stroke-width="2"
-                                  stroke-linecap="round" stroke-dasharray="3,3" />
-                        </svg>
-                        <h3><span class="num-badge">3</span>開放銀行</h3>
-                        <p>API 串聯跨業資料<br>打造共享金融生態</p>
-                    </div>
-
-                    <!-- 4. 數位支付 -->
-                    <div class="tile-card">
-                        <svg class="tile-icon" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="20" y="18" width="28" height="44" rx="4" fill="none" stroke="var(--support-1)"
-                                  stroke-width="2.5" />
-                            <line x1="20" y1="26" x2="48" y2="26" stroke="var(--support-1)" stroke-width="1.5" />
-                            <line x1="20" y1="54" x2="48" y2="54" stroke="var(--support-1)" stroke-width="1.5" />
-                            <circle cx="34" cy="58" r="2" fill="var(--support-1)" />
-                            <path d="M52 30 Q62 30 62 40 Q62 50 52 50" fill="none" stroke="var(--support-3)"
-                                  stroke-width="2" stroke-linecap="round" />
-                            <path d="M56 34 Q64 34 64 40 Q64 46 56 46" fill="none" stroke="var(--support-3)"
-                                  stroke-width="1.5" stroke-linecap="round" opacity="0.5" />
-                            <circle cx="34" cy="40" r="6" fill="var(--support-1)" opacity="0.2" />
-                            <text x="34" y="44" text-anchor="middle" fill="var(--support-1)" font-size="12"
-                                  font-weight="bold">$</text>
-                        </svg>
-                        <h3><span class="num-badge">4</span>數位支付</h3>
-                        <p>行動支付無現金化<br>即時跨境匯兌結算</p>
-                    </div>
-
-                    <!-- 5. 區塊鏈 -->
-                    <div class="tile-card">
-                        <svg class="tile-icon" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="12" y="30" width="16" height="16" rx="3" fill="none" stroke="var(--support-3)"
-                                  stroke-width="2.5" />
-                            <rect x="32" y="30" width="16" height="16" rx="3" fill="none" stroke="var(--support-3)"
-                                  stroke-width="2.5" />
-                            <rect x="52" y="30" width="16" height="16" rx="3" fill="none" stroke="var(--support-3)"
-                                  stroke-width="2.5" />
-                            <line x1="28" y1="38" x2="32" y2="38" stroke="var(--support-3)" stroke-width="2.5"
-                                  stroke-linecap="round" />
-                            <line x1="48" y1="38" x2="52" y2="38" stroke="var(--support-3)" stroke-width="2.5"
-                                  stroke-linecap="round" />
-                            <circle cx="20" cy="38" r="3" fill="var(--support-5)" opacity="0.6" />
-                            <circle cx="40" cy="38" r="3" fill="var(--support-5)" opacity="0.6" />
-                            <circle cx="60" cy="38" r="3" fill="var(--support-5)" opacity="0.6" />
-                            <path d="M20 52 L40 58 L60 52" fill="none" stroke="var(--support-5)" stroke-width="1.5"
-                                  stroke-linecap="round" stroke-dasharray="3,3" />
-                        </svg>
-                        <h3><span class="num-badge">5</span>區塊鏈</h3>
-                        <p>去中心化信任機制<br>智能合約自動執行</p>
-                    </div>
-
-                    <!-- 6. 監理科技 -->
-                    <div class="tile-card">
-                        <svg class="tile-icon" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M40 14 L62 26 L62 50 L40 62 L18 50 L18 26 Z" fill="none" stroke="var(--support-5)"
-                                  stroke-width="2.5" stroke-linejoin="round" />
-                            <path d="M40 14 L62 26 L62 50 L40 62 L18 50 L18 26 Z" fill="var(--support-5)"
-                                  opacity="0.08" />
-                            <path d="M34 38 L38 44 L48 32" fill="none" stroke="var(--accent-2)" stroke-width="3"
-                                  stroke-linecap="round" stroke-linejoin="round" />
-                            <circle cx="40" cy="38" r="16" fill="none" stroke="var(--support-5)" stroke-width="1.5"
-                                    stroke-dasharray="4,3" />
-                        </svg>
-                        <h3><span class="num-badge">6</span>監理科技</h3>
-                        <p>自動化合規檢測<br>即時風險監控預警</p>
-                    </div>
-
-                    <!-- 7. 永續金融 -->
-                    <div class="tile-card">
-                        <svg class="tile-icon" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="40" cy="44" r="22" fill="none" stroke="var(--accent-2)" stroke-width="2.5" />
-                            <circle cx="40" cy="44" r="22" fill="var(--accent-2)" opacity="0.06" />
-                            <path d="M40 30 Q32 38 40 46 Q48 38 40 30" fill="var(--accent-2)" opacity="0.5" />
-                            <line x1="40" y1="46" x2="40" y2="58" stroke="var(--accent-2)" stroke-width="2"
-                                  stroke-linecap="round" />
-                            <path d="M34 52 L40 58 L46 52" fill="none" stroke="var(--accent-2)" stroke-width="1.5"
-                                  stroke-linecap="round" />
-                            <path d="M28 24 A6 6 0 1 1 34 18" fill="none" stroke="var(--accent-2)" stroke-width="2"
-                                  stroke-linecap="round" />
-                        </svg>
-                        <h3><span class="num-badge">7</span>永續金融</h3>
-                        <p>ESG 數據整合分析<br>綠色投資決策支援</p>
-                    </div>
-
-                    <!-- 8. 資安韌性 -->
-                    <div class="tile-card">
-                        <svg class="tile-icon" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="26" y="34" width="28" height="24" rx="4" fill="none" stroke="var(--primary-1)"
-                                  stroke-width="2.5" />
-                            <path d="M32 34 L32 26 Q32 18 40 18 Q48 18 48 26 L48 34" fill="none"
-                                  stroke="var(--primary-1)" stroke-width="2.5" stroke-linecap="round" />
-                            <circle cx="40" cy="44" r="4" fill="var(--primary-1)" />
-                            <line x1="40" y1="48" x2="40" y2="52" stroke="var(--primary-1)" stroke-width="2.5"
-                                  stroke-linecap="round" />
-                            <circle cx="20" cy="28" r="3" fill="var(--accent-1)" opacity="0.4" />
-                            <circle cx="60" cy="28" r="3" fill="var(--accent-1)" opacity="0.4" />
-                            <path d="M20 28 L26 32" stroke="var(--accent-1)" stroke-width="1.5" stroke-linecap="round"
-                                  opacity="0.4" />
-                            <path d="M60 28 L54 32" stroke="var(--accent-1)" stroke-width="1.5" stroke-linecap="round"
-                                  opacity="0.4" />
-                        </svg>
-                        <h3><span class="num-badge">8</span>資安韌性</h3>
-                        <p>零信任架構防禦<br>營運持續不中斷</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- slide-15 適用多欄位比較表格 -->
-        <div class="slide" id="slide-15">
-            <div class="outer">
-                <!-- 標題列 -->
-                <div class="header-row">
-                    <div class="slide-title"><i class="fas fa-server"></i> 主要雲端平台服務比較</div>
-                    <div class="sub-info"><span>Cloud Platform Comparison</span> <i class="fas fa-cloud"></i></div>
-                </div>
-
-                <!-- 表格 -->
-                <div class="table-wrap">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>比較項目</th>
-                                <th>
-                                    <div class="provider-name">
-                                        <span class="provider-logo logo-aws"><i class="fab fa-aws"></i></span> AWS
-                                    </div>
-                                </th>
-                                <th>
-                                    <div class="provider-name">
-                                        <span class="provider-logo logo-azure"><i class="fab fa-microsoft"></i></span>
-                                        Azure
-                                    </div>
-                                </th>
-                                <th>
-                                    <div class="provider-name">
-                                        <span class="provider-logo logo-gcp"><i class="fab fa-google"></i></span> GCP
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>全球資料中心</td>
-                                <td>33 區域 / 105 可用區</td>
-                                <td>60+ 區域</td>
-                                <td>40 區域 / 121 可用區</td>
-                            </tr>
-                            <tr>
-                                <td>運算服務</td>
-                                <td>EC2 / Lambda / ECS</td>
-                                <td>VM / Functions / AKS</td>
-                                <td>GCE / Cloud Run / GKE</td>
-                            </tr>
-                            <tr>
-                                <td>AI / ML 平台</td>
-                                <td>SageMaker / Bedrock</td>
-                                <td>Azure OpenAI / ML Studio</td>
-                                <td>Vertex AI / Gemini API</td>
-                            </tr>
-                            <tr>
-                                <td>資料庫服務</td>
-                                <td>RDS / DynamoDB / Aurora</td>
-                                <td>SQL DB / Cosmos DB</td>
-                                <td>Cloud SQL / Spanner</td>
-                            </tr>
-                            <tr>
-                                <td>金融合規認證</td>
-                                <td><i class="fas fa-check-circle check"></i> PCI-DSS / SOC</td>
-                                <td><i class="fas fa-check-circle check"></i> PCI-DSS / SOC</td>
-                                <td><i class="fas fa-check-circle check"></i> PCI-DSS / SOC</td>
-                            </tr>
-                            <tr>
-                                <td>市場定位</td>
-                                <td><span class="badge badge-best">市佔第一</span></td>
-                                <td><span class="badge badge-good">企業整合</span></td>
-                                <td><span class="badge badge-good">AI 領先</span></td>
-                            </tr>
-                            <tr>
-                                <td>計費模式</td>
-                                <td>按秒計費</td>
-                                <td>按分鐘計費</td>
-                                <td>按秒計費</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <!-- slide-16 單張大圖片滿版,需要user提供檔名 -->
-        <div class="slide" id="slide-16">
-            <div class="outer">
-                <!-- 標題列 -->
-                <div class="header-row">
-                    <div class="slide-title"><i class="fas fa-image"></i> 畫面展示</div>
-                    <div class="sub-info"><span>Screenshot</span> <i class="fas fa-desktop"></i></div>
-                </div>
-
-                <!-- 圖片區域 -->
-                <div class="image-wrap">
-                    <img src="demo3.jpg" alt="demo3.jpg" onclick="window.open(this.src, '_blank')">
-                </div>
-            </div>
-        </div>
-        <!-- slide-17 雙圖片並排,需要user提供2個檔名 -->
-        <div class="slide" id="slide-17">
-            <div class="outer">
-                <!-- 標題列 -->
-                <div class="header-row">
-                    <div class="slide-title"><i class="fas fa-images"></i> 畫面展示</div>
-                    <div class="sub-info"><span>Screenshots</span> <i class="fas fa-desktop"></i></div>
-                </div>
-
-                <!-- 圖片區域 -->
-                <div class="image-wrap-2">
-                    <div class="image-box">
-                        <img src="demo1.jpg" alt="demo1.jpg" onclick="window.open(this.src, '_blank')">
-                    </div>
-                    <div class="image-box">
-                        <img src="demo2.jpg" alt="demo2.jpg" onclick="window.open(this.src, '_blank')">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- slide-18 簡報結尾致謝頁面,不要再加字 -->
-        <div class="slide" id="slide-18">
-        </div>
+    </div>
+    <!-- slide-18 簡報結尾致謝頁面,不要再加字 -->
+    <div class="slide" id="slide-18">
+    </div>
     </div>
     <script src="https://abbeego.github.io/MyStyleSlide/control.js"></script>
 </body>
