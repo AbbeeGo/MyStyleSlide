@@ -1,2601 +1,2659 @@
 <html>
 
 <head>
-    <title>Agent Skills 導入策略</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            /*色碼和url不可變*/
-            /*主色 使用範圍:封面,封底,內頁色塊,線條 副標,小標,圖表*/
-            --primary-1: #008FC7;
-            --primary-2: #00A59B;
-            /*一級輔色 使用範圍:Flat Icon,圖表,Smart Art,優先使用一級輔色*/
-            --accent-1: #00D4F0;
-            --accent-2: #004F74;
-            --accent-3: #30DAA2;
-            /*二級輔色 特殊情況需使用較多顏色時,二級輔色可使用同色階以不同程度的較淺變化使用，例如在同一色碼基礎上，調整亮度 / 明度，作為背景或弱化元素
-        禁止隨意新增不相關色相，避免破壞品牌一致性*/
-            --support-1: #FFC94F;
-            --support-2: #FF8933;
-            --support-3: #E99385;
-            --support-4: #E03E57;
-            --support-5: #8D48A2;
-            --bg: #FFFFFF;
-            --bg-soft: #FBFBFB;
-            --text: #000000;
-            --border: rgba(0, 79, 116, 0.18);
-            --bg-title: url("bg_title.jpg");
-            --bg-other: url("bg_other.jpg");
-            --bg-thanks: url("bg_thanks.jpg");
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-        }
-
-        body {
-            font-family: 'Segoe UI', 'Microsoft JhengHei', system-ui, -apple-system, sans-serif;
-            background: radial-gradient(1200px 700px at 20% 10%, rgba(0, 143, 199)), radial-gradient(900px 600px at 90% 30%, rgba(0, 165, 155)), #E9EEF3;
-            height: 100vh;
-            overflow: hidden;
-            display: block;
-        }
-
-        #presentation-container {
-            width: 100vw;
-            height: 100vh;
-            background-color: var(--bg);
-            position: relative;
-            border-radius: 0;
-            box-shadow: none;
-            overflow: hidden;
-        }
-
-        .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            padding: 70px 88px 130px;
-            opacity: 0;
-            transition: opacity 0.4s ease-in-out;
-            pointer-events: none;
-            display: flex;
-            flex-direction: column;
-            background-color: transparent;
-            background-image: var(--bg-other);
-            background-size: 100% 100%;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        .slide.active {
-            opacity: 1;
-            pointer-events: auto;
-            z-index: 10;
-        }
-
-        h1,
-        h2,
-        h3 {
-            color: var(--primary-1);
-            font-weight: bold;
-        }
-
-        p,
-        li {
-            font-size: 24px;
-            line-height: 1.5;
-            color: var(--text);
-            margin-bottom: 12px;
-        }
-
-        ul {
-            padding-left: 30px;
-        }
-
-        li::marker {
-            color: var(--primary-1);
-            font-size: 1.2em;
-        }
-
-        .slide-title {
-            font-size: 52px;
-            color: var(--primary-1);
-            font-weight: bold;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: none;
-            background-image: linear-gradient(90deg, var(--primary-1) 0%, var(--accent-3) 50%, var(--bg) 100%);
-            background-size: 100% 4px;
-            background-position: left bottom;
-            background-repeat: no-repeat;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .highlight-box {
-            background-color: var(--bg-soft);
-            border-left: 8px solid var(--primary-2);
-            padding: 26px;
-            border-radius: 0 12px 12px 0;
-            margin-bottom: 30px;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            flex: 1;
-        }
-
-        .card {
-            background: var(--bg);
-            padding: 30px;
-            border-radius: 14px;
-            box-shadow: 0 6px 26px rgba(0, 79, 116, 0.10);
-            border: 1px solid rgba(0, 79, 116, 0.10);
-            border-top: 6px solid var(--primary-1);
-            position: relative;
-        }
-
-        .card h3 {
-            font-size: 28px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            vertical-align: middle;
-            margin-left: 10px;
-        }
-
-        .controls {
-            position: absolute;
-            bottom: 18px;
-            right: 24px;
-            z-index: 100;
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            padding: 10px 12px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
-            transform-origin: right bottom;
-        }
-
-        .page-num {
-            font-size: 20px;
-            color: var(--accent-2);
-            font-weight: bold;
-            min-width: 50px;
-            text-align: center;
-        }
-
-        .btn {
-            background-color: var(--accent-2);
-            color: white;
-            border: none;
-            padding: 7px 14px;
-            font-size: 15px;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: background 0.3s;
-            font-family: 'Microsoft JhengHei', sans-serif;
-            opacity: 0.5;
-        }
-
-        .btn:hover {
-            opacity: 1;
-        }
-
-        #slide-3 p,
-        #slide-3 li,
-        #slide-5 p,
-        #slide-5 li,
-        #slide-8 p,
-        #slide-8 li {
-            font-size: 22px;
-            line-height: 1.42;
-            margin-bottom: 10px;
-        }
-
-        #slide-3 .slide-title,
-        #slide-5 .slide-title,
-        #slide-8 .slide-title,
-        #slide-4 .slide-title {
-            margin-bottom: 28px;
-        }
-
-        #slide-1 {
-            background-image: var(--bg-title);
-
-            .outer {
-                position: absolute;
-                top: 15%;
-                left: 8%;
-                width: 55%;
-                display: grid;
-                grid-template-columns: auto auto;
-                column-gap: 22px;
-                row-gap: 24px;
-                align-items: center;
-            }
-
-            .title-box {
-                width: 1000px;
-                height: 347px;
-                display: flex;
-                align-items: flex-end;
-                padding-left: 100px;
-                box-sizing: border-box;
-                grid-column: 1 / -1;
-            }
-
-            h1 {
-                font-size: 75px;
-                line-height: 1.3;
-                color: var(--accent-2);
-                font-weight: bold;
-                margin: 0;
-            }
-
-            .svg-gap {
-                grid-column: 1 / -1;
-                margin: -30px 2em -30px;
-            }
-
-            .svg-container {
-                width: 100%;
-                height: auto;
-                display: block;
-            }
-
-            .subtitle {
-                width: 650px;
-                text-align: center;
-                font-size: 38px;
-                font-weight: 700;
-                margin-top: -1em;
-                margin-bottom: 40px;
-                margin-left: 80px;
-                grid-column: 1;
-                color: var(--primary-2);
-            }
-
-            .date-badge {
-                font-size: 22px;
-                color: var(--primary-1);
-                grid-column: 2;
-                align-self: start;
-            }
-        }
-
-        #slide-2 {
-            .outer {
-                position: absolute;
-                top: 10%;
-                bottom: 10%;
-                left: 20%;
-                right: 20%;
-                display: grid;
-                grid-template-columns: auto 1fr;
-                align-items: start;
-                color: var(--primary-1);
-            }
-
-            .list {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 0;
-                justify-self: center;
-                align-self: center;
-            }
-
-            .item {
-                font-size: 38px;
-                font-weight: 700;
-                color: var(--accent-2);
-                display: flex;
-                align-items: center;
-                gap: 18px;
-                padding: 28px;
-            }
-
-            .hr {
-                width: 100%;
-                height: 2px;
-                background: linear-gradient(90deg, var(--primary-1) 0%, var(--accent-1) 33%, var(--accent-3) 100%);
-            }
-        }
-
-        #slide-3 {
-            .outer {
-                position: absolute;
-                top: 15%;
-                bottom: 15%;
-                left: 15%;
-                right: 15%;
-                display: grid;
-                grid-template-columns: auto 1fr;
-                align-items: start;
-                color: var(--primary-1);
-            }
-
-            .slide-title span {
-                font-size: 32px;
-                letter-spacing: 1px;
-            }
-
-            .list {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 0;
-                justify-self: center;
-                align-self: center;
-            }
-
-            .topic-row {
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                width: 100%;
-            }
-
-            .item {
-                font-size: 38px;
-                font-weight: 700;
-                color: var(--accent-2);
-                display: flex;
-                align-items: center;
-                gap: 18px;
-                padding: 12px 0;
-                flex: 0 0 auto;
-            }
-
-            .page {
-                font-size: 38px;
-                font-weight: 700;
-                color: var(--accent-2);
-                display: flex;
-                align-items: center;
-                gap: 18px;
-                padding: 12px 0;
-                margin-left: auto;
-                flex: 0 0 auto;
-            }
-
-            .svg-gap {
-                flex: 1 1 auto;
-                margin: 0 5% 0 10px;
-            }
-
-            .hr {
-                width: 100%;
-                height: 2px;
-                background: linear-gradient(90deg, var(--primary-1) 0%, var(--accent-1) 33%, var(--accent-3) 100%);
-            }
-
-            .svg-container {
-                width: 100%;
-                height: auto;
-                display: block;
-            }
-        }
-
-        @keyframes rotate-slow {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes rotate-fast-reverse {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(-360deg);
-            }
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-20px);
-            }
-
-            100% {
-                transform: translateY(0px);
-            }
-        }
-
-        #slide-5 {
-            .outer {
-                position: absolute;
-                top: 15%;
-                bottom: 15%;
-                left: 15%;
-                right: 15%;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 60px;
-            }
-
-            .text-content {
-                display: flex;
-                flex-direction: column;
-                gap: 25px;
-                flex: 1;
-            }
-
-            h1 {
-                font-size: 110px;
-                line-height: 1.2;
-                margin: 0;
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-            }
-
-            .subtitle {
-                font-size: 50px;
-                font-weight: 700;
-                color: var(--primary-2);
-                padding-left: 15px;
-                border-left: 8px solid var(--accent-1);
-            }
-
-            .description {
-                font-size: 32px;
-                color: var(--text);
-                max-width: 600px;
-                line-height: 1.6;
-                margin-top: 30px;
-            }
-
-            .graphic-container {
-                position: relative;
-                width: 550px;
-                height: 550px;
-                flex-shrink: 0;
-            }
-
-            .ring-1 {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                width: 520px;
-                height: 520px;
-                margin-top: -260px;
-                margin-left: -260px;
-                animation: rotate-slow 20s linear infinite;
-            }
-
-            .ring-2 {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                width: 380px;
-                height: 380px;
-                margin-top: -190px;
-                margin-left: -190px;
-                animation: rotate-fast-reverse 15s linear infinite;
-            }
-
-            .svg-gap {
-                grid-column: 1 / -1;
-                margin: -30px 0px -30px -100px;
-            }
-
-            .svg-container {
-                width: 100%;
-                height: auto;
-                display: block;
-            }
-
-            .center-icon {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                font-size: 110px;
-                color: var(--primary-1);
-                animation: float 4s ease-in-out infinite;
-                background: white;
-                width: 200px;
-                height: 200px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                box-shadow: 0 15px 40px rgba(0, 143, 199, 0.25);
-                border: 6px solid var(--accent-1);
-            }
-
-            .dot {
-                position: absolute;
-                border-radius: 50%;
-            }
-
-            .dot-1 {
-                width: 35px;
-                height: 35px;
-                background: var(--support-1);
-                top: 8%;
-                right: 8%;
-                animation: float 3s ease-in-out infinite 0.5s;
-            }
-
-            .dot-2 {
-                width: 25px;
-                height: 25px;
-                background: var(--support-3);
-                bottom: 10%;
-                left: 10%;
-                animation: float 3s ease-in-out infinite 1s;
-            }
-
-            .dot-3 {
-                width: 45px;
-                height: 45px;
-                background: var(--accent-3);
-                bottom: 20%;
-                right: 0%;
-                animation: float 4s ease-in-out infinite 1.5s;
-                opacity: 0.7;
-            }
-        }
-
-        #slide-6 {
-            .outer {
-                position: absolute;
-                top: 15%;
-                bottom: 15%;
-                left: 10%;
-                right: 10%;
-                display: flex;
-                flex-direction: column;
-                justify-self: center;
-            }
-
-            p,
-            li {
-                font-size: 30px;
-                line-height: 1.5;
-                color: var(--text);
-                margin-bottom: 12px;
-            }
-
-            .highlight-title {
-                font-size: 32px;
-                color: var(--accent-2);
-            }
-
-            .highlight-box p {
-                margin-top: 10px;
-            }
-
-            .highlight-emphasis {
-                font-weight: bold;
-                color: var(--accent-2);
-            }
-
-            .card h3 {
-                font-size: 35px;
-                margin-bottom: 20px;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-
-            .card-icon-accent3 {
-                color: var(--accent-3);
-            }
-
-            .card-icon-primary1 {
-                color: var(--primary-1);
-            }
-
-            .card-accent3 {
-                border-top-color: var(--accent-3);
-            }
-
-            .card-primary1 {
-                border-top-color: var(--primary-1);
-            }
-        }
-
-        #slide-7 {
-            .outer {
-                position: absolute;
-                top: 15%;
-                bottom: 15%;
-                left: 10%;
-                right: 10%;
-                display: flex;
-                flex-direction: column;
-                justify-self: center;
-            }
-
-            p,
-            li {
-                font-size: 30px;
-                line-height: 1.8;
-                color: var(--text);
-                margin-bottom: 12px;
-            }
-
-            .slide-title .icon-primary {
-                color: var(--primary-1);
-            }
-
-            .title-emphasis {
-                font-weight: bold;
-                color: var(--accent-2);
-                margin-bottom: 20px;
-            }
-
-            .grid-2 {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 40px;
-                flex: 1;
-                margin-top: 20px;
-            }
-
-            .card h3 {
-                font-size: 35px;
-                line-height: 1.5;
-                margin-bottom: 20px;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-            }
-
-            .card-case-one {
-                border-top-color: var(--support-1);
-                background-color: #fffbf0;
-            }
-
-            .card-case-one h3 {
-                color: var(--accent-2);
-            }
-
-            .text-support-4 {
-                color: var(--support-4);
-            }
-
-            .divider {
-                margin: 15px 0;
-                border-top: 1px dashed #ccc;
-            }
-
-            .card-case-two {
-                border-top-color: var(--support-3);
-            }
-        }
-
-        #slide-8 {
-            .outer {
-                position: absolute;
-                top: 15%;
-                bottom: 15%;
-                left: 10%;
-                right: 10%;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .content-columns {
-                display: grid;
-                grid-template-columns: 30% 1fr;
-                align-items: stretch;
-                flex: 1;
-                gap: 20px;
-            }
-
-            p {
-                font-size: 30px;
-                line-height: 1.5;
-                color: var(--text);
-                margin-bottom: 12px;
-            }
-
-            #left-col {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                gap: 15px;
-                padding-right: 20px;
-                box-sizing: border-box;
-                height: 100%;
-            }
-
-            .slide-title .icon-lightbulb {
-                color: var(--support-1);
-            }
-
-            .highlight-box {
-                padding: 10px 20px;
-                margin-bottom: 0px;
-            }
-
-            #right-col {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-around;
-                padding-left: 20px;
-                box-sizing: border-box;
-            }
-
-            .image {
-                width: 100%;
-                max-height: 60vh;
-                object-fit: contain;
-                border-radius: 12px;
-                margin: auto;
-            }
-
-            .entry-item {
-                display: flex;
-                flex-direction: column;
-                gap: 0;
-            }
-
-            .entry-header {
-                display: flex;
-                gap: 5px;
-                align-items: stretch;
-            }
-
-            .entry-title {
-                width: 30%;
-                color: var(--primary-1);
-                font-size: 30px;
-                font-weight: bold;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .entry-content {
-                flex: 1;
-                font-size: 28px;
-                line-height: 1.5;
-            }
-
-            .line-container {
-                width: 100%;
-                margin: 20px 0;
-                height: 4px;
-                background-image: linear-gradient(90deg, var(--primary-1) 0%, var(--accent-3) 50%, var(--bg) 100%);
-                background-size: 100% 4px;
-                background-position: left center;
-                background-repeat: no-repeat;
-            }
-        }
-
-        #slide-9 {
-            .outer {
-                position: absolute;
-                top: 5%;
-                bottom: 5%;
-                left: 10%;
-                right: 10%;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .header-row {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 10px;
-            }
-
-            .four-grid {
-                flex: 1;
-                display: grid;
-                grid-template-columns: 1fr auto 1fr;
-                grid-template-rows: 1fr auto 1fr;
-                gap: 0;
-                align-items: center;
-                justify-items: center;
-            }
-
-            .center-image {
-                grid-column: 2;
-                grid-row: 2;
-                width: 220px;
-                height: 220px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                position: relative;
-                z-index: 2;
-            }
-
-            .center-image::before {
-                content: '';
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                border-radius: 50%;
-                background-color: #e8ecf0;
-                z-index: -1;
-            }
-
-            .center-image i.center-icon {
-                font-size: 80px;
-                color: var(--primary-1);
-                position: relative;
-                z-index: 1;
-            }
-
-            .line-v {
-                grid-column: 2;
-                width: 3px;
-                height: 80%;
-                background: linear-gradient(to bottom, var(--primary-1), var(--accent-3));
-                position: relative;
-            }
-
-            .line-v-top {
-                grid-row: 1;
-            }
-
-            .line-v-bottom {
-                grid-row: 3;
-            }
-
-            .line-v::before,
-            .line-v::after {
-                content: '';
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 10px;
-                height: 10px;
-                border-radius: 50%;
-                border: 3px solid var(--primary-1);
-                background: var(--bg);
-            }
-
-            .line-v::before {
-                top: -5px;
-            }
-
-            .line-v::after {
-                bottom: -5px;
-                border-color: var(--accent-3);
-            }
-
-            .line-h {
-                grid-row: 2;
-                height: 3px;
-                width: 80%;
-                background: linear-gradient(to right, var(--primary-1), var(--accent-3));
-                position: relative;
-            }
-
-            .line-h-left {
-                grid-column: 1;
-            }
-
-            .line-h-right {
-                grid-column: 3;
-            }
-
-            .line-h::before,
-            .line-h::after {
-                content: '';
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 10px;
-                height: 10px;
-                border-radius: 50%;
-                border: 3px solid var(--primary-1);
-                background: var(--bg);
-            }
-
-            .line-h::before {
-                left: -5px;
-            }
-
-            .line-h::after {
-                right: -5px;
-                border-color: var(--accent-3);
-            }
-
-            .item-card {
-                display: flex;
-                align-items: flex-start;
-                gap: 15px;
-                padding: 8px;
-            }
-
-            .item-card.top-left {
-                grid-column: 1;
-                grid-row: 1;
-                align-self: end;
-                justify-self: stretch;
-                justify-content: flex-end;
-                transform: translateY(55px);
-                z-index: 1;
-            }
-
-            .item-card.top-right {
-                grid-column: 3;
-                grid-row: 1;
-                align-self: end;
-                justify-self: start;
-                transform: translateY(55px);
-                z-index: 1;
-            }
-
-            .item-card.bottom-left {
-                grid-column: 1;
-                grid-row: 3;
-                align-self: start;
-                justify-self: stretch;
-                justify-content: flex-end;
-                transform: translateY(-55px);
-                z-index: 1;
-            }
-
-            .item-card.bottom-right {
-                grid-column: 3;
-                grid-row: 3;
-                align-self: start;
-                justify-self: start;
-                transform: translateY(-55px);
-                z-index: 1;
-            }
-
-            .item-icon {
-                width: 60px;
-                height: 60px;
-                min-width: 60px;
-                border-radius: 50%;
-                background: linear-gradient(135deg, var(--primary-1), var(--accent-2));
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: var(--bg);
-                font-size: 30px;
-            }
-
-            .item-card .item-text {
-                width: 500px;
-            }
-
-            .item-text h3 {
-                color: var(--accent-2);
-                font-size: 28px;
-                font-weight: bold;
-                margin-bottom: 6px;
-            }
-
-            .item-text p {
-                font-size: 30px;
-                line-height: 1.5;
-                color: var(--text);
-                margin: 0;
-            }
-
-            .center-label {
-                text-align: center;
-                color: var(--primary-1);
-                font-size: 22px;
-                font-weight: bold;
-                margin-top: 5px;
-                position: relative;
-                z-index: 1;
-            }
-        }
-
-        #slide-10 {
-            .outer {
-                position: absolute;
-                top: 15%;
-                bottom: 15%;
-                left: 8%;
-                right: 8%;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .slide-title i {
-                color: var(--support-1);
-            }
-
-            .five-columns {
-                flex: 1;
-                display: grid;
-                grid-template-columns: repeat(5, 1fr);
-                gap: 12px;
-                align-items: start;
-                align-content: center;
-            }
-
-            .col-item {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                gap: 18px;
-            }
-
-            .icon-wrap {
-                width: 120px;
-                height: 120px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                position: relative;
-                flex-shrink: 0;
-                font-size: 48px;
-            }
-
-            .col-item:nth-child(1) .icon-wrap {
-                color: var(--primary-1);
-            }
-
-            .col-item:nth-child(2) .icon-wrap {
-                color: var(--primary-2);
-            }
-
-            .col-item:nth-child(3) .icon-wrap {
-                color: var(--accent-2);
-            }
-
-            .col-item:nth-child(4) .icon-wrap {
-                color: var(--accent-3);
-            }
-
-            .col-item:nth-child(5) .icon-wrap {
-                color: var(--support-4);
-            }
-
-            .col-item:nth-child(1) .icon-wrap {
-                background: rgba(0, 143, 199, 0.12);
-            }
-
-            .col-item:nth-child(2) .icon-wrap {
-                background: rgba(0, 165, 155, 0.12);
-            }
-
-            .col-item:nth-child(3) .icon-wrap {
-                background: rgba(0, 212, 240, 0.12);
-            }
-
-            .col-item:nth-child(4) .icon-wrap {
-                background: rgba(48, 218, 162, 0.12);
-            }
-
-            .col-item:nth-child(5) .icon-wrap {
-                background: rgba(255, 201, 79, 0.12);
-            }
-
-            .col-item h3 {
-                font-size: 32px;
-                font-weight: bold;
-                margin: 0;
-            }
-
-            .col-item:nth-child(1) h3 {
-                color: var(--primary-1);
-            }
-
-            .col-item:nth-child(2) h3 {
-                color: var(--primary-2);
-            }
-
-            .col-item:nth-child(3) h3 {
-                color: var(--accent-2);
-            }
-
-            .col-item:nth-child(4) h3 {
-                color: var(--accent-3);
-            }
-
-            .col-item:nth-child(5) h3 {
-                color: var(--support-4);
-            }
-
-            .col-item hr {
-                width: 50px;
-                border: none;
-                height: 3px;
-                border-radius: 2px;
-                margin: 2px auto;
-            }
-
-            .col-item:nth-child(1) hr {
-                background: var(--primary-1);
-            }
-
-            .col-item:nth-child(2) hr {
-                background: var(--primary-2);
-            }
-
-            .col-item:nth-child(3) hr {
-                background: var(--accent-2);
-            }
-
-            .col-item:nth-child(4) hr {
-                background: var(--accent-3);
-            }
-
-            .col-item:nth-child(5) hr {
-                background: var(--support-4);
-            }
-
-            .col-item p {
-                font-size: 28px;
-                line-height: 1.7;
-                color: var(--text);
-                margin: 0;
-                text-align: left;
-                padding: 0 4px;
-            }
-        }
-
-        #slide-11 {
-            .outer {
-                position: absolute;
-                top: 12%;
-                bottom: 12%;
-                left: 12%;
-                right: 12%;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .header-row {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 40px;
-            }
-
-            .six-grid {
-                flex: 1;
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                grid-template-rows: 1fr 1fr;
-                gap: 28px;
-            }
-
-            .tile-card {
-                background: var(--bg);
-                border-radius: 16px;
-                box-shadow: 0 8px 30px rgba(0, 79, 116, 0.10);
-                border: 1px solid var(--border);
-                padding: 28px 24px 22px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                position: relative;
-                overflow: hidden;
-                transition: transform 0.3s, box-shadow 0.3s;
-            }
-
-            .tile-card:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 14px 40px rgba(0, 79, 116, 0.18);
-            }
-
-            .tile-card::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 5px;
-            }
-
-            .tile-card:nth-child(1)::before {
-                background: linear-gradient(90deg, var(--primary-1), var(--accent-1));
-            }
-
-            .tile-card:nth-child(2)::before {
-                background: linear-gradient(90deg, var(--accent-1), var(--accent-3));
-            }
-
-            .tile-card:nth-child(3)::before {
-                background: linear-gradient(90deg, var(--accent-3), var(--primary-2));
-            }
-
-            .tile-card:nth-child(4)::before {
-                background: linear-gradient(90deg, var(--support-1), var(--support-3));
-            }
-
-            .tile-card:nth-child(5)::before {
-                background: linear-gradient(90deg, var(--support-3), var(--support-5));
-            }
-
-            .tile-card:nth-child(6)::before {
-                background: linear-gradient(90deg, var(--support-5), var(--accent-2));
-            }
-
-            .tile-icon {
-                font-size: 52px;
-                margin-bottom: 14px;
-            }
-
-            .tile-card:nth-child(1) .tile-icon {
-                color: var(--primary-1);
-            }
-
-            .tile-card:nth-child(2) .tile-icon {
-                color: var(--accent-1);
-            }
-
-            .tile-card:nth-child(3) .tile-icon {
-                color: var(--primary-2);
-            }
-
-            .tile-card:nth-child(4) .tile-icon {
-                color: var(--support-1);
-            }
-
-            .tile-card:nth-child(5) .tile-icon {
-                color: var(--support-3);
-            }
-
-            .tile-card:nth-child(6) .tile-icon {
-                color: var(--support-5);
-            }
-
-            .tile-card h3 {
-                color: var(--accent-2);
-                font-size: 35px;
-                font-weight: bold;
-                margin-bottom: 10px;
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
-
-            .tile-card h3 .num-badge {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                width: 32px;
-                height: 32px;
-                border-radius: 50%;
-                font-size: 18px;
-                color: var(--bg);
-                flex-shrink: 0;
-            }
-
-            .tile-card:nth-child(1) .num-badge {
-                background: var(--primary-1);
-            }
-
-            .tile-card:nth-child(2) .num-badge {
-                background: var(--accent-1);
-            }
-
-            .tile-card:nth-child(3) .num-badge {
-                background: var(--primary-2);
-            }
-
-            .tile-card:nth-child(4) .num-badge {
-                background: var(--support-1);
-            }
-
-            .tile-card:nth-child(5) .num-badge {
-                background: var(--support-3);
-            }
-
-            .tile-card:nth-child(6) .num-badge {
-                background: var(--support-5);
-            }
-
-            .tile-card p {
-                font-size: 24px;
-                line-height: 1.6;
-                color: var(--text);
-                margin: 0;
-            }
-        }
-
-        #slide-12 {
-            .outer {
-                position: absolute;
-                top: 10%;
-                bottom: 5%;
-                left: 15%;
-                right: 15%;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .header-row {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 15px;
-            }
-
-            .honeycomb {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 0;
-                position: relative;
-            }
-
-            .hex-row {
-                display: flex;
-                justify-content: center;
-                gap: 10px;
-            }
-
-            .hex-row.row-mid,
-            .hex-row.row-bottom {
-                margin-top: -58px;
-            }
-
-            .hex-card {
-                width: 240px;
-                height: 264px;
-                position: relative;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding: 30px 20px;
-                justify-content: flex-start;
-                text-align: center;
-                clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-                background: var(--bg);
-                cursor: default;
-            }
-
-            .hex-wrap {
-                transition: transform 0.3s, filter 0.3s;
-            }
-
-            .hex-wrap:hover {
-                transform: scale(1.05);
-                filter: drop-shadow(0 6px 18px rgba(0, 79, 116, 0.25));
-            }
-
-            .hex-wrap {
-                position: relative;
-            }
-
-            .hex-wrap::before {
-                content: '';
-                position: absolute;
-                top: -3px;
-                left: -3px;
-                width: 246px;
-                height: 270px;
-                clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-                z-index: -1;
-            }
-
-            .hex-wrap:nth-child(1)::before {
-                background: linear-gradient(135deg, var(--primary-1), var(--accent-1));
-            }
-
-            .hex-wrap:nth-child(2)::before {
-                background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
-            }
-
-            .hex-wrap:nth-child(3)::before {
-                background: linear-gradient(135deg, var(--primary-2), var(--accent-3));
-            }
-
-            .hex-wrap:nth-child(4)::before {
-                background: linear-gradient(135deg, var(--support-1), var(--support-3));
-            }
-
-            .hex-wrap:nth-child(5)::before {
-                background: linear-gradient(135deg, var(--support-3), var(--support-5));
-            }
-
-            .hex-row.row-mid .hex-wrap:nth-child(1)::before {
-                background: linear-gradient(135deg, var(--accent-3), var(--primary-2));
-            }
-
-            .hex-row.row-mid .hex-wrap:nth-child(2)::before {
-                background: transparent;
-            }
-
-            .hex-row.row-mid .hex-wrap:nth-child(3)::before {
-                background: linear-gradient(135deg, var(--support-1), var(--support-3));
-            }
-
-            .hex-row.row-bottom .hex-wrap:nth-child(1)::before {
-                background: linear-gradient(135deg, var(--support-3), var(--support-5));
-            }
-
-            .hex-row.row-bottom .hex-wrap:nth-child(2)::before {
-                background: linear-gradient(135deg, var(--support-5), var(--accent-2));
-            }
-
-            .hex-card.center-hex {
-                background: transparent;
-                pointer-events: none;
-            }
-
-            .hex-wrap:has(.center-hex):hover {
-                transform: none;
-                filter: none;
-            }
-
-            .hex-icon {
-                font-size: 42px;
-                margin-bottom: 4px;
-            }
-
-            .hex-row.row-top .hex-wrap:nth-child(1) .hex-icon {
-                color: var(--primary-1);
-            }
-
-            .hex-row.row-top .hex-wrap:nth-child(2) .hex-icon {
-                color: var(--accent-1);
-            }
-
-            .hex-row.row-mid .hex-wrap:nth-child(1) .hex-icon {
-                color: var(--primary-2);
-            }
-
-            .hex-row.row-mid .hex-wrap:nth-child(3) .hex-icon {
-                color: var(--support-1);
-            }
-
-            .hex-row.row-bottom .hex-wrap:nth-child(1) .hex-icon {
-                color: var(--support-3);
-            }
-
-            .hex-row.row-bottom .hex-wrap:nth-child(2) .hex-icon {
-                color: var(--support-5);
-            }
-
-            .hex-title {
-                font-size: 34px;
-                font-weight: bold;
-                color: var(--accent-2);
-                margin-bottom: 4px;
-            }
-
-            .hex-desc {
-                font-size: 22px;
-                line-height: 1.5;
-                color: var(--text);
-                margin: 0;
-            }
-        }
-
-        #slide-14 {
-            .outer {
-                position: absolute;
-                top: 12%;
-                bottom: 12%;
-                left: 10%;
-                right: 10%;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .header-row {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 32px;
-            }
-
-            .eight-grid {
-                flex: 1;
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                grid-template-rows: 1fr 1fr;
-                gap: 22px;
-            }
-
-            .tile-card {
-                background: var(--bg);
-                border-radius: 16px;
-                box-shadow: 0 8px 30px rgba(0, 79, 116, 0.10);
-                border: 1px solid var(--border);
-                padding: 22px 18px 18px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                position: relative;
-                overflow: hidden;
-                transition: transform 0.3s, box-shadow 0.3s;
-            }
-
-            .tile-card:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 14px 40px rgba(0, 79, 116, 0.18);
-            }
-
-            .tile-card::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 5px;
-            }
-
-            .tile-card:nth-child(1)::before {
-                background: linear-gradient(90deg, var(--primary-1), var(--accent-1));
-            }
-
-            .tile-card:nth-child(2)::before {
-                background: linear-gradient(90deg, var(--accent-1), var(--accent-3));
-            }
-
-            .tile-card:nth-child(3)::before {
-                background: linear-gradient(90deg, var(--accent-3), var(--primary-2));
-            }
-
-            .tile-card:nth-child(4)::before {
-                background: linear-gradient(90deg, var(--primary-2), var(--support-1));
-            }
-
-            .tile-card:nth-child(5)::before {
-                background: linear-gradient(90deg, var(--support-1), var(--support-3));
-            }
-
-            .tile-card:nth-child(6)::before {
-                background: linear-gradient(90deg, var(--support-3), var(--support-5));
-            }
-
-            .tile-card:nth-child(7)::before {
-                background: linear-gradient(90deg, var(--support-5), var(--accent-2));
-            }
-
-            .tile-card:nth-child(8)::before {
-                background: linear-gradient(90deg, var(--accent-2), var(--primary-1));
-            }
-
-            .tile-icon {
-                font-size: 48px;
-                margin-bottom: 10px;
-            }
-
-            .tile-card:nth-child(1) .tile-icon {
-                color: var(--primary-1);
-            }
-
-            .tile-card:nth-child(2) .tile-icon {
-                color: var(--accent-1);
-            }
-
-            .tile-card:nth-child(3) .tile-icon {
-                color: var(--primary-2);
-            }
-
-            .tile-card:nth-child(4) .tile-icon {
-                color: var(--support-1);
-            }
-
-            .tile-card:nth-child(5) .tile-icon {
-                color: var(--support-3);
-            }
-
-            .tile-card:nth-child(6) .tile-icon {
-                color: var(--support-5);
-            }
-
-            .tile-card:nth-child(7) .tile-icon {
-                color: var(--accent-2);
-            }
-
-            .tile-card:nth-child(8) .tile-icon {
-                color: var(--primary-1);
-            }
-
-            .tile-card h3 {
-                color: var(--accent-2);
-                font-size: 33px;
-                font-weight: bold;
-                margin-bottom: 8px;
-                display: flex;
-                align-items: center;
-                gap: 8px;
-            }
-
-            .tile-card h3 .num-badge {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                width: 28px;
-                height: 28px;
-                border-radius: 50%;
-                font-size: 16px;
-                color: var(--bg);
-                flex-shrink: 0;
-            }
-
-            .tile-card:nth-child(1) .num-badge {
-                background: var(--primary-1);
-            }
-
-            .tile-card:nth-child(2) .num-badge {
-                background: var(--accent-1);
-            }
-
-            .tile-card:nth-child(3) .num-badge {
-                background: var(--primary-2);
-            }
-
-            .tile-card:nth-child(4) .num-badge {
-                background: var(--support-1);
-            }
-
-            .tile-card:nth-child(5) .num-badge {
-                background: var(--support-3);
-            }
-
-            .tile-card:nth-child(6) .num-badge {
-                background: var(--support-5);
-            }
-
-            .tile-card:nth-child(7) .num-badge {
-                background: var(--accent-2);
-            }
-
-            .tile-card:nth-child(8) .num-badge {
-                background: var(--primary-1);
-            }
-
-            .tile-card p {
-                font-size: 24px;
-                line-height: 1.6;
-                color: var(--text);
-                margin: 0;
-            }
-        }
-
-        #slide-15 {
-            .outer {
-                position: absolute;
-                top: 10%;
-                bottom: 10%;
-                left: 10%;
-                right: 10%;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .header-row {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 32px;
-            }
-
-            .table-wrap {
-                flex: 1;
-                display: flex;
-                align-items: flex-start;
-            }
-
-            table {
-                width: 100%;
-                border-collapse: separate;
-                border-spacing: 0;
-                border-radius: 16px;
-                overflow: hidden;
-                box-shadow: 0 8px 30px rgba(0, 79, 116, 0.10);
-                font-size: 24px;
-            }
-
-            thead th {
-                background: linear-gradient(135deg, var(--primary-1), var(--accent-2));
-                color: var(--bg);
-                font-weight: bold;
-                padding: 20px 24px;
-                text-align: center;
-                font-size: 26px;
-                letter-spacing: 1px;
-                border-bottom: 3px solid var(--accent-1);
-            }
-
-            thead th:first-child {
-                text-align: left;
-                padding-left: 32px;
-            }
-
-            tbody tr {
-                transition: background 0.25s;
-            }
-
-            tbody tr:nth-child(odd) {
-                background: var(--bg);
-            }
-
-            tbody tr:nth-child(even) {
-                background: var(--bg-soft);
-            }
-
-            tbody tr:hover {
-                background: rgba(0, 143, 199, 0.06);
-            }
-
-            tbody td {
-                padding: 18px 24px;
-                text-align: center;
-                border-bottom: 1px solid var(--border);
-                color: var(--text);
-                line-height: 1.5;
-            }
-
-            tbody td:first-child {
-                text-align: left;
-                padding-left: 32px;
-                font-weight: bold;
-                color: var(--accent-2);
-                font-size: 25px;
-            }
-
-            tbody tr:last-child td {
-                border-bottom: none;
-            }
-
-            .provider-name {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: white;
-                gap: 12px;
-            }
-
-            .provider-logo {
-                width: 36px;
-                height: 36px;
-                border-radius: 8px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 18px;
-                color: white;
-                flex-shrink: 0;
-            }
-
-            .logo-aws {
-                background: linear-gradient(135deg, #FF9900, #FF6600);
-            }
-
-            .logo-azure {
-                background: linear-gradient(135deg, #0078D4, #00BCF2);
-            }
-
-            .logo-gcp {
-                background: linear-gradient(135deg, #4285F4, #34A853);
-            }
-
-            .badge {
-                display: inline-block;
-                padding: 3px 12px;
-                border-radius: 20px;
-                font-size: 18px;
-                font-weight: bold;
-            }
-
-            .badge-best {
-                background: rgba(0, 163, 155, 0.12);
-                color: var(--primary-2);
-            }
-
-            .badge-good {
-                background: rgba(0, 143, 199, 0.10);
-                color: var(--primary-1);
-            }
-
-            .check {
-                color: var(--primary-2);
-                font-size: 22px;
-            }
-        }
-
-        #slide-4 {
-            .outer {
-                position: absolute;
-                top: 10%;
-                bottom: 10%;
-                left: 12%;
-                right: 12%;
-                display: flex;
-                flex-direction: column;
-                gap: 24px;
-                justify-content: center;
-            }
-
-            .content-box {
-                background: rgba(255, 255, 255, 0.9);
-                border-radius: 24px;
-                padding: 32px;
-                box-shadow: 0 24px 40px rgba(0, 79, 116, 0.15);
-                font-size: 48px;
-                letter-spacing: 0.5px;
-                line-height: 1.6;
-                color: var(--text);
-            }
-
-            .info-note {
-                font-size: 36px;
-                color: var(--accent-2);
-                margin-top: 8px;
-            }
-        }
-
-        #slide-16 {
-            .outer {
-                position: absolute;
-                top: 2%;
-                bottom: 5%;
-                left: 3%;
-                right: 3%;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .header-row {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 10px;
-                padding-left: 120px;
-                padding-right: 100px;
-            }
-
-            .image-wrap {
-                flex: 1;
-                min-height: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .image-wrap img {
-                max-width: 100%;
-                max-height: 100%;
-                object-fit: contain;
-                border-radius: 16px;
-                box-shadow: 0 8px 30px rgba(0, 79, 116, 0.10);
-                transition: all 0.3s ease;
-                cursor: pointer;
-            }
-        }
-
-        #slide-17 {
-            .outer {
-                position: absolute;
-                top: 2%;
-                bottom: 5%;
-                left: 3%;
-                right: 3%;
-                display: flex;
-                flex-direction: column;
-            }
-
-            .header-row {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 10px;
-                padding-left: 120px;
-                padding-right: 100px;
-            }
-
-            .image-wrap-2 {
-                flex: 1;
-                min-height: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 30px;
-            }
-
-            .image-box {
-                flex: 1;
-                min-width: 0;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-            }
-
-            .image-wrap-2 img {
-                max-width: 100%;
-                max-height: 100%;
-                object-fit: contain;
-                border-radius: 16px;
-                box-shadow: 0 8px 30px rgba(0, 79, 116, 0.10);
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-                cursor: pointer;
-            }
-
-            .image-wrap-2 img:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 15px 40px rgba(0, 79, 116, 0.20);
-            }
-        }
-
-        #slide-18 {
-            /*底圖的正中間已有大大的THANK YOU文字, 所以不要再放文字在正中間, 如果要客製, 底圖要用bg-other*/
-            background-image: var(--bg-thanks);
-        }
-    </style>
+   <title>Agent Skills 導入策略</title>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <style>
+       :root {
+           /*色碼和url不可變*/
+           /*主色 使用範圍:封面,封底,內頁色塊,線條 副標,小標,圖表*/
+           --primary-1: #008FC7;
+           --primary-2: #00A59B;
+           /*一級輔色 使用範圍:Flat Icon,圖表,Smart Art,優先使用一級輔色*/
+           --accent-1: #00D4F0;
+           --accent-2: #004F74;
+           --accent-3: #30DAA2;
+           /*二級輔色 特殊情況需使用較多顏色時,二級輔色可使用同色階以不同程度的較淺變化使用，例如在同一色碼基礎上，調整亮度 / 明度，作為背景或弱化元素
+       禁止隨意新增不相關色相，避免破壞品牌一致性*/
+           --support-1: #FFC94F;
+           --support-2: #FF8933;
+           --support-3: #E99385;
+           --support-4: #E03E57;
+           --support-5: #8D48A2;
+           --bg: #FFFFFF;
+           --bg-soft: #FBFBFB;
+           --text: #000000;
+           --border: rgba(0, 79, 116, 0.18);
+           --bg-title: url("bg_title.jpg");
+           --bg-other: url("bg_other.jpg");
+           --bg-thanks: url("bg_thanks.jpg");
+       }
+
+       * {
+           box-sizing: border-box;
+           margin: 0;
+           padding: 0;
+       }
+
+       html,
+       body {
+           width: 100%;
+           height: 100%;
+           margin: 0;
+       }
+
+       body {
+           font-family: 'Segoe UI', 'Microsoft JhengHei', system-ui, -apple-system, sans-serif;
+           background: radial-gradient(1200px 700px at 20% 10%, rgba(0, 143, 199)), radial-gradient(900px 600px at 90% 30%, rgba(0, 165, 155)), #E9EEF3;
+           height: 100vh;
+           overflow: hidden;
+           display: block;
+       }
+
+       #presentation-container {
+           width: 100vw;
+           height: 100vh;
+           background-color: var(--bg);
+           position: relative;
+           border-radius: 0;
+           box-shadow: none;
+           overflow: hidden;
+       }
+
+       .slide {
+           position: absolute;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           padding: 70px 88px 130px;
+           opacity: 0;
+           transition: opacity 0.4s ease-in-out;
+           pointer-events: none;
+           display: flex;
+           flex-direction: column;
+           background-color: transparent;
+           background-image: var(--bg-other);
+           background-size: 100% 100%;
+           background-position: center;
+           background-repeat: no-repeat;
+       }
+
+           .slide.active {
+               opacity: 1;
+               pointer-events: auto;
+               z-index: 10;
+           }
+
+       h1,
+       h2,
+       h3 {
+           color: var(--primary-1);
+           font-weight: bold;
+       }
+
+       p,
+       li {
+           font-size: 24px;
+           line-height: 1.5;
+           color: var(--text);
+           margin-bottom: 12px;
+       }
+
+       ul {
+           padding-left: 30px;
+       }
+
+       li::marker {
+           color: var(--primary-1);
+           font-size: 1.2em;
+       }
+
+       .slide-title {
+           font-size: 52px;
+           color: var(--primary-1);
+           font-weight: bold;
+           margin-bottom: 40px;
+           padding-bottom: 20px;
+           border-bottom: none;
+           background-image: linear-gradient(90deg, var(--primary-1) 0%, var(--accent-3) 50%, var(--bg) 100%);
+           background-size: 100% 4px;
+           background-position: left bottom;
+           background-repeat: no-repeat;
+           display: flex;
+           align-items: center;
+           gap: 15px;
+       }
+
+       .highlight-box {
+           background-color: var(--bg-soft);
+           border-left: 8px solid var(--primary-2);
+           padding: 26px;
+           border-radius: 0 12px 12px 0;
+           margin-bottom: 30px;
+       }
+
+       .grid-2 {
+           display: grid;
+           grid-template-columns: 1fr 1fr;
+           gap: 40px;
+           flex: 1;
+       }
+
+       .card {
+           background: var(--bg);
+           padding: 30px;
+           border-radius: 14px;
+           box-shadow: 0 6px 26px rgba(0, 79, 116, 0.10);
+           border: 1px solid rgba(0, 79, 116, 0.10);
+           border-top: 6px solid var(--primary-1);
+           position: relative;
+       }
+
+           .card h3 {
+               font-size: 28px;
+               margin-bottom: 20px;
+               display: flex;
+               align-items: center;
+               gap: 10px;
+           }
+
+       .badge {
+           display: inline-block;
+           padding: 4px 12px;
+           border-radius: 20px;
+           color: white;
+           font-size: 16px;
+           font-weight: bold;
+           vertical-align: middle;
+           margin-left: 10px;
+       }
+
+       .controls {
+           position: absolute;
+           bottom: 18px;
+           right: 24px;
+           z-index: 100;
+           display: flex;
+           gap: 15px;
+           align-items: center;
+           padding: 10px 12px;
+           border-radius: 12px;
+           box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+           transform-origin: right bottom;
+       }
+
+       .page-num {
+           font-size: 20px;
+           color: var(--accent-2);
+           font-weight: bold;
+           min-width: 50px;
+           text-align: center;
+       }
+
+       .btn {
+           background-color: var(--accent-2);
+           color: white;
+           border: none;
+           padding: 7px 14px;
+           font-size: 15px;
+           border-radius: 3px;
+           cursor: pointer;
+           transition: background 0.3s;
+           font-family: 'Microsoft JhengHei', sans-serif;
+           opacity: 0.5;
+       }
+
+           .btn:hover {
+               opacity: 1;
+           }
+
+       #slide-3 p,
+       #slide-3 li,
+       #slide-5 p,
+       #slide-5 li,
+       #slide-8 p,
+       #slide-8 li {
+           font-size: 22px;
+           line-height: 1.42;
+           margin-bottom: 10px;
+       }
+
+       #slide-3 .slide-title,
+       #slide-5 .slide-title,
+       #slide-8 .slide-title,
+       #slide-4 .slide-title {
+           margin-bottom: 28px;
+       }
+
+       #slide-1 {
+           background-image: var(--bg-title);
+           .outer
+
+       {
+           position: absolute;
+           top: 15%;
+           left: 8%;
+           width: 55%;
+           display: grid;
+           grid-template-columns: auto auto;
+           column-gap: 22px;
+           row-gap: 24px;
+           align-items: center;
+       }
+
+       .title-box {
+           width: 1000px;
+           height: 347px;
+           display: flex;
+           align-items: flex-end;
+           padding-left: 100px;
+           box-sizing: border-box;
+           grid-column: 1 / -1;
+       }
+
+       h1 {
+           font-size: 75px;
+           line-height: 1.3;
+           color: var(--accent-2);
+           font-weight: bold;
+           margin: 0;
+       }
+
+       .svg-gap {
+           grid-column: 1 / -1;
+           margin: -30px 2em -30px;
+       }
+
+       .svg-container {
+           width: 100%;
+           height: auto;
+           display: block;
+       }
+
+       .subtitle {
+           width: 650px;
+           text-align: center;
+           font-size: 38px;
+           font-weight: 700;
+           margin-top: -1em;
+           margin-bottom: 40px;
+           margin-left: 80px;
+           grid-column: 1;
+           color: var(--primary-2);
+       }
+
+       .date-badge {
+           font-size: 22px;
+           color: var(--primary-1);
+           grid-column: 2;
+           align-self: start;
+       }
+
+       }
+
+       #slide-2 {
+           .outer
+
+       {
+           position: absolute;
+           top: 10%;
+           bottom: 10%;
+           left: 20%;
+           right: 20%;
+           display: grid;
+           grid-template-columns: auto 1fr;
+           align-items: start;
+           color: var(--primary-1);
+       }
+
+       .list {
+           flex: 1;
+           display: flex;
+           flex-direction: column;
+           justify-content: center;
+           align-items: center;
+           gap: 0;
+           justify-self: center;
+           align-self: center;
+       }
+
+       .item {
+           font-size: 38px;
+           font-weight: 700;
+           color: var(--accent-2);
+           display: flex;
+           align-items: center;
+           gap: 18px;
+           padding: 28px;
+       }
+
+       .hr {
+           width: 100%;
+           height: 2px;
+           background: linear-gradient(90deg, var(--primary-1) 0%, var(--accent-1) 33%, var(--accent-3) 100%);
+       }
+
+       }
+
+       #slide-3 {
+           .outer
+
+       {
+           position: absolute;
+           top: 15%;
+           bottom: 15%;
+           left: 15%;
+           right: 15%;
+           display: grid;
+           grid-template-columns: auto 1fr;
+           align-items: start;
+           color: var(--primary-1);
+       }
+
+       .list {
+           flex: 1;
+           display: flex;
+           flex-direction: column;
+           justify-content: center;
+           align-items: center;
+           gap: 0;
+           justify-self: center;
+           align-self: center;
+       }
+
+       .topic-row {
+           display: flex;
+           align-items: center;
+           gap: 12px;
+           width: 100%;
+       }
+
+       .item {
+           font-size: 38px;
+           font-weight: 700;
+           color: var(--accent-2);
+           display: flex;
+           align-items: center;
+           gap: 18px;
+           padding: 12px 0;
+           flex: 0 0 auto;
+       }
+
+       .page {
+           font-size: 38px;
+           font-weight: 700;
+           color: var(--accent-2);
+           display: flex;
+           align-items: center;
+           gap: 18px;
+           padding: 12px 0;
+           margin-left: auto;
+           flex: 0 0 auto;
+       }
+
+       .svg-gap {
+           flex: 1 1 auto;
+           margin: 0 5% 0 10px;
+       }
+
+       .hr {
+           width: 100%;
+           height: 2px;
+           background: linear-gradient(90deg, var(--primary-1) 0%, var(--accent-1) 33%, var(--accent-3) 100%);
+       }
+
+       .svg-container {
+           width: 100%;
+           height: auto;
+           display: block;
+       }
+
+       }
+
+       @keyframes rotate-slow {
+           from {
+               transform: rotate(0deg);
+           }
+
+           to {
+               transform: rotate(360deg);
+           }
+       }
+
+       @keyframes rotate-fast-reverse {
+           from {
+               transform: rotate(0deg);
+           }
+
+           to {
+               transform: rotate(-360deg);
+           }
+       }
+
+       @keyframes float {
+           0% {
+               transform: translateY(0px);
+           }
+
+           50% {
+               transform: translateY(-20px);
+           }
+
+           100% {
+               transform: translateY(0px);
+           }
+       }
+
+       #slide-5 {
+           .outer
+
+       {
+           position: absolute;
+           top: 15%;
+           bottom: 15%;
+           left: 15%;
+           right: 15%;
+           display: flex;
+           align-items: center;
+           justify-content: space-between;
+           gap: 60px;
+       }
+
+       .text-content {
+           display: flex;
+           flex-direction: column;
+           gap: 25px;
+           flex: 1;
+       }
+
+       h1 {
+           font-size: 110px;
+           line-height: 1.2;
+           margin: 0;
+           text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+       }
+
+       .subtitle {
+           font-size: 50px;
+           font-weight: 700;
+           color: var(--primary-2);
+           padding-left: 15px;
+           border-left: 8px solid var(--accent-1);
+       }
+
+       .description {
+           font-size: 32px;
+           color: var(--text);
+           max-width: 600px;
+           line-height: 1.6;
+           margin-top: 30px;
+       }
+
+       .graphic-container {
+           position: relative;
+           width: 550px;
+           height: 550px;
+           flex-shrink: 0;
+       }
+
+       .ring-1 {
+           position: absolute;
+           top: 50%;
+           left: 50%;
+           width: 520px;
+           height: 520px;
+           margin-top: -260px;
+           margin-left: -260px;
+           animation: rotate-slow 20s linear infinite;
+       }
+
+       .ring-2 {
+           position: absolute;
+           top: 50%;
+           left: 50%;
+           width: 380px;
+           height: 380px;
+           margin-top: -190px;
+           margin-left: -190px;
+           animation: rotate-fast-reverse 15s linear infinite;
+       }
+
+       .svg-gap {
+           grid-column: 1 / -1;
+           margin: -30px 0px -30px -100px;
+       }
+
+       .svg-container {
+           width: 100%;
+           height: auto;
+           display: block;
+       }
+
+       .center-icon {
+           position: absolute;
+           top: 50%;
+           left: 50%;
+           transform: translate(-50%, -50%);
+           font-size: 110px;
+           color: var(--primary-1);
+           animation: float 4s ease-in-out infinite;
+           background: white;
+           width: 200px;
+           height: 200px;
+           border-radius: 50%;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           box-shadow: 0 15px 40px rgba(0, 143, 199, 0.25);
+           border: 6px solid var(--accent-1);
+       }
+
+       .dot {
+           position: absolute;
+           border-radius: 50%;
+       }
+
+       .dot-1 {
+           width: 35px;
+           height: 35px;
+           background: var(--support-1);
+           top: 8%;
+           right: 8%;
+           animation: float 3s ease-in-out infinite 0.5s;
+       }
+
+       .dot-2 {
+           width: 25px;
+           height: 25px;
+           background: var(--support-3);
+           bottom: 10%;
+           left: 10%;
+           animation: float 3s ease-in-out infinite 1s;
+       }
+
+       .dot-3 {
+           width: 45px;
+           height: 45px;
+           background: var(--accent-3);
+           bottom: 20%;
+           right: 0%;
+           animation: float 4s ease-in-out infinite 1.5s;
+           opacity: 0.7;
+       }
+
+       }
+
+       #slide-6 {
+           .outer
+
+       {
+           position: absolute;
+           top: 15%;
+           bottom: 15%;
+           left: 10%;
+           right: 10%;
+           display: flex;
+           flex-direction: column;
+           justify-self: center;
+       }
+
+       p,
+       li {
+           font-size: 30px;
+           line-height: 1.5;
+           color: var(--text);
+           margin-bottom: 12px;
+       }
+
+       .highlight-title {
+           font-size: 32px;
+           color: var(--accent-2);
+       }
+
+       .highlight-box p {
+           margin-top: 10px;
+       }
+
+       .highlight-emphasis {
+           font-weight: bold;
+           color: var(--accent-2);
+       }
+
+       .card h3 {
+           font-size: 35px;
+           margin-bottom: 20px;
+           display: flex;
+           align-items: center;
+           gap: 10px;
+       }
+
+       .card-icon-accent3 {
+           color: var(--accent-3);
+       }
+
+       .card-icon-primary1 {
+           color: var(--primary-1);
+       }
+
+       .card-accent3 {
+           border-top-color: var(--accent-3);
+       }
+
+       .card-primary1 {
+           border-top-color: var(--primary-1);
+       }
+
+       }
+
+       #slide-7 {
+           .outer
+
+       {
+           position: absolute;
+           top: 15%;
+           bottom: 15%;
+           left: 10%;
+           right: 10%;
+           display: flex;
+           flex-direction: column;
+           justify-self: center;
+       }
+
+       p,
+       li {
+           font-size: 30px;
+           line-height: 1.8;
+           color: var(--text);
+           margin-bottom: 12px;
+       }
+
+       .slide-title .icon-primary {
+           color: var(--primary-1);
+       }
+
+       .title-emphasis {
+           font-weight: bold;
+           color: var(--accent-2);
+           margin-bottom: 20px;
+       }
+
+       .grid-2 {
+           display: grid;
+           grid-template-columns: 1fr 1fr;
+           gap: 40px;
+           flex: 1;
+           margin-top: 20px;
+       }
+
+       .card h3 {
+           font-size: 35px;
+           line-height: 1.5;
+           margin-bottom: 20px;
+           display: flex;
+           align-items: center;
+           gap: 10px;
+       }
+
+       .card-case-one {
+           border-top-color: var(--support-1);
+           background-color: #fffbf0;
+       }
+
+           .card-case-one h3 {
+               color: var(--accent-2);
+           }
+
+       .text-support-4 {
+           color: var(--support-4);
+       }
+
+       .divider {
+           margin: 15px 0;
+           border-top: 1px dashed #ccc;
+       }
+
+       .card-case-two {
+           border-top-color: var(--support-3);
+       }
+
+       }
+
+       #slide-8 {
+           .outer
+
+       {
+           position: absolute;
+           top: 15%;
+           bottom: 15%;
+           left: 10%;
+           right: 10%;
+           display: flex;
+           flex-direction: column;
+       }
+
+       .content-columns {
+           display: grid;
+           grid-template-columns: 30% 1fr;
+           align-items: stretch;
+           flex: 1;
+           gap: 20px;
+       }
+
+       p {
+           font-size: 30px;
+           line-height: 1.5;
+           color: var(--text);
+           margin-bottom: 12px;
+       }
+
+       #left-col {
+           display: flex;
+           flex-direction: column;
+           justify-content: center;
+           gap: 15px;
+           padding-right: 20px;
+           box-sizing: border-box;
+           height: 100%;
+       }
+
+       .slide-title .icon-lightbulb {
+           color: var(--support-1);
+       }
+
+       .highlight-box {
+           padding: 10px 20px;
+           margin-bottom: 0px;
+       }
+
+       #right-col {
+           flex: 1;
+           display: flex;
+           flex-direction: column;
+           justify-content: space-around;
+           padding-left: 20px;
+           box-sizing: border-box;
+       }
+
+       .image {
+           width: 100%;
+           max-height: 60vh;
+           object-fit: contain;
+           border-radius: 12px;
+           margin: auto;
+       }
+
+       .entry-item {
+           display: flex;
+           flex-direction: column;
+           gap: 0;
+       }
+
+       .entry-header {
+           display: flex;
+           gap: 5px;
+           align-items: stretch;
+       }
+
+       .entry-title {
+           width: 30%;
+           color: var(--primary-1);
+           font-size: 30px;
+           font-weight: bold;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+       }
+
+       .entry-content {
+           flex: 1;
+           font-size: 28px;
+           line-height: 1.5;
+       }
+
+       .line-container {
+           width: 100%;
+           margin: 20px 0;
+           height: 4px;
+           background-image: linear-gradient(90deg, var(--primary-1) 0%, var(--accent-3) 50%, var(--bg) 100%);
+           background-size: 100% 4px;
+           background-position: left center;
+           background-repeat: no-repeat;
+       }
+
+       }
+
+       #slide-9 {
+           .outer
+
+       {
+           position: absolute;
+           top: 5%;
+           bottom: 5%;
+           left: 10%;
+           right: 10%;
+           display: flex;
+           flex-direction: column;
+       }
+
+       .header-row {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           margin-bottom: 10px;
+       }
+
+       .four-grid {
+           flex: 1;
+           display: grid;
+           grid-template-columns: 1fr auto 1fr;
+           grid-template-rows: 1fr auto 1fr;
+           gap: 0;
+           align-items: center;
+           justify-items: center;
+       }
+
+       .center-image {
+           grid-column: 2;
+           grid-row: 2;
+           width: 220px;
+           height: 220px;
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           justify-content: center;
+           position: relative;
+           z-index: 2;
+       }
+
+           .center-image::before {
+               content: '';
+               position: absolute;
+               width: 100%;
+               height: 100%;
+               border-radius: 50%;
+               background-color: #e8ecf0;
+               z-index: -1;
+           }
+
+           .center-image i.center-icon {
+               font-size: 80px;
+               color: var(--primary-1);
+               position: relative;
+               z-index: 1;
+           }
+
+       .line-v {
+           grid-column: 2;
+           width: 3px;
+           height: 80%;
+           background: linear-gradient(to bottom, var(--primary-1), var(--accent-3));
+           position: relative;
+       }
+
+       .line-v-top {
+           grid-row: 1;
+       }
+
+       .line-v-bottom {
+           grid-row: 3;
+       }
+
+       .line-v::before,
+       .line-v::after {
+           content: '';
+           position: absolute;
+           left: 50%;
+           transform: translateX(-50%);
+           width: 10px;
+           height: 10px;
+           border-radius: 50%;
+           border: 3px solid var(--primary-1);
+           background: var(--bg);
+       }
+
+       .line-v::before {
+           top: -5px;
+       }
+
+       .line-v::after {
+           bottom: -5px;
+           border-color: var(--accent-3);
+       }
+
+       .line-h {
+           grid-row: 2;
+           height: 3px;
+           width: 80%;
+           background: linear-gradient(to right, var(--primary-1), var(--accent-3));
+           position: relative;
+       }
+
+       .line-h-left {
+           grid-column: 1;
+       }
+
+       .line-h-right {
+           grid-column: 3;
+       }
+
+       .line-h::before,
+       .line-h::after {
+           content: '';
+           position: absolute;
+           top: 50%;
+           transform: translateY(-50%);
+           width: 10px;
+           height: 10px;
+           border-radius: 50%;
+           border: 3px solid var(--primary-1);
+           background: var(--bg);
+       }
+
+       .line-h::before {
+           left: -5px;
+       }
+
+       .line-h::after {
+           right: -5px;
+           border-color: var(--accent-3);
+       }
+
+       .item-card {
+           display: flex;
+           align-items: flex-start;
+           gap: 15px;
+           padding: 8px;
+       }
+
+           .item-card.top-left {
+               grid-column: 1;
+               grid-row: 1;
+               align-self: end;
+               justify-self: stretch;
+               justify-content: flex-end;
+               transform: translateY(55px);
+               z-index: 1;
+           }
+
+           .item-card.top-right {
+               grid-column: 3;
+               grid-row: 1;
+               align-self: end;
+               justify-self: start;
+               transform: translateY(55px);
+               z-index: 1;
+           }
+
+           .item-card.bottom-left {
+               grid-column: 1;
+               grid-row: 3;
+               align-self: start;
+               justify-self: stretch;
+               justify-content: flex-end;
+               transform: translateY(-55px);
+               z-index: 1;
+           }
+
+           .item-card.bottom-right {
+               grid-column: 3;
+               grid-row: 3;
+               align-self: start;
+               justify-self: start;
+               transform: translateY(-55px);
+               z-index: 1;
+           }
+
+       .item-icon {
+           width: 60px;
+           height: 60px;
+           min-width: 60px;
+           border-radius: 50%;
+           background: linear-gradient(135deg, var(--primary-1), var(--accent-2));
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           color: var(--bg);
+           font-size: 30px;
+       }
+
+       .item-card .item-text {
+           width: 500px;
+       }
+
+       .item-text h3 {
+           color: var(--accent-2);
+           font-size: 28px;
+           font-weight: bold;
+           margin-bottom: 6px;
+       }
+
+       .item-text p {
+           font-size: 30px;
+           line-height: 1.5;
+           color: var(--text);
+           margin: 0;
+       }
+
+       .center-label {
+           text-align: center;
+           color: var(--primary-1);
+           font-size: 22px;
+           font-weight: bold;
+           margin-top: 5px;
+           position: relative;
+           z-index: 1;
+       }
+
+       }
+
+       #slide-10 {
+           .outer
+
+       {
+           position: absolute;
+           top: 15%;
+           bottom: 15%;
+           left: 8%;
+           right: 8%;
+           display: flex;
+           flex-direction: column;
+       }
+
+       .slide-title i {
+           color: var(--support-1);
+       }
+
+       .five-columns {
+           flex: 1;
+           display: grid;
+           grid-template-columns: repeat(5, 1fr);
+           gap: 12px;
+           align-items: start;
+           align-content: center;
+       }
+
+       .col-item {
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           text-align: center;
+           gap: 18px;
+       }
+
+       .icon-wrap {
+           width: 120px;
+           height: 120px;
+           border-radius: 50%;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           position: relative;
+           flex-shrink: 0;
+           font-size: 48px;
+       }
+
+       .col-item:nth-child(1) .icon-wrap {
+           color: var(--primary-1);
+       }
+
+       .col-item:nth-child(2) .icon-wrap {
+           color: var(--primary-2);
+       }
+
+       .col-item:nth-child(3) .icon-wrap {
+           color: var(--accent-2);
+       }
+
+       .col-item:nth-child(4) .icon-wrap {
+           color: var(--accent-3);
+       }
+
+       .col-item:nth-child(5) .icon-wrap {
+           color: var(--support-4);
+       }
+
+       .col-item:nth-child(1) .icon-wrap {
+           background: rgba(0, 143, 199, 0.12);
+       }
+
+       .col-item:nth-child(2) .icon-wrap {
+           background: rgba(0, 165, 155, 0.12);
+       }
+
+       .col-item:nth-child(3) .icon-wrap {
+           background: rgba(0, 212, 240, 0.12);
+       }
+
+       .col-item:nth-child(4) .icon-wrap {
+           background: rgba(48, 218, 162, 0.12);
+       }
+
+       .col-item:nth-child(5) .icon-wrap {
+           background: rgba(255, 201, 79, 0.12);
+       }
+
+       .col-item h3 {
+           font-size: 32px;
+           font-weight: bold;
+           margin: 0;
+       }
+
+       .col-item:nth-child(1) h3 {
+           color: var(--primary-1);
+       }
+
+       .col-item:nth-child(2) h3 {
+           color: var(--primary-2);
+       }
+
+       .col-item:nth-child(3) h3 {
+           color: var(--accent-2);
+       }
+
+       .col-item:nth-child(4) h3 {
+           color: var(--accent-3);
+       }
+
+       .col-item:nth-child(5) h3 {
+           color: var(--support-4);
+       }
+
+       .col-item hr {
+           width: 50px;
+           border: none;
+           height: 3px;
+           border-radius: 2px;
+           margin: 2px auto;
+       }
+
+       .col-item:nth-child(1) hr {
+           background: var(--primary-1);
+       }
+
+       .col-item:nth-child(2) hr {
+           background: var(--primary-2);
+       }
+
+       .col-item:nth-child(3) hr {
+           background: var(--accent-2);
+       }
+
+       .col-item:nth-child(4) hr {
+           background: var(--accent-3);
+       }
+
+       .col-item:nth-child(5) hr {
+           background: var(--support-4);
+       }
+
+       .col-item p {
+           font-size: 28px;
+           line-height: 1.7;
+           color: var(--text);
+           margin: 0;
+           text-align: left;
+           padding: 0 4px;
+       }
+
+       }
+
+       #slide-11 {
+           .outer
+
+       {
+           position: absolute;
+           top: 12%;
+           bottom: 12%;
+           left: 12%;
+           right: 12%;
+           display: flex;
+           flex-direction: column;
+       }
+
+       .header-row {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           margin-bottom: 40px;
+       }
+
+       .six-grid {
+           flex: 1;
+           display: grid;
+           grid-template-columns: repeat(3, 1fr);
+           grid-template-rows: 1fr 1fr;
+           gap: 28px;
+       }
+
+       .tile-card {
+           background: var(--bg);
+           border-radius: 16px;
+           box-shadow: 0 8px 30px rgba(0, 79, 116, 0.10);
+           border: 1px solid var(--border);
+           padding: 28px 24px 22px;
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           text-align: center;
+           position: relative;
+           overflow: hidden;
+           transition: transform 0.3s, box-shadow 0.3s;
+       }
+
+           .tile-card:hover {
+               transform: translateY(-4px);
+               box-shadow: 0 14px 40px rgba(0, 79, 116, 0.18);
+           }
+
+           .tile-card::before {
+               content: '';
+               position: absolute;
+               top: 0;
+               left: 0;
+               right: 0;
+               height: 5px;
+           }
+
+           .tile-card:nth-child(1)::before {
+               background: linear-gradient(90deg, var(--primary-1), var(--accent-1));
+           }
+
+           .tile-card:nth-child(2)::before {
+               background: linear-gradient(90deg, var(--accent-1), var(--accent-3));
+           }
+
+           .tile-card:nth-child(3)::before {
+               background: linear-gradient(90deg, var(--accent-3), var(--primary-2));
+           }
+
+           .tile-card:nth-child(4)::before {
+               background: linear-gradient(90deg, var(--support-1), var(--support-3));
+           }
+
+           .tile-card:nth-child(5)::before {
+               background: linear-gradient(90deg, var(--support-3), var(--support-5));
+           }
+
+           .tile-card:nth-child(6)::before {
+               background: linear-gradient(90deg, var(--support-5), var(--accent-2));
+           }
+
+       .tile-icon {
+           font-size: 52px;
+           margin-bottom: 14px;
+       }
+
+       .tile-card:nth-child(1) .tile-icon {
+           color: var(--primary-1);
+       }
+
+       .tile-card:nth-child(2) .tile-icon {
+           color: var(--accent-1);
+       }
+
+       .tile-card:nth-child(3) .tile-icon {
+           color: var(--primary-2);
+       }
+
+       .tile-card:nth-child(4) .tile-icon {
+           color: var(--support-1);
+       }
+
+       .tile-card:nth-child(5) .tile-icon {
+           color: var(--support-3);
+       }
+
+       .tile-card:nth-child(6) .tile-icon {
+           color: var(--support-5);
+       }
+
+       .tile-card h3 {
+           color: var(--accent-2);
+           font-size: 35px;
+           font-weight: bold;
+           margin-bottom: 10px;
+           display: flex;
+           align-items: center;
+           gap: 8px;
+       }
+
+           .tile-card h3 .num-badge {
+               display: inline-flex;
+               align-items: center;
+               justify-content: center;
+               width: 32px;
+               height: 32px;
+               border-radius: 50%;
+               font-size: 18px;
+               color: var(--bg);
+               flex-shrink: 0;
+           }
+
+       .tile-card:nth-child(1) .num-badge {
+           background: var(--primary-1);
+       }
+
+       .tile-card:nth-child(2) .num-badge {
+           background: var(--accent-1);
+       }
+
+       .tile-card:nth-child(3) .num-badge {
+           background: var(--primary-2);
+       }
+
+       .tile-card:nth-child(4) .num-badge {
+           background: var(--support-1);
+       }
+
+       .tile-card:nth-child(5) .num-badge {
+           background: var(--support-3);
+       }
+
+       .tile-card:nth-child(6) .num-badge {
+           background: var(--support-5);
+       }
+
+       .tile-card p {
+           font-size: 24px;
+           line-height: 1.6;
+           color: var(--text);
+           margin: 0;
+       }
+
+       }
+
+       #slide-12 {
+           .outer
+
+       {
+           position: absolute;
+           top: 10%;
+           bottom: 5%;
+           left: 15%;
+           right: 15%;
+           display: flex;
+           flex-direction: column;
+       }
+
+       .header-row {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           margin-bottom: 15px;
+       }
+
+       .honeycomb {
+           flex: 1;
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           justify-content: center;
+           gap: 0;
+           position: relative;
+       }
+
+       .hex-row {
+           display: flex;
+           justify-content: center;
+           gap: 10px;
+       }
+
+           .hex-row.row-mid,
+           .hex-row.row-bottom {
+               margin-top: -58px;
+           }
+
+       .hex-card {
+           width: 240px;
+           height: 264px;
+           position: relative;
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           padding: 30px 20px;
+           justify-content: flex-start;
+           text-align: center;
+           clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+           background: var(--bg);
+           cursor: default;
+       }
+
+       .hex-wrap {
+           transition: transform 0.3s, filter 0.3s;
+       }
+
+           .hex-wrap:hover {
+               transform: scale(1.05);
+               filter: drop-shadow(0 6px 18px rgba(0, 79, 116, 0.25));
+           }
+
+       .hex-wrap {
+           position: relative;
+       }
+
+           .hex-wrap::before {
+               content: '';
+               position: absolute;
+               top: -3px;
+               left: -3px;
+               width: 246px;
+               height: 270px;
+               clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+               z-index: -1;
+           }
+
+           .hex-wrap:nth-child(1)::before {
+               background: linear-gradient(135deg, var(--primary-1), var(--accent-1));
+           }
+
+           .hex-wrap:nth-child(2)::before {
+               background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+           }
+
+           .hex-wrap:nth-child(3)::before {
+               background: linear-gradient(135deg, var(--primary-2), var(--accent-3));
+           }
+
+           .hex-wrap:nth-child(4)::before {
+               background: linear-gradient(135deg, var(--support-1), var(--support-3));
+           }
+
+           .hex-wrap:nth-child(5)::before {
+               background: linear-gradient(135deg, var(--support-3), var(--support-5));
+           }
+
+       .hex-row.row-mid .hex-wrap:nth-child(1)::before {
+           background: linear-gradient(135deg, var(--accent-3), var(--primary-2));
+       }
+
+       .hex-row.row-mid .hex-wrap:nth-child(2)::before {
+           background: transparent;
+       }
+
+       .hex-row.row-mid .hex-wrap:nth-child(3)::before {
+           background: linear-gradient(135deg, var(--support-1), var(--support-3));
+       }
+
+       .hex-row.row-bottom .hex-wrap:nth-child(1)::before {
+           background: linear-gradient(135deg, var(--support-3), var(--support-5));
+       }
+
+       .hex-row.row-bottom .hex-wrap:nth-child(2)::before {
+           background: linear-gradient(135deg, var(--support-5), var(--accent-2));
+       }
+
+       .hex-card.center-hex {
+           background: transparent;
+           pointer-events: none;
+       }
+
+       .hex-wrap:has(.center-hex):hover {
+           transform: none;
+           filter: none;
+       }
+
+       .hex-card.center-hex {
+           background: linear-gradient(135deg, var(--primary-1), var(--primary-2));
+       }
+
+           .hex-card.center-hex .hex-title {
+               color: var(--bg);
+           }
+
+           .hex-card.center-hex .hex-desc {
+               color: rgba(255, 255, 255, 0.9);
+           }
+
+           .hex-card.center-hex .hex-icon-svg {
+               opacity: 0.9;
+               color: white;
+           }
+
+       .hex-icon {
+           font-size: 42px;
+           margin-bottom: 4px;
+       }
+
+       .hex-row.row-top .hex-wrap:nth-child(1) .hex-icon {
+           color: var(--primary-1);
+       }
+
+       .hex-row.row-top .hex-wrap:nth-child(2) .hex-icon {
+           color: var(--accent-1);
+       }
+
+       .hex-row.row-mid .hex-wrap:nth-child(1) .hex-icon {
+           color: var(--primary-2);
+       }
+
+       .hex-row.row-mid .hex-wrap:nth-child(3) .hex-icon {
+           color: var(--support-1);
+       }
+
+       .hex-row.row-bottom .hex-wrap:nth-child(1) .hex-icon {
+           color: var(--support-3);
+       }
+
+       .hex-row.row-bottom .hex-wrap:nth-child(2) .hex-icon {
+           color: var(--support-5);
+       }
+
+       .hex-title {
+           font-size: 34px;
+           font-weight: bold;
+           color: var(--accent-2);
+           margin-bottom: 4px;
+       }
+
+       .hex-desc {
+           font-size: 22px;
+           line-height: 1.5;
+           color: var(--text);
+           margin: 0;
+       }
+
+       }
+
+       #slide-14 {
+           .outer
+
+       {
+           position: absolute;
+           top: 12%;
+           bottom: 12%;
+           left: 10%;
+           right: 10%;
+           display: flex;
+           flex-direction: column;
+       }
+
+       .header-row {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           margin-bottom: 32px;
+       }
+
+       .eight-grid {
+           flex: 1;
+           display: grid;
+           grid-template-columns: repeat(4, 1fr);
+           grid-template-rows: 1fr 1fr;
+           gap: 22px;
+       }
+
+       .tile-card {
+           background: var(--bg);
+           border-radius: 16px;
+           box-shadow: 0 8px 30px rgba(0, 79, 116, 0.10);
+           border: 1px solid var(--border);
+           padding: 22px 18px 18px;
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           text-align: center;
+           position: relative;
+           overflow: hidden;
+           transition: transform 0.3s, box-shadow 0.3s;
+       }
+
+           .tile-card:hover {
+               transform: translateY(-4px);
+               box-shadow: 0 14px 40px rgba(0, 79, 116, 0.18);
+           }
+
+           .tile-card::before {
+               content: '';
+               position: absolute;
+               top: 0;
+               left: 0;
+               right: 0;
+               height: 5px;
+           }
+
+           .tile-card:nth-child(1)::before {
+               background: linear-gradient(90deg, var(--primary-1), var(--accent-1));
+           }
+
+           .tile-card:nth-child(2)::before {
+               background: linear-gradient(90deg, var(--accent-1), var(--accent-3));
+           }
+
+           .tile-card:nth-child(3)::before {
+               background: linear-gradient(90deg, var(--accent-3), var(--primary-2));
+           }
+
+           .tile-card:nth-child(4)::before {
+               background: linear-gradient(90deg, var(--primary-2), var(--support-1));
+           }
+
+           .tile-card:nth-child(5)::before {
+               background: linear-gradient(90deg, var(--support-1), var(--support-3));
+           }
+
+           .tile-card:nth-child(6)::before {
+               background: linear-gradient(90deg, var(--support-3), var(--support-5));
+           }
+
+           .tile-card:nth-child(7)::before {
+               background: linear-gradient(90deg, var(--support-5), var(--accent-2));
+           }
+
+           .tile-card:nth-child(8)::before {
+               background: linear-gradient(90deg, var(--accent-2), var(--primary-1));
+           }
+
+       .tile-icon {
+           font-size: 48px;
+           margin-bottom: 10px;
+       }
+
+       .tile-card:nth-child(1) .tile-icon {
+           color: var(--primary-1);
+       }
+
+       .tile-card:nth-child(2) .tile-icon {
+           color: var(--accent-1);
+       }
+
+       .tile-card:nth-child(3) .tile-icon {
+           color: var(--primary-2);
+       }
+
+       .tile-card:nth-child(4) .tile-icon {
+           color: var(--support-1);
+       }
+
+       .tile-card:nth-child(5) .tile-icon {
+           color: var(--support-3);
+       }
+
+       .tile-card:nth-child(6) .tile-icon {
+           color: var(--support-5);
+       }
+
+       .tile-card:nth-child(7) .tile-icon {
+           color: var(--accent-2);
+       }
+
+       .tile-card:nth-child(8) .tile-icon {
+           color: var(--primary-1);
+       }
+
+       .tile-card h3 {
+           color: var(--accent-2);
+           font-size: 33px;
+           font-weight: bold;
+           margin-bottom: 8px;
+           display: flex;
+           align-items: center;
+           gap: 8px;
+       }
+
+           .tile-card h3 .num-badge {
+               display: inline-flex;
+               align-items: center;
+               justify-content: center;
+               width: 28px;
+               height: 28px;
+               border-radius: 50%;
+               font-size: 16px;
+               color: var(--bg);
+               flex-shrink: 0;
+           }
+
+       .tile-card:nth-child(1) .num-badge {
+           background: var(--primary-1);
+       }
+
+       .tile-card:nth-child(2) .num-badge {
+           background: var(--accent-1);
+       }
+
+       .tile-card:nth-child(3) .num-badge {
+           background: var(--primary-2);
+       }
+
+       .tile-card:nth-child(4) .num-badge {
+           background: var(--support-1);
+       }
+
+       .tile-card:nth-child(5) .num-badge {
+           background: var(--support-3);
+       }
+
+       .tile-card:nth-child(6) .num-badge {
+           background: var(--support-5);
+       }
+
+       .tile-card:nth-child(7) .num-badge {
+           background: var(--accent-2);
+       }
+
+       .tile-card:nth-child(8) .num-badge {
+           background: var(--primary-1);
+       }
+
+       .tile-card p {
+           font-size: 24px;
+           line-height: 1.6;
+           color: var(--text);
+           margin: 0;
+       }
+
+       }
+
+       #slide-15 {
+           .outer
+
+       {
+           position: absolute;
+           top: 10%;
+           bottom: 10%;
+           left: 10%;
+           right: 10%;
+           display: flex;
+           flex-direction: column;
+       }
+
+       .header-row {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           margin-bottom: 32px;
+       }
+
+       .table-wrap {
+           flex: 1;
+           display: flex;
+           align-items: flex-start;
+       }
+
+       table {
+           width: 100%;
+           border-collapse: separate;
+           border-spacing: 0;
+           border-radius: 16px;
+           overflow: hidden;
+           box-shadow: 0 8px 30px rgba(0, 79, 116, 0.10);
+           font-size: 24px;
+       }
+
+       thead th {
+           background: linear-gradient(135deg, var(--primary-1), var(--accent-2));
+           color: var(--bg);
+           font-weight: bold;
+           padding: 20px 24px;
+           text-align: center;
+           font-size: 26px;
+           letter-spacing: 1px;
+           border-bottom: 3px solid var(--accent-1);
+       }
+
+           thead th:first-child {
+               text-align: left;
+               padding-left: 32px;
+           }
+
+       tbody tr {
+           transition: background 0.25s;
+       }
+
+           tbody tr:nth-child(odd) {
+               background: var(--bg);
+           }
+
+           tbody tr:nth-child(even) {
+               background: var(--bg-soft);
+           }
+
+           tbody tr:hover {
+               background: rgba(0, 143, 199, 0.06);
+           }
+
+       tbody td {
+           padding: 18px 24px;
+           text-align: center;
+           border-bottom: 1px solid var(--border);
+           color: var(--text);
+           line-height: 1.5;
+       }
+
+           tbody td:first-child {
+               text-align: left;
+               padding-left: 32px;
+               font-weight: bold;
+               color: var(--accent-2);
+               font-size: 25px;
+           }
+
+       tbody tr:last-child td {
+           border-bottom: none;
+       }
+
+       .provider-name {
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           color: white;
+           gap: 12px;
+       }
+
+       .provider-logo {
+           width: 36px;
+           height: 36px;
+           border-radius: 8px;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           font-size: 18px;
+           color: white;
+           flex-shrink: 0;
+       }
+
+       .logo-aws {
+           background: linear-gradient(135deg, #FF9900, #FF6600);
+       }
+
+       .logo-azure {
+           background: linear-gradient(135deg, #0078D4, #00BCF2);
+       }
+
+       .logo-gcp {
+           background: linear-gradient(135deg, #4285F4, #34A853);
+       }
+
+       .badge {
+           display: inline-block;
+           padding: 3px 12px;
+           border-radius: 20px;
+           font-size: 18px;
+           font-weight: bold;
+       }
+
+       .badge-best {
+           background: rgba(0, 163, 155, 0.12);
+           color: var(--primary-2);
+       }
+
+       .badge-good {
+           background: rgba(0, 143, 199, 0.10);
+           color: var(--primary-1);
+       }
+
+       .check {
+           color: var(--primary-2);
+           font-size: 22px;
+       }
+
+       }
+
+       #slide-4 {
+           .outer
+
+       {
+           position: absolute;
+           top: 10%;
+           bottom: 10%;
+           left: 12%;
+           right: 12%;
+           display: flex;
+           flex-direction: column;
+           gap: 24px;
+           justify-content: center;
+       }
+
+       .content-box {
+           background: rgba(255, 255, 255, 0.9);
+           border-radius: 24px;
+           padding: 32px;
+           box-shadow: 0 24px 40px rgba(0, 79, 116, 0.15);
+           font-size: 48px;
+           letter-spacing: 0.5px;
+           line-height: 1.6;
+           color: var(--text);
+       }
+
+       .info-note {
+           font-size: 36px;
+           color: var(--accent-2);
+           margin-top: 8px;
+       }
+
+       }
+
+       #slide-16 {
+           .outer
+
+       {
+           position: absolute;
+           top: 2%;
+           bottom: 5%;
+           left: 3%;
+           right: 3%;
+           display: flex;
+           flex-direction: column;
+       }
+
+       .header-row {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           margin-bottom: 10px;
+           padding-left: 120px;
+           padding-right: 100px;
+       }
+
+       .image-wrap {
+           flex: 1;
+           min-height: 0;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+       }
+
+           .image-wrap img {
+               max-width: 100%;
+               max-height: 100%;
+               object-fit: contain;
+               border-radius: 16px;
+               box-shadow: 0 8px 30px rgba(0, 79, 116, 0.10);
+               transition: all 0.3s ease;
+               cursor: pointer;
+           }
+
+       }
+
+       #slide-17 {
+           .outer
+
+       {
+           position: absolute;
+           top: 2%;
+           bottom: 5%;
+           left: 3%;
+           right: 3%;
+           display: flex;
+           flex-direction: column;
+       }
+
+       .header-row {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+           margin-bottom: 10px;
+           padding-left: 120px;
+           padding-right: 100px;
+       }
+
+       .image-wrap-2 {
+           flex: 1;
+           min-height: 0;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           gap: 30px;
+       }
+
+       .image-box {
+           flex: 1;
+           min-width: 0;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           height: 100%;
+       }
+
+       .image-wrap-2 img {
+           max-width: 100%;
+           max-height: 100%;
+           object-fit: contain;
+           border-radius: 16px;
+           box-shadow: 0 8px 30px rgba(0, 79, 116, 0.10);
+           transition: transform 0.3s ease, box-shadow 0.3s ease;
+           cursor: pointer;
+       }
+
+           .image-wrap-2 img:hover {
+               transform: translateY(-5px);
+               box-shadow: 0 15px 40px rgba(0, 79, 116, 0.20);
+           }
+
+       }
+
+       #slide-18 {
+           /*底圖的正中間已有大大的THANK YOU文字, 所以不要再放文字在正中間, 如果要客製, 底圖要用bg-other*/
+           background-image: var(--bg-thanks);
+       }
+   </style>
 </head>
 
 <body>
-    <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;">
-        <defs>
-            <linearGradient id="multi-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" style="stop-color:#008FC7;" />
-                <stop offset="71.4%" style="stop-color:#30DAA2;" />
-                <stop offset="76.8%" style="stop-color:#008FC7;" />
-                <stop offset="100%" style="stop-color:#30DAA2;" />
-            </linearGradient>
-            <symbol id="topic-line" viewBox="0 0 600 60">
-                <g fill="none" stroke-width="3">
-                    <polyline points="20,25 420,25 450,45 580,45" stroke="url(#multi-gradient)" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                    <circle cx="20" cy="25" r="5" stroke="#008FC7" fill="#fff" stroke-width="3" />
-                    <circle cx="580" cy="45" r="5" stroke="#30DAA2" fill="#fff" stroke-width="3" />
-                </g>
-            </symbol>
-        </defs>
-    </svg>
-    <div id="presentation-container">
-        <!-- 導覽列不可改 -->
-        <div class="controls">
-            <button class="btn" onclick="prevSlide()">←</button>
-            <span class="page-num" id="pageIndicator"></span>
-            <button class="btn" onclick="nextSlide()">→</button>
-        </div>
-        <!-- slide-1 簡報首頁 -->
-        <div class="slide active" id="slide-1">
-            <div class="outer">
-                <div class="title-box">
-                    <h1>Agent Skills<br>導入策略與落地藍圖</h1>
-                </div>
-                <div class="svg-gap">
-                    <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg" class="svg-container">
-                        <use href="#topic-line"></use>
-                    </svg>
-                </div>
-                <div class="subtitle">建構可治理的模組化知識資產</div>
-                <div class="date-badge">部門　姓名<br />2026.02</div>
-            </div>
-        </div>
-        <!-- slide-2 列出所有章節大主題,h2不可改,有這個就不要作目錄 -->
-        <div class="slide" id="slide-2">
-            <div class="outer">
-                <h2 class="slide-title"><i class="fas fa-list"></i> Topics</h2>
-                <div class="list">
-                    <div class="item">
-                        核心理念：為什麼需要 Agent Skills？
-                    </div>
-                    <div class="hr"></div>
-                    <div class="item">
-                        ...
-                    </div>
-                    <div class="hr"></div>
-                    <div class="item">
-                        ...
-                    </div>
-                    <div class="hr"></div>
-                    <div class="item">
-                        結語
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- slide-3 每一章節的目錄及頁碼,h2不可改,有這個就不要作Topics -->
-        <div class="slide" id="slide-3">
-            <div class="outer">
-                <h2 class="slide-title">目錄<span>CONTENTS</span></h2>
-                <div class="list">
-                    <div class="topic-row">
-                        <div class="item">
-                            1. 核心理念
-                        </div>
-                        <div class="svg-gap">
-                            <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg" class="svg-container">
-                                <use href="#topic-line"></use>
-                            </svg>
-                        </div>
-                        <div class="page">P.4-P.9</div>
-                    </div>
-                    <div class="topic-row">
-                        <div class="item">
-                            ...
-                        </div>
-                        <div class="svg-gap">
-                            <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg" class="svg-container">
-                                <use href="#topic-line"></use>
-                            </svg>
-                        </div>
-                        <div class="page">P....</div>
-                    </div>
-                    <div class="topic-row">
-                        <div class="item">
-                            5. 結語
-                        </div>
-                        <div class="svg-gap">
-                            <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg" class="svg-container">
-                                <use href="#topic-line"></use>
-                            </svg>
-                        </div>
-                        <div class="page">P.14</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- slide-4 適用僅內文或多項目清單 -->
-    <div class="slide" id="slide-4">
-        <div class="outer">
-            <h2 class="slide-title">PII + GenAI應用</h2>
-            <div class="content-box">
-                我們可以用[代碼]來取代原本的個人資料，<br />將處理後的內容送進 GenAI
-                生成<br />（擷取指定欄位、翻譯、摘要…等等，請至「馬上試用」體驗），<br />最後再把[代碼]還原成原始個資，就能達到無痛遮蔽。<br />例如，當 AI
-                需要擷取健檢報告中的被檢查人、地址等資訊，或翻譯對話記錄、摘要重點時，若希望最終結果保留個資，就必須將個資還原。
-                <div class="info-note">ps. 如果被程式用 Regex 邏輯偵測到，則會以 Regex 代碼取代。</div>
-            </div>
-        </div>
-    </div>
-    <!-- slide-5 適用僅主題及很少字說明或無說明的左文字+右圖;if有指定img檔名,就把svg換成<img> -->
-    <div class="slide" id="slide-5">
-        <div class="outer">
-            <div class="text-content">
-                <h1>核心優勢</h1>
-                <div class="subtitle">釋放 Agent Skills 潛能</div>
-                <div class="svg-gap">
-                    <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg" class="svg-container">
-                        <use href="#topic-line"></use>
-                    </svg>
-                </div>
-                <div class="description">
-                    透過強大的架構設計與智能運算引擎，為企業打造具備「自動化、分析、穩定、進化」四大特性的新世代服務生態系。
-                </div>
-            </div>
-            <div class="graphic-container">
-                <svg class="ring-1" viewBox="0 0 100 100">
-                    <defs>
-                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="var(--primary-2)" stop-opacity="0.8" />
-                            <stop offset="100%" stop-color="var(--accent-1)" stop-opacity="0.1" />
-                        </linearGradient>
-                    </defs>
-                    <circle cx="50" cy="50" r="48" fill="none" stroke="url(#grad1)" stroke-width="1.5"
-                        stroke-dasharray="10 5" />
-                    <circle cx="50" cy="50" r="45" fill="none" stroke="var(--primary-2)" stroke-width="0.8"
-                        opacity="0.5" />
-                    <circle cx="50" cy="2" r="3" fill="var(--primary-2)" />
-                    <circle cx="98" cy="50" r="2" fill="var(--accent-1)" />
-                    <circle cx="50" cy="98" r="4" fill="var(--support-1)" />
-                </svg>
-                <svg class="ring-2" viewBox="0 0 100 100">
-                    <polygon points="50,2 98,50 50,98 2,50" fill="none" stroke="var(--primary-1)" stroke-width="1.5"
-                        opacity="0.4" />
-                    <circle cx="50" cy="50" r="40" fill="none" stroke="var(--accent-2)" stroke-width="2.5"
-                        stroke-dasharray="15 15" opacity="0.6" />
-                </svg>
-                <div class="dot dot-1"></div>
-                <div class="dot dot-2"></div>
-                <div class="dot dot-3"></div>
-                <div class="center-icon">
-                    <i class="fa-solid fa-microchip"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- slide-6 適用2項目+上方的說明較多 -->
-    <div class="slide" id="slide-6">
-        <div class="outer">
-            <h2 class="slide-title"><i class="fas fa-lightbulb icon-lightbulb"></i> 核心理念：為什麼我們需要 Agent Skills？</h2>
-            <div class="highlight-box">
-                <strong class="highlight-title">痛點突破：</strong>
-                <p>過去 AI 依賴員工個人的 Prompt 能力，品質參差不齊；若將規則寫死在系統程式碼裡，每次變動都要重新上線，曠日廢時。</p>
-                <p class="highlight-emphasis">我們要把關鍵規則從「個人技巧」升級為「可治理的制度資產」，確保任何人、任何系統都得到一致結果。</p>
-            </div>
-            <div class="grid-2">
-                <div class="card card-accent3">
-                    <h3><i class="fas fa-code-branch card-icon-accent3"></i> 業務與程式「解耦」</h3>
-                    <ul>
-                        <li>讓規則歸業務單位管理：修改提示/知識庫</li>
-                        <li>...</li>
-                    </ul>
-                </div>
-                <div class="card card-primary1">
-                    <h3><i class="fas fa-book-bookmark card-icon-primary1"></i> 建構模組化知識庫</h3>
-                    <ul>
-                        <li>把資深同仁的「經驗」轉化為知識庫</li>
-                        <li>...</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- slide-7 適用2項目+上方的說明較少 -->
-    <div class="slide" id="slide-7">
-        <div class="outer">
-            <h2 class="slide-title"><i class="fas fa-file-signature icon-primary"></i> 第一類場景：文件與對上溝通 (產出品質穩定)</h2>
-            <p class="title-emphasis">核心價值：長官關心點高度一致，退件原因高度重複。把退件經驗變成系統化制度。</p>
-            <div class="grid-2">
-                <div class="card card-case-one">
-                    <h3>🌟 案例一：請購簽呈檢查與補強</h3>
-                    <p>
-                        <strong>常見退件原因：</strong>沒說清楚必要性、沒比較替代方案、<strong class="text-support-4">
-                            缺乏量化效益
-                            (ROI)
-                        </strong>。
-                    </p>
-                    <hr class="divider">
-                    <p>
-                        <strong>Skill 作用：</strong>「長官視角」不是臨時提示詞，而是<strong>已固化成 Skill 的檢查規則</strong>；AI
-                        會依文件類型自動套用對應規則，逐項點出缺漏並要求補齊（ROI、替代方案、風險與控管等）。
-                    </p>
-                </div>
-                <div class="card card-case-two">
-                    <h3>案例二：高層專用摘要模板</h3>
-                    <p><strong>痛點：</strong>一般 AI 摘要常漏掉高層真正要做決策的關鍵資訊。</p>
-                    <hr class="divider">
-                    <p>
-                        <strong>Skill 作用：</strong>偵測到「高層摘要」需求即<strong>
-                            自動載入摘要
-                            Skill
-                        </strong>（固定欄位/必填關鍵字/禁寫廢話），產出「可決策的一頁版」，而非一般摘要。
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- slide-8 左圖右文的3個項目條列;項目數目變多時,行距要變小;if沒提供img檔名時, 畫SVG取代 -->
-    <div class="slide" id="slide-8">
-        <div class="outer">
-            <h2 class="slide-title"><i class="fas fa-lightbulb icon-lightbulb"></i> 核心理念：為什麼我們需要 Agent Skills？</h2>
-            <div class="highlight-box">
-                <p>過去 AI 依賴員工個人的 Prompt 能力，品質參差不齊；若將規則寫死在系統程式碼裡，每次變動都要重新上線，曠日廢時。</p>
-            </div>
-            <div class="content-columns">
-                <div id="left-col">
-                    <img class="image" src="image1.jpg" alt="image1.jpg" />
-                </div>
-                <div id="right-col">
-                    <div class="entry-item">
-                        <div class="entry-header">
-                            <div class="entry-title">Prompt 標準化</div>
-                            <div class="entry-content">
-                                將最佳實踐封裝為可重複使用的 Skill 範本<br>
-                                確保每位員工都能獲得一致且高品質的 AI 回應
-                            </div>
-                        </div>
-                        <div class="line-container"></div>
-                        <div class="entry-header">
-                            <div class="entry-title">動態規則引擎</div>
-                            <div class="entry-content">
-                                業務人員可即時調整 Skill 參數與邏輯<br>
-                                無需工程團隊重新部署，大幅縮短迭代週期
-                            </div>
-                        </div>
-                        <div class="line-container"></div>
-                        <div class="entry-header">
-                            <div class="entry-title">持續優化迴圈</div>
-                            <div class="entry-content">
-                                透過使用數據自動評估 Skill 成效<br>
-                                持續學習與改善，打造越用越聰明的 AI 助手
-                            </div>
-                        </div>
-                        <div class="line-container"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- slide-9 適用4項目,這4格和中間圓都不能改大小及位置 -->
-    <div class="slide" id="slide-9">
-        <div class="outer">
-            <div class="header-row">
-                <div class="slide-title">Agent Skills 四大核心能力</div>
-            </div>
-            <div class="four-grid">
-                <div class="item-card top-left">
-                    <div class="item-icon"><i class="fas fa-comments"></i></div>
-                    <div class="item-text">
-                        <h3>智慧對話引擎</h3>
-                        <p>自動理解使用者意圖<br>提供精準且即時的回應<br>支援多輪對話與上下文記憶<br>大幅提升客戶服務效率</p>
-                    </div>
-                </div>
-                <div class="line-v line-v-top"></div>
-                <div class="item-card top-right">
-                    <div class="item-icon"><i class="fas fa-globe"></i></div>
-                    <div class="item-text">
-                        <h3>跨平台整合</h3>
-                        <p>串接企業內部系統<br>實現資料無縫流通<br>支援 API 與微服務架構<br>一站式管理多元數據來源</p>
-                    </div>
-                </div>
-                <div class="line-h line-h-left"></div>
-                <div class="center-image">
-                    <i class="fas fa-robot center-icon"></i>
-                    <span class="center-label">Agent Skills</span>
-                </div>
-                <div class="line-h line-h-right"></div>
-                <div class="item-card bottom-left">
-                    <div class="item-icon"><i class="fas fa-chart-bar"></i></div>
-                    <div class="item-text">
-                        <h3>數據分析洞察</h3>
-                        <p>即時追蹤 Skill 使用數據<br>量化 AI 投資回報率<br>視覺化報表一目了然<br>驅動數據導向決策流程</p>
-                    </div>
-                </div>
-                <div class="line-v line-v-bottom"></div>
-                <div class="item-card bottom-right">
-                    <div class="item-icon"><i class="fas fa-thumbs-up"></i></div>
-                    <div class="item-text">
-                        <h3>持續優化迴圈</h3>
-                        <p>根據回饋自動調校模型<br>打造越用越聰明的 AI<br>結合人類專家經驗回饋<br>持續迭代提升準確度</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- slide-10 適用5個項目 -->
-    <div class="slide" id="slide-10">
-        <div class="outer">
-            <h2 class="slide-title"><i class="fas fa-building-columns"></i> 智慧金融五大服務</h2>
-            <div class="five-columns">
-                <div class="col-item">
-                    <div class="icon-wrap">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3>智能客服</h3>
-                    <hr>
-                    <p>AI 驅動的全天候客服<br>自動理解客戶意圖<br>即時回應常見問題<br>大幅降低人力成本</p>
-                </div>
-                <div class="col-item">
-                    <div class="icon-wrap">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>風險管控</h3>
-                    <hr>
-                    <p>即時偵測異常交易<br>智慧化反洗錢分析<br>信用評估自動化<br>全面守護資產安全</p>
-                </div>
-                <div class="col-item">
-                    <div class="icon-wrap">
-                        <i class="fas fa-bullseye"></i>
-                    </div>
-                    <h3>精準行銷</h3>
-                    <hr>
-                    <p>客群標籤智慧分類<br>個人化產品推薦<br>行銷活動自動投放<br>提升轉換率與營收</p>
-                </div>
-                <div class="col-item">
-                    <div class="icon-wrap">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3>流程自動化</h3>
-                    <hr>
-                    <p>表單審批智慧處理<br>跨系統資料同步<br>減少人工作業錯誤<br>加速業務流程效率</p>
-                </div>
-                <div class="col-item">
-                    <div class="icon-wrap">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
-                    <h3>數據洞察</h3>
-                    <hr>
-                    <p>多維度數據視覺化<br>即時監測營運指標<br>預測模型輔助決策<br>驅動數據導向經營</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- slide-11 適用6項目 -->
-    <div class="slide" id="slide-11">
-        <div class="outer">
-            <div class="header-row">
-                <div class="slide-title"><i class="fas fa-cubes"></i> 企業數位轉型六大關鍵</div>
-            </div>
-            <div class="six-grid">
-                <div class="tile-card">
-                    <i class="fas fa-star tile-icon"></i>
-                    <h3><span class="num-badge">1</span>策略願景</h3>
-                    <p>制定明確數位轉型藍圖<br>對齊企業長期經營目標<br>確立階段性里程碑</p>
-                </div>
-                <div class="tile-card">
-                    <i class="fas fa-chart-line tile-icon"></i>
-                    <h3><span class="num-badge">2</span>數據驅動</h3>
-                    <p>建構企業級數據平台<br>從數據洞察驅動決策<br>實現精準營運分析</p>
-                </div>
-                <div class="tile-card">
-                    <i class="fas fa-project-diagram tile-icon"></i>
-                    <h3><span class="num-badge">3</span>流程再造</h3>
-                    <p>全面檢視現有作業流程<br>導入自動化與智慧化<br>減少人工錯誤與延遲</p>
-                </div>
-                <div class="tile-card">
-                    <i class="fas fa-user-graduate tile-icon"></i>
-                    <h3><span class="num-badge">4</span>人才培育</h3>
-                    <p>強化員工數位技能<br>建立跨領域學習文化<br>培養內部創新動能</p>
-                </div>
-                <div class="tile-card">
-                    <i class="fas fa-laptop-code tile-icon"></i>
-                    <h3><span class="num-badge">5</span>技術架構</h3>
-                    <p>採用雲原生彈性架構<br>確保系統可擴展性<br>強化資安與合規治理</p>
-                </div>
-                <div class="tile-card">
-                    <i class="fas fa-sync-alt tile-icon"></i>
-                    <h3><span class="num-badge">6</span>持續迭代</h3>
-                    <p>建立敏捷回饋機制<br>以 MVP 快速驗證價值<br>持續學習與優化提升</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- slide-12 適用6個項目的蜂巢狀(六角形)排版，中央留白 -->
-    <div class="slide" id="slide-12">
-        <div class="outer">
-            <div class="header-row">
-                <div class="slide-title"><i class="fas fa-cloud"></i> 雲端服務六大優勢</div>
-            </div>
-            <div class="honeycomb">
-                <div class="hex-row row-top">
-                    <div class="hex-wrap">
-                        <div class="hex-card">
-                            <i class="fas fa-expand-arrows-alt hex-icon"></i>
-                            <div class="hex-title">彈性擴展</div>
-                            <p class="hex-desc">依需求即時擴縮<br>資源零浪費</p>
-                        </div>
-                    </div>
-                    <div class="hex-wrap">
-                        <div class="hex-card">
-                            <i class="fas fa-dollar-sign hex-icon"></i>
-                            <div class="hex-title">成本優化</div>
-                            <p class="hex-desc">用多少付多少<br>降低 IT 支出</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="hex-row row-mid">
-                    <div class="hex-wrap">
-                        <div class="hex-card">
-                            <i class="fas fa-check-circle hex-icon"></i>
-                            <div class="hex-title">高可用性</div>
-                            <p class="hex-desc">99.9% 服務保證<br>自動容錯備援</p>
-                        </div>
-                    </div>
-                    <div class="hex-wrap">
-                        <div class="hex-card center-hex">
-                            <!-- if 有7項就填入:
-                            <i class="fas fa-sync-alt hex-icon"></i>
-                            <div class="hex-title">最重要</div>
-                            <p class="hex-desc">最重要項目1<br>最重要項目2</p> -->
-                        </div>
-                    </div>
-                    <div class="hex-wrap">
-                        <div class="hex-card">
-                            <i class="fas fa-shield-alt hex-icon"></i>
-                            <div class="hex-title">安全防護</div>
-                            <p class="hex-desc">多層加密機制<br>合規認證保障</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="hex-row row-bottom">
-                    <div class="hex-wrap">
-                        <div class="hex-card">
-                            <i class="fas fa-globe hex-icon"></i>
-                            <div class="hex-title">全球部署</div>
-                            <p class="hex-desc">多區域節點佈建<br>低延遲全球覆蓋</p>
-                        </div>
-                    </div>
-                    <div class="hex-wrap">
-                        <div class="hex-card">
-                            <i class="fas fa-rocket hex-icon"></i>
-                            <div class="hex-title">創新加速</div>
-                            <p class="hex-desc">快速原型驗證<br>縮短上市週期</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- slide-14 適用8項目 -->
-    <div class="slide" id="slide-14">
-        <div class="outer">
-            <div class="header-row">
-                <div class="slide-title"><i class="fas fa-chart-line"></i> 金融科技八大趨勢</div>
-            </div>
-            <div class="eight-grid">
-                <div class="tile-card">
-                    <i class="fas fa-brain tile-icon"></i>
-                    <h3><span class="num-badge">1</span>生成式 AI</h3>
-                    <p>智慧客服與風控建模<br>驅動個人化金融服務</p>
-                </div>
-                <div class="tile-card">
-                    <i class="fas fa-credit-card tile-icon"></i>
-                    <h3><span class="num-badge">2</span>嵌入式金融</h3>
-                    <p>金融服務無縫嵌入<br>非金融場景生態圈</p>
-                </div>
-                <div class="tile-card">
-                    <i class="fas fa-exchange-alt tile-icon"></i>
-                    <h3><span class="num-badge">3</span>開放銀行</h3>
-                    <p>API 串聯跨業資料<br>打造共享金融生態</p>
-                </div>
-                <div class="tile-card">
-                    <i class="fas fa-mobile-alt tile-icon"></i>
-                    <h3><span class="num-badge">4</span>數位支付</h3>
-                    <p>行動支付無現金化<br>即時跨境匯兌結算</p>
-                </div>
-                <div class="tile-card">
-                    <i class="fas fa-link tile-icon"></i>
-                    <h3><span class="num-badge">5</span>區塊鏈</h3>
-                    <p>去中心化信任機制<br>智能合約自動執行</p>
-                </div>
-                <div class="tile-card">
-                    <i class="fas fa-shield-alt tile-icon"></i>
-                    <h3><span class="num-badge">6</span>監理科技</h3>
-                    <p>自動化合規檢測<br>即時風險監控預警</p>
-                </div>
-                <div class="tile-card">
-                    <i class="fas fa-leaf tile-icon"></i>
-                    <h3><span class="num-badge">7</span>永續金融</h3>
-                    <p>ESG 數據整合分析<br>綠色投資決策支援</p>
-                </div>
-                <div class="tile-card">
-                    <i class="fas fa-lock tile-icon"></i>
-                    <h3><span class="num-badge">8</span>資安韌性</h3>
-                    <p>零信任架構防禦<br>營運持續不中斷</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- slide-15 適用多欄位比較表格 -->
-    <div class="slide" id="slide-15">
-        <div class="outer">
-            <div class="header-row">
-                <div class="slide-title"><i class="fas fa-server"></i> 主要雲端平台服務比較</div>
-            </div>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>比較項目</th>
-                            <th>
-                                <div class="provider-name">
-                                    <span class="provider-logo logo-aws"><i class="fab fa-aws"></i></span> AWS
-                                </div>
-                            </th>
-                            <th>
-                                <div class="provider-name">
-                                    <span class="provider-logo logo-azure"><i class="fab fa-microsoft"></i></span>
-                                    Azure
-                                </div>
-                            </th>
-                            <th>
-                                <div class="provider-name">
-                                    <span class="provider-logo logo-gcp"><i class="fab fa-google"></i></span> GCP
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>全球資料中心</td>
-                            <td>33 區域 / 105 可用區</td>
-                            <td>60+ 區域</td>
-                            <td>40 區域 / 121 可用區</td>
-                        </tr>
-                        <tr>
-                            <td>運算服務</td>
-                            <td>EC2 / Lambda / ECS</td>
-                            <td>VM / Functions / AKS</td>
-                            <td>GCE / Cloud Run / GKE</td>
-                        </tr>
-                        <tr>
-                            <td>AI / ML 平台</td>
-                            <td>SageMaker / Bedrock</td>
-                            <td>Azure OpenAI / ML Studio</td>
-                            <td>Vertex AI / Gemini API</td>
-                        </tr>
-                        <tr>
-                            <td>資料庫服務</td>
-                            <td>RDS / DynamoDB / Aurora</td>
-                            <td>SQL DB / Cosmos DB</td>
-                            <td>Cloud SQL / Spanner</td>
-                        </tr>
-                        <tr>
-                            <td>金融合規認證</td>
-                            <td><i class="fas fa-check-circle check"></i> PCI-DSS / SOC</td>
-                            <td><i class="fas fa-check-circle check"></i> PCI-DSS / SOC</td>
-                            <td><i class="fas fa-check-circle check"></i> PCI-DSS / SOC</td>
-                        </tr>
-                        <tr>
-                            <td>市場定位</td>
-                            <td><span class="badge badge-best">市佔第一</span></td>
-                            <td><span class="badge badge-good">企業整合</span></td>
-                            <td><span class="badge badge-good">AI 領先</span></td>
-                        </tr>
-                        <tr>
-                            <td>計費模式</td>
-                            <td>按秒計費</td>
-                            <td>按分鐘計費</td>
-                            <td>按秒計費</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <!-- slide-16 單張大圖片滿版,需要user提供檔名 -->
-    <div class="slide" id="slide-16">
-        <div class="outer">
-            <div class="header-row">
-                <div class="slide-title"><i class="fas fa-image"></i> 畫面展示</div>
-            </div>
-            <div class="image-wrap">
-                <img src="demo3.jpg" alt="demo3.jpg" onclick="window.open(this.src, '_blank')">
-            </div>
-        </div>
-    </div>
-    <!-- slide-17 雙圖片並排,需要user提供2個檔名 -->
-    <div class="slide" id="slide-17">
-        <div class="outer">
-            <div class="header-row">
-                <div class="slide-title"><i class="fas fa-images"></i> 畫面展示</div>
-            </div>
-            <div class="image-wrap-2">
-                <div class="image-box">
-                    <img src="demo1.jpg" alt="demo1.jpg" onclick="window.open(this.src, '_blank')">
-                </div>
-                <div class="image-box">
-                    <img src="demo2.jpg" alt="demo2.jpg" onclick="window.open(this.src, '_blank')">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- slide-18 簡報結尾致謝頁面,不要再加字 -->
-    <div class="slide" id="slide-18">
-    </div>
-    </div>
-    <script src="https://abbeego.github.io/MyStyleSlide/control.js"></script>
+   <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;">
+       <defs>
+           <linearGradient id="multi-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+               <stop offset="0%" style="stop-color:#008FC7;" />
+               <stop offset="71.4%" style="stop-color:#30DAA2;" />
+               <stop offset="76.8%" style="stop-color:#008FC7;" />
+               <stop offset="100%" style="stop-color:#30DAA2;" />
+           </linearGradient>
+           <symbol id="topic-line" viewBox="0 0 600 60">
+               <g fill="none" stroke-width="3">
+                   <polyline points="20,25 420,25 450,45 580,45" stroke="url(#multi-gradient)" stroke-linecap="round"
+                             stroke-linejoin="round" />
+                   <circle cx="20" cy="25" r="5" stroke="#008FC7" fill="#fff" stroke-width="3" />
+                   <circle cx="580" cy="45" r="5" stroke="#30DAA2" fill="#fff" stroke-width="3" />
+               </g>
+           </symbol>
+       </defs>
+   </svg>
+   <div id="presentation-container">
+       <!-- 導覽列不可改 -->
+       <div class="controls">
+           <button class="btn" onclick="prevSlide()">←</button>
+           <span class="page-num" id="pageIndicator"></span>
+           <button class="btn" onclick="nextSlide()">→</button>
+       </div>
+       <!-- slide-1 簡報首頁 -->
+       <div class="slide active" id="slide-1">
+           <div class="outer">
+               <div class="title-box">
+                   <h1>Agent Skills<br>導入策略與落地藍圖</h1>
+               </div>
+               <div class="svg-gap">
+                   <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg" class="svg-container">
+                       <use href="#topic-line"></use>
+                   </svg>
+               </div>
+               <div class="subtitle">建構可治理的模組化知識資產</div>
+               <div class="date-badge">部門　姓名<br />2026.02</div>
+           </div>
+       </div>
+       <!-- slide-2 列出所有章節大主題,h2不可改,有這個就不要作目錄 -->
+       <div class="slide" id="slide-2">
+           <div class="outer">
+               <h2 class="slide-title"><i class="fas fa-list"></i> Topics</h2>
+               <div class="list">
+                   <div class="item">
+                       核心理念：為什麼需要 Agent Skills？
+                   </div>
+                   <div class="hr"></div>
+                   <div class="item">
+                       ...
+                   </div>
+                   <div class="hr"></div>
+                   <div class="item">
+                       ...
+                   </div>
+                   <div class="hr"></div>
+                   <div class="item">
+                       結語
+                   </div>
+               </div>
+           </div>
+       </div>
+       <!-- slide-3 每一章節的目錄及頁碼,h2不可改,有這個就不要作Topics -->
+       <div class="slide" id="slide-3">
+           <div class="outer">
+               <h2 class="slide-title">目錄</h2>
+               <div class="list">
+                   <div class="topic-row">
+                       <div class="item">
+                           1. 核心理念
+                       </div>
+                       <div class="svg-gap">
+                           <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg" class="svg-container">
+                               <use href="#topic-line"></use>
+                           </svg>
+                       </div>
+                       <div class="page">P.4-P.9</div>
+                   </div>
+                   <div class="topic-row">
+                       <div class="item">
+                           ...
+                       </div>
+                       <div class="svg-gap">
+                           <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg" class="svg-container">
+                               <use href="#topic-line"></use>
+                           </svg>
+                       </div>
+                       <div class="page">P....</div>
+                   </div>
+                   <div class="topic-row">
+                       <div class="item">
+                           5. 結語
+                       </div>
+                       <div class="svg-gap">
+                           <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg" class="svg-container">
+                               <use href="#topic-line"></use>
+                           </svg>
+                       </div>
+                       <div class="page">P.14</div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+   <!-- slide-4 適用僅內文或多項目清單 -->
+   <div class="slide" id="slide-4">
+       <div class="outer">
+           <h2 class="slide-title">PII + GenAI應用</h2>
+           <div class="content-box">
+               我們可以用[代碼]來取代原本的個人資料，<br />將處理後的內容送進 GenAI
+               生成<br />（擷取指定欄位、翻譯、摘要…等等，請至「馬上試用」體驗），<br />最後再把[代碼]還原成原始個資，就能達到無痛遮蔽。<br />例如，當 AI
+               需要擷取健檢報告中的被檢查人、地址等資訊，或翻譯對話記錄、摘要重點時，若希望最終結果保留個資，就必須將個資還原。
+               <div class="info-note">ps. 如果被程式用 Regex 邏輯偵測到，則會以 Regex 代碼取代。</div>
+           </div>
+       </div>
+   </div>
+   <!-- slide-5 適用僅主題及很少字說明或無說明的左文字+右圖;if有指定img檔名,就把svg換成<img> -->
+   <div class="slide" id="slide-5">
+       <div class="outer">
+           <div class="text-content">
+               <h1>核心優勢</h1>
+               <div class="subtitle">釋放 Agent Skills 潛能</div>
+               <div class="svg-gap">
+                   <svg viewBox="0 0 600 60" xmlns="http://www.w3.org/2000/svg" class="svg-container">
+                       <use href="#topic-line"></use>
+                   </svg>
+               </div>
+               <div class="description">
+                   透過強大的架構設計與智能運算引擎，為企業打造具備「自動化、分析、穩定、進化」四大特性的新世代服務生態系。
+               </div>
+           </div>
+           <div class="graphic-container">
+               <svg class="ring-1" viewBox="0 0 100 100">
+                   <defs>
+                       <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                           <stop offset="0%" stop-color="var(--primary-2)" stop-opacity="0.8" />
+                           <stop offset="100%" stop-color="var(--accent-1)" stop-opacity="0.1" />
+                       </linearGradient>
+                   </defs>
+                   <circle cx="50" cy="50" r="48" fill="none" stroke="url(#grad1)" stroke-width="1.5"
+                           stroke-dasharray="10 5" />
+                   <circle cx="50" cy="50" r="45" fill="none" stroke="var(--primary-2)" stroke-width="0.8"
+                           opacity="0.5" />
+                   <circle cx="50" cy="2" r="3" fill="var(--primary-2)" />
+                   <circle cx="98" cy="50" r="2" fill="var(--accent-1)" />
+                   <circle cx="50" cy="98" r="4" fill="var(--support-1)" />
+               </svg>
+               <svg class="ring-2" viewBox="0 0 100 100">
+                   <polygon points="50,2 98,50 50,98 2,50" fill="none" stroke="var(--primary-1)" stroke-width="1.5"
+                            opacity="0.4" />
+                   <circle cx="50" cy="50" r="40" fill="none" stroke="var(--accent-2)" stroke-width="2.5"
+                           stroke-dasharray="15 15" opacity="0.6" />
+               </svg>
+               <div class="dot dot-1"></div>
+               <div class="dot dot-2"></div>
+               <div class="dot dot-3"></div>
+               <div class="center-icon">
+                   <i class="fa-solid fa-microchip"></i>
+               </div>
+           </div>
+       </div>
+   </div>
+   <!-- slide-6 適用2項目+上方的說明較多 -->
+   <div class="slide" id="slide-6">
+       <div class="outer">
+           <h2 class="slide-title"><i class="fas fa-lightbulb icon-lightbulb"></i> 核心理念：為什麼我們需要 Agent Skills？</h2>
+           <div class="highlight-box">
+               <strong class="highlight-title">痛點突破：</strong>
+               <p>過去 AI 依賴員工個人的 Prompt 能力，品質參差不齊；若將規則寫死在系統程式碼裡，每次變動都要重新上線，曠日廢時。</p>
+               <p class="highlight-emphasis">我們要把關鍵規則從「個人技巧」升級為「可治理的制度資產」，確保任何人、任何系統都得到一致結果。</p>
+           </div>
+           <div class="grid-2">
+               <div class="card card-accent3">
+                   <h3><i class="fas fa-code-branch card-icon-accent3"></i> 業務與程式「解耦」</h3>
+                   <ul>
+                       <li>讓規則歸業務單位管理：修改提示/知識庫</li>
+                       <li>...</li>
+                   </ul>
+               </div>
+               <div class="card card-primary1">
+                   <h3><i class="fas fa-book-bookmark card-icon-primary1"></i> 建構模組化知識庫</h3>
+                   <ul>
+                       <li>把資深同仁的「經驗」轉化為知識庫</li>
+                       <li>...</li>
+                   </ul>
+               </div>
+           </div>
+       </div>
+   </div>
+   <!-- slide-7 適用2項目+上方的說明較少 -->
+   <div class="slide" id="slide-7">
+       <div class="outer">
+           <h2 class="slide-title"><i class="fas fa-file-signature icon-primary"></i> 第一類場景：文件與對上溝通 (產出品質穩定)</h2>
+           <p class="title-emphasis">核心價值：長官關心點高度一致，退件原因高度重複。把退件經驗變成系統化制度。</p>
+           <div class="grid-2">
+               <div class="card card-case-one">
+                   <h3>🌟 案例一：請購簽呈檢查與補強</h3>
+                   <p>
+                       <strong>常見退件原因：</strong>沒說清楚必要性、沒比較替代方案、<strong class="text-support-4">
+                           缺乏量化效益
+                           (ROI)
+                       </strong>。
+                   </p>
+                   <hr class="divider">
+                   <p>
+                       <strong>Skill 作用：</strong>「長官視角」不是臨時提示詞，而是<strong>已固化成 Skill 的檢查規則</strong>；AI
+                       會依文件類型自動套用對應規則，逐項點出缺漏並要求補齊（ROI、替代方案、風險與控管等）。
+                   </p>
+               </div>
+               <div class="card card-case-two">
+                   <h3>案例二：高層專用摘要模板</h3>
+                   <p><strong>痛點：</strong>一般 AI 摘要常漏掉高層真正要做決策的關鍵資訊。</p>
+                   <hr class="divider">
+                   <p>
+                       <strong>Skill 作用：</strong>偵測到「高層摘要」需求即<strong>
+                           自動載入摘要
+                           Skill
+                       </strong>（固定欄位/必填關鍵字/禁寫廢話），產出「可決策的一頁版」，而非一般摘要。
+                   </p>
+               </div>
+           </div>
+       </div>
+   </div>
+   <!-- slide-8 左圖右文的3個項目條列;項目數目變多時,行距要變小;if沒提供img檔名時, 畫SVG取代 -->
+   <div class="slide" id="slide-8">
+       <div class="outer">
+           <h2 class="slide-title"><i class="fas fa-lightbulb icon-lightbulb"></i> 核心理念：為什麼我們需要 Agent Skills？</h2>
+           <div class="highlight-box">
+               <p>過去 AI 依賴員工個人的 Prompt 能力，品質參差不齊；若將規則寫死在系統程式碼裡，每次變動都要重新上線，曠日廢時。</p>
+           </div>
+           <div class="content-columns">
+               <div id="left-col">
+                   <img class="image" src="image1.jpg" alt="image1.jpg" />
+               </div>
+               <div id="right-col">
+                   <div class="entry-item">
+                       <div class="entry-header">
+                           <div class="entry-title">Prompt 標準化</div>
+                           <div class="entry-content">
+                               將最佳實踐封裝為可重複使用的 Skill 範本<br>
+                               確保每位員工都能獲得一致且高品質的 AI 回應
+                           </div>
+                       </div>
+                       <div class="line-container"></div>
+                       <div class="entry-header">
+                           <div class="entry-title">動態規則引擎</div>
+                           <div class="entry-content">
+                               業務人員可即時調整 Skill 參數與邏輯<br>
+                               無需工程團隊重新部署，大幅縮短迭代週期
+                           </div>
+                       </div>
+                       <div class="line-container"></div>
+                       <div class="entry-header">
+                           <div class="entry-title">持續優化迴圈</div>
+                           <div class="entry-content">
+                               透過使用數據自動評估 Skill 成效<br>
+                               持續學習與改善，打造越用越聰明的 AI 助手
+                           </div>
+                       </div>
+                       <div class="line-container"></div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+   <!-- slide-9 適用4項目,這4格和中間圓都不能改大小及位置 -->
+   <div class="slide" id="slide-9">
+       <div class="outer">
+           <div class="header-row">
+               <div class="slide-title">Agent Skills 四大核心能力</div>
+           </div>
+           <div class="four-grid">
+               <div class="item-card top-left">
+                   <div class="item-icon"><i class="fas fa-comments"></i></div>
+                   <div class="item-text">
+                       <h3>智慧對話引擎</h3>
+                       <p>自動理解使用者意圖<br>提供精準且即時的回應<br>支援多輪對話與上下文記憶<br>大幅提升客戶服務效率</p>
+                   </div>
+               </div>
+               <div class="line-v line-v-top"></div>
+               <div class="item-card top-right">
+                   <div class="item-icon"><i class="fas fa-globe"></i></div>
+                   <div class="item-text">
+                       <h3>跨平台整合</h3>
+                       <p>串接企業內部系統<br>實現資料無縫流通<br>支援 API 與微服務架構<br>一站式管理多元數據來源</p>
+                   </div>
+               </div>
+               <div class="line-h line-h-left"></div>
+               <div class="center-image">
+                   <i class="fas fa-robot center-icon"></i>
+                   <span class="center-label">Agent Skills</span>
+               </div>
+               <div class="line-h line-h-right"></div>
+               <div class="item-card bottom-left">
+                   <div class="item-icon"><i class="fas fa-chart-bar"></i></div>
+                   <div class="item-text">
+                       <h3>數據分析洞察</h3>
+                       <p>即時追蹤 Skill 使用數據<br>量化 AI 投資回報率<br>視覺化報表一目了然<br>驅動數據導向決策流程</p>
+                   </div>
+               </div>
+               <div class="line-v line-v-bottom"></div>
+               <div class="item-card bottom-right">
+                   <div class="item-icon"><i class="fas fa-thumbs-up"></i></div>
+                   <div class="item-text">
+                       <h3>持續優化迴圈</h3>
+                       <p>根據回饋自動調校模型<br>打造越用越聰明的 AI<br>結合人類專家經驗回饋<br>持續迭代提升準確度</p>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+   <!-- slide-10 適用5個項目 -->
+   <div class="slide" id="slide-10">
+       <div class="outer">
+           <h2 class="slide-title"><i class="fas fa-building-columns"></i> 智慧金融五大服務</h2>
+           <div class="five-columns">
+               <div class="col-item">
+                   <div class="icon-wrap">
+                       <i class="fas fa-headset"></i>
+                   </div>
+                   <h3>智能客服</h3>
+                   <hr>
+                   <p>AI 驅動的全天候客服<br>自動理解客戶意圖<br>即時回應常見問題<br>大幅降低人力成本</p>
+               </div>
+               <div class="col-item">
+                   <div class="icon-wrap">
+                       <i class="fas fa-shield-alt"></i>
+                   </div>
+                   <h3>風險管控</h3>
+                   <hr>
+                   <p>即時偵測異常交易<br>智慧化反洗錢分析<br>信用評估自動化<br>全面守護資產安全</p>
+               </div>
+               <div class="col-item">
+                   <div class="icon-wrap">
+                       <i class="fas fa-bullseye"></i>
+                   </div>
+                   <h3>精準行銷</h3>
+                   <hr>
+                   <p>客群標籤智慧分類<br>個人化產品推薦<br>行銷活動自動投放<br>提升轉換率與營收</p>
+               </div>
+               <div class="col-item">
+                   <div class="icon-wrap">
+                       <i class="fas fa-cogs"></i>
+                   </div>
+                   <h3>流程自動化</h3>
+                   <hr>
+                   <p>表單審批智慧處理<br>跨系統資料同步<br>減少人工作業錯誤<br>加速業務流程效率</p>
+               </div>
+               <div class="col-item">
+                   <div class="icon-wrap">
+                       <i class="fas fa-chart-bar"></i>
+                   </div>
+                   <h3>數據洞察</h3>
+                   <hr>
+                   <p>多維度數據視覺化<br>即時監測營運指標<br>預測模型輔助決策<br>驅動數據導向經營</p>
+               </div>
+           </div>
+       </div>
+   </div>
+   <!-- slide-11 適用6項目 -->
+   <div class="slide" id="slide-11">
+       <div class="outer">
+           <div class="header-row">
+               <div class="slide-title"><i class="fas fa-cubes"></i> 企業數位轉型六大關鍵</div>
+           </div>
+           <div class="six-grid">
+               <div class="tile-card">
+                   <i class="fas fa-star tile-icon"></i>
+                   <h3><span class="num-badge">1</span>策略願景</h3>
+                   <p>制定明確數位轉型藍圖<br>對齊企業長期經營目標<br>確立階段性里程碑</p>
+               </div>
+               <div class="tile-card">
+                   <i class="fas fa-chart-line tile-icon"></i>
+                   <h3><span class="num-badge">2</span>數據驅動</h3>
+                   <p>建構企業級數據平台<br>從數據洞察驅動決策<br>實現精準營運分析</p>
+               </div>
+               <div class="tile-card">
+                   <i class="fas fa-project-diagram tile-icon"></i>
+                   <h3><span class="num-badge">3</span>流程再造</h3>
+                   <p>全面檢視現有作業流程<br>導入自動化與智慧化<br>減少人工錯誤與延遲</p>
+               </div>
+               <div class="tile-card">
+                   <i class="fas fa-user-graduate tile-icon"></i>
+                   <h3><span class="num-badge">4</span>人才培育</h3>
+                   <p>強化員工數位技能<br>建立跨領域學習文化<br>培養內部創新動能</p>
+               </div>
+               <div class="tile-card">
+                   <i class="fas fa-laptop-code tile-icon"></i>
+                   <h3><span class="num-badge">5</span>技術架構</h3>
+                   <p>採用雲原生彈性架構<br>確保系統可擴展性<br>強化資安與合規治理</p>
+               </div>
+               <div class="tile-card">
+                   <i class="fas fa-sync-alt tile-icon"></i>
+                   <h3><span class="num-badge">6</span>持續迭代</h3>
+                   <p>建立敏捷回饋機制<br>以 MVP 快速驗證價值<br>持續學習與優化提升</p>
+               </div>
+           </div>
+       </div>
+   </div>
+   <!-- slide-12 適用6個項目的蜂巢狀(六角形)排版，中央留白 -->
+   <div class="slide" id="slide-12">
+       <div class="outer">
+           <div class="header-row">
+               <div class="slide-title"><i class="fas fa-cloud"></i> 雲端服務六大優勢</div>
+           </div>
+           <div class="honeycomb">
+               <div class="hex-row row-top">
+                   <div class="hex-wrap">
+                       <div class="hex-card">
+                           <i class="fas fa-expand-arrows-alt hex-icon"></i>
+                           <div class="hex-title">彈性擴展</div>
+                           <p class="hex-desc">依需求即時擴縮<br>資源零浪費</p>
+                       </div>
+                   </div>
+                   <div class="hex-wrap">
+                       <div class="hex-card">
+                           <i class="fas fa-dollar-sign hex-icon"></i>
+                           <div class="hex-title">成本優化</div>
+                           <p class="hex-desc">用多少付多少<br>降低 IT 支出</p>
+                       </div>
+                   </div>
+               </div>
+               <div class="hex-row row-mid">
+                   <div class="hex-wrap">
+                       <div class="hex-card">
+                           <i class="fas fa-check-circle hex-icon"></i>
+                           <div class="hex-title">高可用性</div>
+                           <p class="hex-desc">99.9% 服務保證<br>自動容錯備援</p>
+                       </div>
+                   </div>
+                   <div class="hex-wrap">
+                       <div class="hex-card center-hex">
+                           <!-- if 有7項就填入:
+                           <i class="fas fa-sync-alt hex-icon"></i>
+                           <div class="hex-title">最重要</div>
+                           <p class="hex-desc">最重要項目1<br>最重要項目2</p> -->
+                       </div>
+                   </div>
+                   <div class="hex-wrap">
+                       <div class="hex-card">
+                           <i class="fas fa-shield-alt hex-icon"></i>
+                           <div class="hex-title">安全防護</div>
+                           <p class="hex-desc">多層加密機制<br>合規認證保障</p>
+                       </div>
+                   </div>
+               </div>
+               <div class="hex-row row-bottom">
+                   <div class="hex-wrap">
+                       <div class="hex-card">
+                           <i class="fas fa-globe hex-icon"></i>
+                           <div class="hex-title">全球部署</div>
+                           <p class="hex-desc">多區域節點佈建<br>低延遲全球覆蓋</p>
+                       </div>
+                   </div>
+                   <div class="hex-wrap">
+                       <div class="hex-card">
+                           <i class="fas fa-rocket hex-icon"></i>
+                           <div class="hex-title">創新加速</div>
+                           <p class="hex-desc">快速原型驗證<br>縮短上市週期</p>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+   <!-- slide-14 適用8項目 -->
+   <div class="slide" id="slide-14">
+       <div class="outer">
+           <div class="header-row">
+               <div class="slide-title"><i class="fas fa-chart-line"></i> 金融科技八大趨勢</div>
+           </div>
+           <div class="eight-grid">
+               <div class="tile-card">
+                   <i class="fas fa-brain tile-icon"></i>
+                   <h3><span class="num-badge">1</span>生成式 AI</h3>
+                   <p>智慧客服與風控建模<br>驅動個人化金融服務</p>
+               </div>
+               <div class="tile-card">
+                   <i class="fas fa-credit-card tile-icon"></i>
+                   <h3><span class="num-badge">2</span>嵌入式金融</h3>
+                   <p>金融服務無縫嵌入<br>非金融場景生態圈</p>
+               </div>
+               <div class="tile-card">
+                   <i class="fas fa-exchange-alt tile-icon"></i>
+                   <h3><span class="num-badge">3</span>開放銀行</h3>
+                   <p>API 串聯跨業資料<br>打造共享金融生態</p>
+               </div>
+               <div class="tile-card">
+                   <i class="fas fa-mobile-alt tile-icon"></i>
+                   <h3><span class="num-badge">4</span>數位支付</h3>
+                   <p>行動支付無現金化<br>即時跨境匯兌結算</p>
+               </div>
+               <div class="tile-card">
+                   <i class="fas fa-link tile-icon"></i>
+                   <h3><span class="num-badge">5</span>區塊鏈</h3>
+                   <p>去中心化信任機制<br>智能合約自動執行</p>
+               </div>
+               <div class="tile-card">
+                   <i class="fas fa-shield-alt tile-icon"></i>
+                   <h3><span class="num-badge">6</span>監理科技</h3>
+                   <p>自動化合規檢測<br>即時風險監控預警</p>
+               </div>
+               <div class="tile-card">
+                   <i class="fas fa-leaf tile-icon"></i>
+                   <h3><span class="num-badge">7</span>永續金融</h3>
+                   <p>ESG 數據整合分析<br>綠色投資決策支援</p>
+               </div>
+               <div class="tile-card">
+                   <i class="fas fa-lock tile-icon"></i>
+                   <h3><span class="num-badge">8</span>資安韌性</h3>
+                   <p>零信任架構防禦<br>營運持續不中斷</p>
+               </div>
+           </div>
+       </div>
+   </div>
+   <!-- slide-15 適用多欄位比較表格 -->
+   <div class="slide" id="slide-15">
+       <div class="outer">
+           <div class="header-row">
+               <div class="slide-title"><i class="fas fa-server"></i> 主要雲端平台服務比較</div>
+           </div>
+           <div class="table-wrap">
+               <table>
+                   <thead>
+                       <tr>
+                           <th>比較項目</th>
+                           <th>
+                               <div class="provider-name">
+                                   <span class="provider-logo logo-aws"><i class="fab fa-aws"></i></span> AWS
+                               </div>
+                           </th>
+                           <th>
+                               <div class="provider-name">
+                                   <span class="provider-logo logo-azure"><i class="fab fa-microsoft"></i></span>
+                                   Azure
+                               </div>
+                           </th>
+                           <th>
+                               <div class="provider-name">
+                                   <span class="provider-logo logo-gcp"><i class="fab fa-google"></i></span> GCP
+                               </div>
+                           </th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                       <tr>
+                           <td>全球資料中心</td>
+                           <td>33 區域 / 105 可用區</td>
+                           <td>60+ 區域</td>
+                           <td>40 區域 / 121 可用區</td>
+                       </tr>
+                       <tr>
+                           <td>運算服務</td>
+                           <td>EC2 / Lambda / ECS</td>
+                           <td>VM / Functions / AKS</td>
+                           <td>GCE / Cloud Run / GKE</td>
+                       </tr>
+                       <tr>
+                           <td>AI / ML 平台</td>
+                           <td>SageMaker / Bedrock</td>
+                           <td>Azure OpenAI / ML Studio</td>
+                           <td>Vertex AI / Gemini API</td>
+                       </tr>
+                       <tr>
+                           <td>資料庫服務</td>
+                           <td>RDS / DynamoDB / Aurora</td>
+                           <td>SQL DB / Cosmos DB</td>
+                           <td>Cloud SQL / Spanner</td>
+                       </tr>
+                       <tr>
+                           <td>金融合規認證</td>
+                           <td><i class="fas fa-check-circle check"></i> PCI-DSS / SOC</td>
+                           <td><i class="fas fa-check-circle check"></i> PCI-DSS / SOC</td>
+                           <td><i class="fas fa-check-circle check"></i> PCI-DSS / SOC</td>
+                       </tr>
+                       <tr>
+                           <td>市場定位</td>
+                           <td><span class="badge badge-best">市佔第一</span></td>
+                           <td><span class="badge badge-good">企業整合</span></td>
+                           <td><span class="badge badge-good">AI 領先</span></td>
+                       </tr>
+                       <tr>
+                           <td>計費模式</td>
+                           <td>按秒計費</td>
+                           <td>按分鐘計費</td>
+                           <td>按秒計費</td>
+                       </tr>
+                   </tbody>
+               </table>
+           </div>
+       </div>
+   </div>
+   <!-- slide-16 單張大圖片滿版,需要user提供檔名 -->
+   <div class="slide" id="slide-16">
+       <div class="outer">
+           <div class="header-row">
+               <div class="slide-title"><i class="fas fa-image"></i> 畫面展示</div>
+           </div>
+           <div class="image-wrap">
+               <img src="demo3.jpg" alt="demo3.jpg" onclick="window.open(this.src, '_blank')">
+           </div>
+       </div>
+   </div>
+   <!-- slide-17 雙圖片並排,需要user提供2個檔名 -->
+   <div class="slide" id="slide-17">
+       <div class="outer">
+           <div class="header-row">
+               <div class="slide-title"><i class="fas fa-images"></i> 畫面展示</div>
+           </div>
+           <div class="image-wrap-2">
+               <div class="image-box">
+                   <img src="demo1.jpg" alt="demo1.jpg" onclick="window.open(this.src, '_blank')">
+               </div>
+               <div class="image-box">
+                   <img src="demo2.jpg" alt="demo2.jpg" onclick="window.open(this.src, '_blank')">
+               </div>
+           </div>
+       </div>
+   </div>
+   <!-- slide-18 簡報結尾致謝頁面,不要再加字 -->
+   <div class="slide" id="slide-18">
+   </div>
+   <script src="https://abbeego.github.io/MyStyleSlide/control.js"></script>
 </body>
 
 </html>
